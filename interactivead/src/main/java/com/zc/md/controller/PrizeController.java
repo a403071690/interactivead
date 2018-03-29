@@ -79,7 +79,7 @@ public class PrizeController {
             return  JsonResult.error("fid不能为空");
         }
 
-
+        CookieUtil.addCookie(response,"tid",tid,60*60*24*7);
         long start = System.currentTimeMillis();
         log.info("tid:"+tid+"fid:"+fid);
         CookieUtil.addCookie(response,"fid",fid,60*60*24*7);//保存7天
