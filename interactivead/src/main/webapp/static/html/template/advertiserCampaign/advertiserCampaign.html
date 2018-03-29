@@ -1,0 +1,127 @@
+<script type="text/template" id="template-advertiserCampaign-advertiserCampaign">
+    <div class="MainContainer beanView advertiserCampaign">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>广告主推广计划</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <!-- <el-form-item label="advertiserId" prop="advertiserId">
+                         <el-input style="width:220px;" v-model="bean.advertiserId"></el-input>
+                     </el-form-item>-->
+                    <el-form-item label="活动名称" prop="campaignName">
+                        <el-input style="width:220px;" v-model="bean.campaignName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="开始日期" prop="beginTime">
+                        <el-date-picker placeholder="选择日期" type="datetime"
+                                        v-model="bean.beginTime">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="结束日期" prop="endTime">
+                        <el-date-picker placeholder="选择日期" type="datetime"
+                                        v-model="bean.endTime">
+                        </el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item label="活动状态" prop="state" v-if="bean.state==1" >
+                        <el-tag type="success">开启</el-tag>
+                    </el-form-item>
+
+                    <el-form-item label="活动状态" prop="state" v-if="bean.state==2">
+                        <el-tag type="danger">暂停</el-tag>
+                    </el-form-item>
+
+
+                    <el-form-item label="每天预算" prop="dayPrice" >
+                        <el-input style="width:220px;"  v-model="bean.dayPrice"><template slot="append">元</template></el-input>
+                    </el-form-item>
+                    <!--<el-form-item label="竞价方式"   prop="bidType">
+                        <el-input style="width:220px;" v-model="bean.bidType"></el-input>-->
+                        <!--：1CPM 2CPC 3CPA 4CPS bean.bidType==1?'CPM':bean.bidType==2?'CPC':bean.bidType==3?'CPA':'CPS'-->
+
+                    <el-form-item label="竞价方式"   prop="bidType"><!--==1?'CPM':bean.bidType==2?'CPC':'CPA'-->
+                    <el-select style="width:220px;"  v-model="bean.bidType" placeholder="请选择">
+                        <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                                :disabled="item.disabled">
+                        </el-option>
+                    </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="竞价出价(元)" prop="bidPrice">
+                        <el-input style="width:220px;" v-model="bean.bidPrice"><template slot="append">元</template></el-input>
+                    </el-form-item>
+                    <!--  <el-form-item label="创建时间" prop="createTime">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.createTime">
+                        </el-date-picker>
+                    </el-form-item>
+                  <el-form-item label="更新时间" prop="updateTime">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.updateTime">
+                        </el-date-picker>
+                    </el-form-item>-->
+                    <!--<el-form-item label="是否删除：1是 0否" prop="isDelete">
+                        <el-input style="width:220px;" v-model="bean.isDelete"></el-input>
+                    </el-form-item>-->
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "advertiserCampaign-advertiserCampaign";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"advertiserCampaign",
+                bean: {},
+                temp: {},
+                stats:true,
+                rules: solar.validatorRules,
+                <!--：1CPM 2CPC 3CPA 4CPS bean.bidType==1?'CPM':bean.bidType==2?'CPC':bean.bidType==3?'CPA':'CPS'-->
+                options: [{
+                    value: 1,
+                    label: 'CPM',
+                    disabled: true
+                }, {
+                    value: 2,
+                    label: 'CPC'
+                }, {
+                    value: 3,
+                    label: 'CPA',
+                    disabled: true
+                }, {
+                    value: 4,
+                    label: 'CPS',
+                    disabled: true
+                } ],
+
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+            switchBidType:solar.baseMethods.switchBidType,
+            formatMoney:solar.baseMethods.formatMoney,
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

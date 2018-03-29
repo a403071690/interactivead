@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdvertiserAccountLog" >
+  <resultMap id="BaseResultMap" type="com.zc.entity.AdvertiserAccountLog" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="advertiser_id" property="advertiserId" jdbcType="VARCHAR" />
+    <result column="account_data_time" property="accountDataTime" jdbcType="TIMESTAMP" />
+    <result column="account_type" property="accountType" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , advertiser_id , account_data_time , account_type , price , note , create_time
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from advertiser_account_log
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from advertiser_account_log
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from advertiser_account_log
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from advertiser_account_log
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zc.entity.AdvertiserAccountLog" >
+    insert into advertiser_account_log (id
+     , advertiser_id , account_data_time , account_type , price , note , create_time
+      )
+    values (#{id},
+     , #{advertiserId} , #{accountDataTime} , #{accountType} , #{price} , #{note} , #{createTime}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zc.entity.AdvertiserAccountLog" >
+    insert into advertiser_account_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="advertiserId != null" >
+        advertiser_id,
+      </if>
+      <if test="accountDataTime != null" >
+        account_data_time,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="advertiserId != null" >
+        #{advertiserId},
+      </if>
+      <if test="accountDataTime != null" >
+        #{accountDataTime},
+      </if>
+      <if test="accountType != null" >
+        #{accountType},
+      </if>
+      <if test="price != null" >
+        #{price},
+      </if>
+      <if test="note != null" >
+        #{note},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.AdvertiserAccountLog" >
+    update advertiser_account_log
+    <set>
+      <if test="advertiserId != null" >
+        advertiser_id = #{advertiserId},
+      </if>
+      <if test="accountDataTime != null" >
+        account_data_time = #{accountDataTime},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType},
+      </if>
+      <if test="price != null" >
+        price = #{price},
+      </if>
+      <if test="note != null" >
+        note = #{note},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="advertiserId != null" >
+        AND advertiser_id = #{advertiserId}
+      </if>
+      <if test="accountDataTime != null" >
+        AND account_data_time = #{accountDataTime}
+      </if>
+      <if test="accountDataTimeStart != null and accountDataTimeStart != ''" >
+        AND account_data_time &gt;= #{accountDataTimeStart}
+      </if>
+      <if test="accountDataTimeEnd != null and accountDataTimeEnd != ''" >
+        AND account_data_time &lt; #{accountDataTimeEnd}
+      </if>
+      <if test="accountType != null" >
+        AND account_type = #{accountType}
+      </if>
+      <if test="price != null" >
+        AND price = #{price}
+      </if>
+      <if test="note != null" >
+        AND note = #{note}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime}
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''" >
+        AND create_time &gt;= #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''" >
+        AND create_time &lt; #{createTimeEnd}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="advertiserIdList != null" >
+        AND advertiser_id in
+        <foreach collection="advertiserIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="accountDataTimeList != null" >
+        AND account_data_time in
+        <foreach collection="accountDataTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="accountTypeList != null" >
+        AND account_type in
+        <foreach collection="accountTypeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="priceList != null" >
+        AND price in
+        <foreach collection="priceList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="noteList != null" >
+        AND note in
+        <foreach collection="noteList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="createTimeList != null" >
+        AND create_time in
+        <foreach collection="createTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="advertiserIdLike != null" >
+        AND advertiser_id like #{advertiserIdLike}
+      </if>
+      <if test="accountDataTimeLike != null" >
+        AND account_data_time like #{accountDataTimeLike}
+      </if>
+      <if test="accountTypeLike != null" >
+        AND account_type like #{accountTypeLike}
+      </if>
+      <if test="priceLike != null" >
+        AND price like #{priceLike}
+      </if>
+      <if test="noteLike != null" >
+        AND note like #{noteLike}
+      </if>
+      <if test="createTimeLike != null" >
+        AND create_time like #{createTimeLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              advertiser_id like #{fullTextSearchValue}
+           or account_data_time like #{fullTextSearchValue}
+           or account_type like #{fullTextSearchValue}
+           or price like #{fullTextSearchValue}
+           or note like #{fullTextSearchValue}
+           or create_time like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdvertiserInfo" >
+  <resultMap id="BaseResultMap" type="com.zc.entity.AdvertiserInfo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="state_msg" property="stateMsg" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="company_license_img" property="companyLicenseImg" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , login_name , password , phone , type , state , state_msg , company , company_license_img , create_time
+ , update_time
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from advertiser_info
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from advertiser_info
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from advertiser_info
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from advertiser_info
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zc.entity.AdvertiserInfo" >
+    insert into advertiser_info (id
+     , login_name , password , phone , type , state , state_msg , company , company_license_img , create_time
+ , update_time
+      )
+    values (#{id},
+     , #{loginName} , #{password} , #{phone} , #{type} , #{state} , #{stateMsg} , #{company} , #{companyLicenseImg}
+ , #{createTime} , #{updateTime}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zc.entity.AdvertiserInfo" >
+    insert into advertiser_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="stateMsg != null" >
+        state_msg,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="companyLicenseImg != null" >
+        company_license_img,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="loginName != null" >
+        #{loginName},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="phone != null" >
+        #{phone},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="stateMsg != null" >
+        #{stateMsg},
+      </if>
+      <if test="company != null" >
+        #{company},
+      </if>
+      <if test="companyLicenseImg != null" >
+        #{companyLicenseImg},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.AdvertiserInfo" >
+    update advertiser_info
+    <set>
+      <if test="loginName != null" >
+        login_name = #{loginName},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="state != null" >
+        state = #{state},
+      </if>
+      <if test="stateMsg != null" >
+        state_msg = #{stateMsg},
+      </if>
+      <if test="company != null" >
+        company = #{company},
+      </if>
+      <if test="companyLicenseImg != null" >
+        company_license_img = #{companyLicenseImg},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="loginName != null" >
+        AND login_name = #{loginName}
+      </if>
+      <if test="password != null" >
+        AND password = #{password}
+      </if>
+      <if test="phone != null" >
+        AND phone = #{phone}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="state != null" >
+        AND state = #{state}
+      </if>
+      <if test="stateMsg != null" >
+        AND state_msg = #{stateMsg}
+      </if>
+      <if test="company != null" >
+        AND company = #{company}
+      </if>
+      <if test="companyLicenseImg != null" >
+        AND company_license_img = #{companyLicenseImg}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime}
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''" >
+        AND create_time &gt;= #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''" >
+        AND create_time &lt; #{createTimeEnd}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime}
+      </if>
+      <if test="updateTimeStart != null and updateTimeStart != ''" >
+        AND update_time &gt;= #{updateTimeStart}
+      </if>
+      <if test="updateTimeEnd != null and updateTimeEnd != ''" >
+        AND update_time &lt; #{updateTimeEnd}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="loginNameList != null" >
+        AND login_name in
+        <foreach collection="loginNameList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="passwordList != null" >
+        AND password in
+        <foreach collection="passwordList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="phoneList != null" >
+        AND phone in
+        <foreach collection="phoneList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="typeList != null" >
+        AND type in
+        <foreach collection="typeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="stateList != null" >
+        AND state in
+        <foreach collection="stateList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="stateMsgList != null" >
+        AND state_msg in
+        <foreach collection="stateMsgList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="companyList != null" >
+        AND company in
+        <foreach collection="companyList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="companyLicenseImgList != null" >
+        AND company_license_img in
+        <foreach collection="companyLicenseImgList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="createTimeList != null" >
+        AND create_time in
+        <foreach collection="createTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="updateTimeList != null" >
+        AND update_time in
+        <foreach collection="updateTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="loginNameLike != null" >
+        AND login_name like #{loginNameLike}
+      </if>
+      <if test="passwordLike != null" >
+        AND password like #{passwordLike}
+      </if>
+      <if test="phoneLike != null" >
+        AND phone like #{phoneLike}
+      </if>
+      <if test="typeLike != null" >
+        AND type like #{typeLike}
+      </if>
+      <if test="stateLike != null" >
+        AND state like #{stateLike}
+      </if>
+      <if test="stateMsgLike != null" >
+        AND state_msg like #{stateMsgLike}
+      </if>
+      <if test="companyLike != null" >
+        AND company like #{companyLike}
+      </if>
+      <if test="companyLicenseImgLike != null" >
+        AND company_license_img like #{companyLicenseImgLike}
+      </if>
+      <if test="createTimeLike != null" >
+        AND create_time like #{createTimeLike}
+      </if>
+      <if test="updateTimeLike != null" >
+        AND update_time like #{updateTimeLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              login_name like #{fullTextSearchValue}
+           or password like #{fullTextSearchValue}
+           or phone like #{fullTextSearchValue}
+           or type like #{fullTextSearchValue}
+           or state like #{fullTextSearchValue}
+           or state_msg like #{fullTextSearchValue}
+           or company like #{fullTextSearchValue}
+           or company_license_img like #{fullTextSearchValue}
+           or create_time like #{fullTextSearchValue}
+           or update_time like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

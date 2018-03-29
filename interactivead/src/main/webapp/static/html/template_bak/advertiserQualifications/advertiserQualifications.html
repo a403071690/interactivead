@@ -1,0 +1,66 @@
+<script type="text/template" id="template-advertiserQualifications-advertiserQualifications">
+    <div class="MainContainer beanView advertiserQualifications">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>广告主资质</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="advertiserId" prop="advertiserId">
+                        <el-input v-model="bean.advertiserId"></el-input>
+                    </el-form-item>
+                    <el-form-item label="资质名称" prop="name">
+                        <el-input v-model="bean.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="资质图片上传" prop="imgUrl">
+                        <el-input type="textarea" :rows="5" v-model="bean.imgUrl"></el-input>
+                    </el-form-item>
+                    <el-form-item label="状态：1待审核 2审核通过 3审核失败" prop="state">
+                        <el-input v-model="bean.state"></el-input>
+                    </el-form-item>
+                    <el-form-item label="stateMsg" prop="stateMsg">
+                        <el-input v-model="bean.stateMsg"></el-input>
+                    </el-form-item>
+                    <el-form-item label="createTime" prop="createTime">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.createTime">
+                        </el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "advertiserQualifications-advertiserQualifications";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"advertiserQualifications",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

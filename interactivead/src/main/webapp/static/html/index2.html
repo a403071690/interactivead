@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <title>商户联盟-商户版</title>
+    <link rel="stylesheet" type="text/css" href="../css/index.css?v=171227">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.2.1/lib/theme-chalk/index.css">
+    <link rel="Shortcut Icon" href="/static/img/icon/favicon.ico"/>
+    <style>
+        .bg {
+            background-image: url("/static/img/login_bg.jpg");
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+        }
+        header{
+
+        }
+    </style>
+</head>
+
+<body style="display: none">
+<div id="app" :class="showLoginView ? 'bg' : '' ">
+    <header >
+
+        <div class="float-left left" style="cursor: pointer" onclick="location='/'">
+            <img style="height: 30px;
+            position: relative;
+            top: 8px;
+            " src="/static/img/icon/logo.png"/>
+            <span>商户联盟支付云-商户版</span>
+        </div>
+        <div class="float-right">
+            <!--<span>{{today}}</span>-->
+            <span style="cursor: pointer" onclick="location='#/personalInfo/personalInfo'">{{account}} &nbsp;</span>
+            <img style="position: relative;top: 2px;
+                width: 15px;"   src="/static/img/icon/退出.png"/>
+
+
+            <span v-if="!showLoginView" @click="loginOut" style="cursor:pointer">退出</span>
+        </div>
+        <div style="clear: both"></div>
+    </header>
+    <table id="content-body" class="body">
+        <tr>
+            <td valign="top" class="nav">
+                <nav>
+                    <ul>
+                        <li>
+                            <h4 @click="onModuleNameClick('spgl')">
+                                <img  class="logo"  src="/static/img/icon/商店.png"/>
+                                <span >商铺管理</span>
+                                <img v-if="openModuleName!='spgl'"  class="arrow" src="/static/img/icon/右.png"/>
+                                <img v-if="openModuleName=='spgl'"  class="arrow" src="/static/img/icon/下.png"/>
+
+                            </h4>
+                            <ul v-if="openModuleName=='spgl'">
+                                <li :class="{active:activeName=='shop'}">
+                                    <a href="#/advertiserCampaign/advertiserCampaignPage"
+                                       @click="activeName='shop';">商铺列表</a>
+                                </li>
+                                <li :class="{active:activeName=='coupon'}">
+                                    <a href="#coupon/couponPage"
+                                       @click="activeName='coupon';">商家优惠</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4 @click="onModuleNameClick('cw')">
+                                <img  class="logo"  src="/static/img/icon/财务管理b.png"/>
+                                <span >财务</span>
+                                <img v-if="openModuleName!='cw'"  class="arrow" src="/static/img/icon/右.png"/>
+                                <img v-if="openModuleName=='cw'"  class="arrow" src="/static/img/icon/下.png"/>
+
+                            </h4>
+                            <ul v-if="openModuleName=='cw'">
+                                <li :class="{active:activeName=='shopBill'}">
+                                    <a href="#/shopBill/billPage"
+                                       @click="activeName='shopBill';">商铺交易统计</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4 @click="onModuleNameClick('grsz')">
+                                <img  class="logo"  src="/static/img/icon/设置.png"/>
+                                <span >个人设置</span>
+                                <img v-if="openModuleName!='grsz'"  class="arrow" src="/static/img/icon/右.png"/>
+                                <img v-if="openModuleName=='grsz'"  class="arrow" src="/static/img/icon/下.png"/>
+
+                            </h4>
+                            <ul v-if="openModuleName=='grsz'">
+                                <li :class="{active:activeName=='personalInfo'}">
+                                    <a href="#/personalInfo/personalInfo" @click="activeName='personalInfo';">个人信息</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </nav>
+            </td>
+            <td valign="top">
+                <div id="mainView">
+                    <router-view></router-view>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+</body>
+</html>
+<script  src="/static/js/echarts.common.min.js" ></script>
+<script type="text/javascript"
+        src="http://api.map.baidu.com/api?v=2.0&ak=Ffxm30257RjVaZxb0cffMlehj8MGOhVL"></script>
+<template id="templates"></template>
+<!--第三方开源框架-->
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/qrcode.min.js"></script>
+<script src="../js/timer.js"></script>
+<script src="../js/fileUtil.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script src="https://unpkg.com/element-ui@2.2.1/lib/index.js"></script>
+<script src="../js/moment.js"></script>
+<script src="../js/layer/layer.js"></script>
+<!--基础js 共享 全局变量 和全局方法-->
+<script src="../js/solar.js?v=0309"></script>
+<!--配置应用-->
+<script src="../js/adv.js?v=0309"></script>
+<!--首页vue启动js-->
+
+<script>
+    //防止vue未加载完成前 界面显示混乱 等加载完了再展示
+    $("body").show();
+    // var navH4=$("h4");
+    // function onModuleNameClick() {
+    //     navH4.removeClass("openModule");
+    //     $(this).addClass("openModule");
+    // }
+    // navH4.click(onModuleNameClick);
+    // 4. 创建和挂载根实例。
+    // 记得要通过 router 配置参数注入路由，
+    // 从而让整个应用都有路由功能
+    const app = new Vue({
+        el: "#app",
+        router: router,
+        data: {
+            openModuleName: "nrgl",
+            activeName: "",
+            account: localStorage.account,
+            password:"",
+            today: new Date().Format("yyyy年-MM月-dd日"),
+            showLoginView: false
+        },
+        methods: {
+            onModuleNameClick: function (val) {
+                if (val == this.openModuleName) {
+                    app.openModuleName = '';
+                } else {
+                    app.openModuleName = val;
+                }
+            },
+            chcekLogin: function () {
+                var isLogin = true;
+                var _this = this;
+                $.ajax({
+                    type: "get",
+                    url: baseHost + "/isLogin?t=u",
+                    async: false,
+                    success: function (data) {
+                        if (data.code != 200) {
+                            // layer.alert("请先登录!", {icon: 6}, function (index) {
+                            //     layer.close(index);
+                            //
+                            // });
+                            _this.showLoginView = true;
+                            isLogin = false;
+                            location="login.html";
+                        }
+                    }
+                });
+                return isLogin;
+            },
+            login: function () {
+                var _this = this;
+                $.ajax({
+                    type: "post",
+                    url: baseHost + "/login",
+                    data: {account:this.account,password:this.password},
+                    async: false,
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.alert("登录成功!", {icon: 6}, function (index) {
+                                layer.close(index);
+                                _this.showLoginView = false;
+                            });
+                            setAjaxHeader("token", data.msg);
+                            localStorage.token = data.msg;
+                            localStorage.account = _this.account;
+                            location="/";
+                        }else {
+                            layer.alert(data.msg, {icon: 5}, function (index) {
+                                layer.close(index);
+                            });
+                        }
+                    }
+                });
+            },
+            loginOut: function () {
+                var _this = this;
+                $.ajax({
+                    type: "post",
+                    url: baseHost + "/loginOut",
+                    data: {},
+                    async: false,
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.alert(data.msg, {icon: 6});
+                            location="/";
+                            _this.showLoginView = true;
+                        }
+                    }
+                });
+                localStorage.token = '';
+            }
+        },
+        mounted: function () {
+            if (typeof(localStorage.token) != "undefined") {
+                setAjaxHeader("token", localStorage.token);
+            }
+            var isLogin = this.chcekLogin();
+            if (!isLogin) {
+                this.showLoginView = true;
+                return;
+            }
+            this.account=localStorage.account;
+            var url = location.href;
+            var path = url.split("#")[1];
+            var path2 = path.split("/")[2];
+            path = path.split("/")[1];
+
+            if (!path) {
+                return;
+            }
+            if (path == "dspMediaInfo" || path == "dspMediaAdSiteInfo" || path == "project" || path == "company"
+                || path == "investEvent" || path == "product"|| path == "goMemberAccount"|| path == "sysUser") {
+                this.openModuleName = "zygl";
+            } else if (path == "sspMediaExpendStatement" || path == "user" || path == "userHistory" || path == "store") {
+                this.openModuleName = "tjbb";
+            } else if (path == "sspPtAppOwnerBankCardInfo" || path == "sspAppOwnerAccountDetail"
+                || path == "destoonFinanceCash" || path == "dict" ){
+                this.openModuleName = "cwgl";
+            } else {
+                this.openModuleName = "zhgl";
+            }
+            if (path == "financial" && path2 == "overview"  ){
+                this.openModuleName = "index";
+            }
+            // alert (path2);
+            this.activeName = path;
+        }
+    });
+</script>
+

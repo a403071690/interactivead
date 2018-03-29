@@ -1,0 +1,244 @@
+/*全局样式*/
+* {
+    -webkit-text-size-adjust:none;
+    padding: 0px;
+    margin: 0px;
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+/*顶部*/
+header {
+    border-bottom: 1px solid #51678F;
+    line-height: 45px;
+    padding: 0px 30px;
+    height: 45px;
+    background-color: #313D4D;
+    color: #FFFEFE;
+}
+
+header .left {
+    margin: 0;
+}
+
+/*左边菜单栏*/
+td.nav{
+    background-color: #313D4D;
+    width: 150px;
+}
+nav {
+    width: 100%;
+    height: 100%
+}
+nav li{
+    width: 100%;
+    min-height: 45px;
+    line-height: 45px;
+    text-align: center;
+    border-bottom: 1px solid #51678F;
+    font-size: 14px;
+    color: #EEEEEE;
+}
+nav li h4 {
+    text-align: left;
+    border-bottom: 1px solid #51678F;
+    line-height: 45px;
+    height: 45px;
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+}
+nav li h4 .logo{
+    margin: 16px 0px 0 24px;
+    width: 13px;
+    height: 13px;
+}
+nav li.active a {
+    color: #EEEEEE;
+}
+
+nav li.active {
+    background-color: #212A37;
+    background-position: 10px center;
+}
+nav li a {
+    color: #999999;
+}
+nav li h4 span {
+    position: absolute;
+    left: 47px;
+}
+nav li h4 .arrow {
+    position: absolute;
+    left: 128px;
+    top:20px;
+}
+
+
+/*右边主窗口*/
+
+.MainContainer {
+    width: 100%;
+    min-height: 400px;
+}
+.MainContainer hr.split{
+    height: 14px;
+    border: none;
+    background-color: #F3F3F4;
+}
+
+.MainContainer .button.search{
+    background:url("../img/icon/搜索.png");
+    background-color: #3A76E2;
+    background-size:12px 12px;
+    background-repeat:no-repeat;
+    background-position:10px center;
+    text-align: right;
+    padding-left: 10px;
+}
+.MainContainer  .breadcrumb {
+    height: 45px;
+    font-size: 14px;
+    line-height: 45px;
+    padding-left: 40px;
+}
+.MainContainer .tableContainer {
+    margin-top: 15px;
+    margin-left: 50px;
+    width: 1100px;
+}
+.MainContainer.beanPageView .toolBar {
+    width: 1150px;
+    height: 100px;
+    background-color: #fff;
+    line-height: 35px;
+    padding: 10px 40px;
+}
+
+.MainContainer .footBar {
+    width: 1100px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    padding: 10px 0;
+
+}
+.MainContainer .tableContainer {
+    overflow-x: scroll;
+}
+
+.MainContainer  input[type=text]:not([class]),
+.MainContainer  input[type=date]:not([class]) {
+    padding-left: 8px;
+    border-radius: 4px;
+    min-height: 26px;
+    min-width: 210px;
+    border: 1px solid #dcdfe6;
+}
+.MainContainer .footBar input[type=text]:not([class]) {
+    min-width: 30px;
+    width: 30px;
+    padding:0 2px;
+}
+
+.MainContainer .button {
+    border-radius: 0px;
+    height: 28px;
+    padding: 0px 10px;
+}
+
+.MainContainer .toolBar h4 {
+    font-size: 14px;
+    padding: 10px 8px 0 8px;
+}
+
+
+
+.beanView .buttonBar button{
+    width: 80px;
+}
+.bean {
+    width: 800px;
+    margin: 10px 10px;
+}
+
+
+
+.bean li {
+    margin: 5px 0px;
+    min-height: 35px;
+}
+
+.bean input:not([class]) {
+    padding-left: 8px;
+    border-radius: 4px;
+    min-height: 26px;
+    min-width: 210px;
+    border: 1px solid #dcdfe6;
+}
+.bean input[type=file] {
+    border: none;
+}
+.bean img{
+    max-width: 500px;
+    max-height: 500px;
+}
+.bean select{
+    min-width: 80px;
+}
+.contentView {
+    position: absolute;
+    z-index: 10;
+    background-color: #FFF;
+    padding: 0px 10px;
+}
+
+footer {
+    margin-top: 5px;
+}
+
+.li_margin_top_16 li {
+    margin-top: 16px;
+}
+
+.beanPageView .toolBar div.status{
+    margin-top: 40px;
+}
+.beanPageView .toolBar div.status span{
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    color: #333333;
+}
+.beanPageView .toolBar div.status span.active{
+    color: #3C69C1;
+}
+.beanPageView div.sum{
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+.beanPageView div.sum span:nth-child(odd){
+    margin-left: 20px;
+}
+.beanPageView div.sum span:nth-child(even){
+    color: red;
+}

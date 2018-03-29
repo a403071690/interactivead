@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <title>纷熙移动运营平台</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css?v=171227">
+    <link rel="Shortcut Icon" href="/static/img/icon/logo.jpg"/>
+    <style>
+
+    </style>
+</head>
+
+<body style="height: 100%">
+<div id="app">
+    <header>
+
+        <div class="float-left left">
+            <img src="/static/img/icon/logo.jpg" width="40px" style="position: relative;top: 5px"/>
+            <span onclick="location.reload()" style="cursor: pointer">纷熙移动运营平台</span>
+        </div>
+        <div class="float-right right">
+            <span v-if="showLoginView" @click="showLoginView=true">登录</span>
+            <span v-if="!showLoginView" @click="loginOut" style="cursor:pointer">退出</span>
+        </div>
+
+    </header>
+    <div class="loginView" style="display: none" v-cloak v-if="showLoginView">
+        <ul>
+            <li>
+                <h4>账号</h4>
+            </li>
+            <li>
+                <input v-model="account" type="text"/>
+            </li>
+            <li>
+                <h4>密码</h4>
+            </li>
+            <li>
+                <input v-model="password" type="password"/>
+            </li>
+            <li>
+                <button style="width: 70px;height: 30px" @click="login()">登录</button>
+            </li>
+        </ul>
+    </div>
+    <div id="content-body" class="body" style="display: none" v-if="!showLoginView">
+        <div class="left">
+            <ul class="nav">
+                <li>
+                    <h4 @click="onModuleNameClick('zygl')">资源管理</h4>
+                    <ul v-if="openModuleName=='zygl'">
+                        <li :class="{active:activeName=='dspMediaInfo'}">
+                            <a href="#/dspMediaInfo/dspMediaInfoPage" @click="activeName='dspMediaInfo';">媒体管理</a>
+                        </li>
+                        <li :class="{active:activeName=='dspMediaAdSiteInfo'}">
+                            <a href="#dspMediaAdSiteInfo/dspMediaAdSiteInfoPage" @click="activeName='dspMediaAdSiteInfo';">推广位管理</a>
+                        </li>
+                        <li :class="{active:activeName=='sspMediaLevelExpendProportion'}">
+                            <a href="#sspMediaLevelExpendProportion/sspMediaLevelExpendProportionPage" @click="activeName='sspMediaLevelExpendProportion';">星级管理</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <h4 @click="onModuleNameClick('tjbb')">统计报表</h4>
+                    <ul v-if="openModuleName=='tjbb'"> 
+                        <li :class="{active:activeName=='sspMediaExpendRealtimeStatementReport'}">
+                            <a href="#/sspMediaExpendRealtimeStatement/sspMediaExpendRealtimeStatementReport"
+                               @click="activeName='sspMediaExpendRealtimeStatementReport';">今日数据</a>
+                        </li>
+                        <li :class="{active:activeName=='sspMediaExpendStatementReport'}">
+                            <a href="#/sspMediaExpendStatement/sspMediaExpendStatementReport"
+                               @click="activeName='sspMediaExpendStatementReport';">历史报表</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 @click="onModuleNameClick('cwgl')">财务管理</h4>
+                    <ul v-if="openModuleName=='cwgl'">
+                        <li :class="{active:activeName=='sspPtAppOwnerBankCardInfo'}">
+                            <a href="#/sspPtAppOwnerBankCardInfo/sspPtAppOwnerBankCardInfoPage" @click="activeName='sspPtAppOwnerBankCardInfo';">财务信息</a>
+                        </li>
+                        <li :class="{active:activeName=='sspAppOwnerAccountDetail'}">
+                            <a href="#/sspAppOwnerAccountDetail/sspAppOwnerAccountDetailPage" @click="activeName='sspAppOwnerAccountDetail';">申请提现</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <h4 @click="onModuleNameClick('zhgl')">账号管理</h4>
+                    <ul v-if="openModuleName=='zhgl'">
+                        <li :class="{active:activeName=='sspPtAppOwnerInfo'}">
+                            <a href="#/sspPtAppOwnerInfo/sspPtAppOwnerInfoPage" @click="activeName='sspPtAppOwnerInfo';">媒体主账号</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <div class="right" id="mainView">
+            <router-view></router-view>
+        </div>
+        <div class="" style="clear: both"></div>
+    </div>
+    <hr/>
+    <footer>
+        <h6>纷熙移动媒体平台 @2018 version=V1.0.0</h6>
+    </footer>
+</div>
+</body>
+</html>
+<template id="templates"></template>
+<!--第三方开源框架-->
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/fileUtil.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script src="../js/moment.js"></script>
+<script src="../js/layer/layer.js"></script>
+<!--基础js 共享 全局变量 和全局方法-->
+<script src="../js/base.js"></script>
+<!--配置应用-->
+<script src="../js/adminConfig.js?v=171227"></script>
+<!--首页vue启动js-->
+<script src="../js/admin.js?v=171227"></script>
+<script>
+    //防止vue未加载完成前 界面显示混乱 等加载完了再展示
+    $("#content-body").show();
+    $("div.loginView").show();
+</script>
+

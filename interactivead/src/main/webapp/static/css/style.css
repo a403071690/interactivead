@@ -1,0 +1,58 @@
+.login_bg {
+    background-image: url("/static/img/login_bg.jpg");
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+}
+.login_icon_1 {
+    background-image: url("/static/img/icon/登录_03.png");
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    width: 5px;
+}
+.loginView{
+    float: right;
+    margin-top: 100px;
+    margin-right: 100px;
+    width: 400px;
+    text-align: right;
+}
+.loginView ul{
+    margin: 10px;
+    padding: 30px 30px;
+    border-radius: 3px;
+}
+.loginView input{
+    width: 273px;
+    height: 30px;
+    border: none;
+    background-color: #fff;
+    outline:none;
+}
+.loginView .type{
+    background-color: #3A76E2;
+    padding: 0px;
+    margin: 0px;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.loginView div{
+    margin: 5px;
+    text-align: left;
+}
+div.input{
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 30px;
+}
+.bindMobieNo input{
+    width: 273px;
+    height: 30px;
+    border: none;
+    background-color: #fff;
+    outline:none;
+}

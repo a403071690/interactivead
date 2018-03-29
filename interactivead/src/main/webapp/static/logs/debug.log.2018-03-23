@@ -1,0 +1,4 @@
+2018-03-23 15:20:23  [ localhost-startStop-2:104382218 ] - [ INFO ]  Closing WebApplicationContext for namespace 'spring-mvc-servlet': startup date [Thu Mar 22 10:20:44 CST 2018]; parent: Root WebApplicationContext
+  2018-03-23 15:20:23  [ localhost-startStop-2:104382241 ] - [ INFO ]  Closing Root WebApplicationContext: startup date [Thu Mar 22 10:20:41 CST 2018]; root of context hierarchy
+  2018-03-23 15:20:23  [ localhost-startStop-2:104382253 ] - [ INFO ]  {dataSource-1} closed
+  

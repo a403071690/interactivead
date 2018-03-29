@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TemplateReport" >
+  <resultMap id="BaseResultMap" type="com.gen.entity.TemplateReport" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="template_id" property="templateId" jdbcType="VARCHAR" />
+    <result column="report_date" property="reportDate" jdbcType="TIMESTAMP" />
+    <result column="media_owner_id" property="mediaOwnerId" jdbcType="VARCHAR" />
+    <result column="pv_count" property="pvCount" jdbcType="BIGINT" />
+    <result column="uv_count" property="uvCount" jdbcType="BIGINT" />
+    <result column="ct_imp_count" property="ctImpCount" jdbcType="BIGINT" />
+    <result column="ct_click_count" property="ctClickCount" jdbcType="BIGINT" />
+    <result column="ct_valid_click_count" property="ctValidClickCount" jdbcType="BIGINT" />
+    <result column="pay_money" property="payMoney" jdbcType="BIGINT" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , template_id , report_date , media_owner_id , pv_count , uv_count , ct_imp_count , ct_click_count , ct_valid_click_count
+ , pay_money
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from template_report
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from template_report
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from template_report
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from template_report
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.gen.entity.TemplateReport" >
+    insert into template_report (id
+     , template_id , report_date , media_owner_id , pv_count , uv_count , ct_imp_count , ct_click_count , ct_valid_click_count
+ , pay_money
+      )
+    values (#{id},
+     , #{templateId} , #{reportDate} , #{mediaOwnerId} , #{pvCount} , #{uvCount} , #{ctImpCount} , #{ctClickCount}
+ , #{ctValidClickCount} , #{payMoney}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.gen.entity.TemplateReport" >
+    insert into template_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="reportDate != null" >
+        report_date,
+      </if>
+      <if test="mediaOwnerId != null" >
+        media_owner_id,
+      </if>
+      <if test="pvCount != null" >
+        pv_count,
+      </if>
+      <if test="uvCount != null" >
+        uv_count,
+      </if>
+      <if test="ctImpCount != null" >
+        ct_imp_count,
+      </if>
+      <if test="ctClickCount != null" >
+        ct_click_count,
+      </if>
+      <if test="ctValidClickCount != null" >
+        ct_valid_click_count,
+      </if>
+      <if test="payMoney != null" >
+        pay_money,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="templateId != null" >
+        #{templateId},
+      </if>
+      <if test="reportDate != null" >
+        #{reportDate},
+      </if>
+      <if test="mediaOwnerId != null" >
+        #{mediaOwnerId},
+      </if>
+      <if test="pvCount != null" >
+        #{pvCount},
+      </if>
+      <if test="uvCount != null" >
+        #{uvCount},
+      </if>
+      <if test="ctImpCount != null" >
+        #{ctImpCount},
+      </if>
+      <if test="ctClickCount != null" >
+        #{ctClickCount},
+      </if>
+      <if test="ctValidClickCount != null" >
+        #{ctValidClickCount},
+      </if>
+      <if test="payMoney != null" >
+        #{payMoney},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.gen.entity.TemplateReport" >
+    update template_report
+    <set>
+      <if test="templateId != null" >
+        template_id = #{templateId},
+      </if>
+      <if test="reportDate != null" >
+        report_date = #{reportDate},
+      </if>
+      <if test="mediaOwnerId != null" >
+        media_owner_id = #{mediaOwnerId},
+      </if>
+      <if test="pvCount != null" >
+        pv_count = #{pvCount},
+      </if>
+      <if test="uvCount != null" >
+        uv_count = #{uvCount},
+      </if>
+      <if test="ctImpCount != null" >
+        ct_imp_count = #{ctImpCount},
+      </if>
+      <if test="ctClickCount != null" >
+        ct_click_count = #{ctClickCount},
+      </if>
+      <if test="ctValidClickCount != null" >
+        ct_valid_click_count = #{ctValidClickCount},
+      </if>
+      <if test="payMoney != null" >
+        pay_money = #{payMoney},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="templateId != null" >
+        AND template_id = #{templateId}
+      </if>
+      <if test="reportDate != null" >
+        AND report_date = #{reportDate}
+      </if>
+      <if test="reportDateStart != null and reportDateStart != ''" >
+        AND report_date &gt;= #{reportDateStart}
+      </if>
+      <if test="reportDateEnd != null and reportDateEnd != ''" >
+        AND report_date &lt; #{reportDateEnd}
+      </if>
+      <if test="mediaOwnerId != null" >
+        AND media_owner_id = #{mediaOwnerId}
+      </if>
+      <if test="pvCount != null" >
+        AND pv_count = #{pvCount}
+      </if>
+      <if test="uvCount != null" >
+        AND uv_count = #{uvCount}
+      </if>
+      <if test="ctImpCount != null" >
+        AND ct_imp_count = #{ctImpCount}
+      </if>
+      <if test="ctClickCount != null" >
+        AND ct_click_count = #{ctClickCount}
+      </if>
+      <if test="ctValidClickCount != null" >
+        AND ct_valid_click_count = #{ctValidClickCount}
+      </if>
+      <if test="payMoney != null" >
+        AND pay_money = #{payMoney}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="templateIdList != null" >
+        AND template_id in
+        <foreach collection="templateIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="reportDateList != null" >
+        AND report_date in
+        <foreach collection="reportDateList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="mediaOwnerIdList != null" >
+        AND media_owner_id in
+        <foreach collection="mediaOwnerIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="pvCountList != null" >
+        AND pv_count in
+        <foreach collection="pvCountList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="uvCountList != null" >
+        AND uv_count in
+        <foreach collection="uvCountList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="ctImpCountList != null" >
+        AND ct_imp_count in
+        <foreach collection="ctImpCountList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="ctClickCountList != null" >
+        AND ct_click_count in
+        <foreach collection="ctClickCountList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="ctValidClickCountList != null" >
+        AND ct_valid_click_count in
+        <foreach collection="ctValidClickCountList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="payMoneyList != null" >
+        AND pay_money in
+        <foreach collection="payMoneyList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="templateIdLike != null" >
+        AND template_id like #{templateIdLike}
+      </if>
+      <if test="reportDateLike != null" >
+        AND report_date like #{reportDateLike}
+      </if>
+      <if test="mediaOwnerIdLike != null" >
+        AND media_owner_id like #{mediaOwnerIdLike}
+      </if>
+      <if test="pvCountLike != null" >
+        AND pv_count like #{pvCountLike}
+      </if>
+      <if test="uvCountLike != null" >
+        AND uv_count like #{uvCountLike}
+      </if>
+      <if test="ctImpCountLike != null" >
+        AND ct_imp_count like #{ctImpCountLike}
+      </if>
+      <if test="ctClickCountLike != null" >
+        AND ct_click_count like #{ctClickCountLike}
+      </if>
+      <if test="ctValidClickCountLike != null" >
+        AND ct_valid_click_count like #{ctValidClickCountLike}
+      </if>
+      <if test="payMoneyLike != null" >
+        AND pay_money like #{payMoneyLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              template_id like #{fullTextSearchValue}
+           or report_date like #{fullTextSearchValue}
+           or media_owner_id like #{fullTextSearchValue}
+           or pv_count like #{fullTextSearchValue}
+           or uv_count like #{fullTextSearchValue}
+           or ct_imp_count like #{fullTextSearchValue}
+           or ct_click_count like #{fullTextSearchValue}
+           or ct_valid_click_count like #{fullTextSearchValue}
+           or pay_money like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

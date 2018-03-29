@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="Shortcut Icon" href=""/>
+    <title>接口文档(solar)</title>
+<style type="text/css">
+*{
+    padding: 0px;
+    margin: 0px;
+    text-decoration:none;
+}
+
+.nav{
+	background-color: #313D4D;
+	width: 300px;
+}
+ul.nav{
+	position: fixed;
+	text-align: left;
+    overflow: auto;
+    height:100%;
+}
+ul.nav li{
+	padding :0 20px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+ul.nav li a{
+    color: #fff;
+}
+h3,h6{
+    background-color: #fff;
+}
+body{
+	width: 98%;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+ table td {
+    text-align: center;
+    border: 1px solid #fff;
+    min-width: 40px;
+    height: 40px;
+}
+.api{
+    border-bottom: 45px solid #fff;
+}
+h3{
+	background-color: #313D4D;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+}
+.api table tr:nth-child(odd) {
+    background-color: #F9F9F9;
+}
+
+.api table tr:nth-child(even) {
+    background-color: #fff;
+}
+.api table tr td:nth-child(1) {
+    width: 30%;
+}
+.api table tr td:nth-child(2) {
+    width: 10%;
+}
+.api table tr td:nth-child(3) {
+    width: 58%;
+}
+ </style>
+	<script type="text/javascript">
+		var host="http://api.chetubao.cn:5858"
+
+		function openUri(uri){
+		     if(host==""||host=="null"){
+		        host="";
+		     }
+			 window.open(host+uri);
+		}
+	</script>
+</head>
+<body>
+	<table id="content-body" class="body">
+        <tr>
+            <td valign="top" class="nav">
+                    <ul class="nav">
+                    	<li>
+                        文档版本:2018年03月13日 16:24
+                        </li>
+                        <li>
+                      host: <a href="http://api.chetubao.cn:5858" target="_blank">http://api.chetubao.cn:5858</a>
+                        </li>
+                        <li><hr/></li>
+ <li>
+                    <a href="#apiDocExplain">*、 接口文档说明</a>
+                </li>
+                <li>
+                    <a href="#selectCommon">*、 查询公共参数</a>
+                </li>
+                <li>
+                    <a href="#deleteCommon">*、 删除接口公共参数</a>
+                </li>
+                <li>
+                    <a href="#saveOrUpdateCommon">*、 保存或修改接口公共参数</a>
+                </li>
+                <li>
+                    <a href="#returnCommon">*、 返回公共字段</a>
+                </li>
+                <li>
+                    <a href="#loginCommon">*、 登录接口</a>
+                </li>
+                <li>
+                    <hr/>
+                </li>
+                        <li>
+                            <a  href="#carSellCampaign">1、 汽车售卖活动</a>
+                        </li>
+                        <li>
+                            <a  href="#carStore">2、 汽车仓库</a>
+                        </li>
+                        <li>
+                            <a  href="#publicCarInfo">3、 公共的汽车信息，网络爬虫数据</a>
+                        </li>
+                        <li>
+                            <a  href="#relUserRole">4、 用户角色关系表</a>
+                        </li>
+                        <li>
+                            <a  href="#sysUserSearchLog">5、 用户搜索日志</a>
+                        </li>
+                        <li>
+                            <a  href="#userCarOrder">6、 用户汽车订单表</a>
+                        </li>
+                        <li>
+                            <a  href="#userCarStoreOrder">7、 仓库订单表</a>
+                        </li>
+                        <li>
+                            <a  href="#userCompanyAuth">8、 用户企业认证</a>
+                        </li>
+                        <li>
+                            <a  href="#userFinanceMsgLog">9、 用户金融需求日志表</a>
+                        </li>
+                        <li>
+                            <a  href="#userFindCarInfo">10、 用户寻车发布表</a>
+                        </li>
+                        <li>
+                            <a  href="#userFindCarInfoSub">11、 用户寻车子表报价</a>
+                        </li>
+                        <li>
+                            <a  href="#userInfo">12、 用户表</a>
+                        </li>
+                        <li>
+                            <a  href="#userMsgInfo">13、 用户消息表</a>
+                        </li>
+                        <li>
+                            <a  href="#userPersonalAuth">14、 用户个人认证</a>
+                        </li>
+                        <li>
+                            <a  href="#userRoleInfo">15、 用户角色信息</a>
+                        </li>
+
+                 <li> </li>  <li>  </li> <li></li>
+                    </ul>
+            </td>
+            <td valign="top">
+                <div id="mainView">
+<div class="api" id="apiDocExplain">
+                    <h3>接口文档说明</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>请求方法</td>
+                            <td>http</td>
+                            <td>get/post都可以</td>
+                        </tr>
+                        <tr>
+                            <td>请求参数格式</td>
+                            <td>json格式(application/json)</td>
+                            <td>查询和删除参数放入url,保存和更新用post将json数据放入请求体</td>
+                        </tr>
+                        <tr>
+                            <td>返回格式</td>
+                            <td>json格式</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="selectCommon">
+                    <h3>查询公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>pageNum</td>
+                            <td>Integer</td>
+                            <td>分页查询的第几页(分页查询必传该参数)</td>
+                        </tr>
+                        <tr>
+                            <td>pageSize</td>
+                            <td>Integer</td>
+                            <td>每页显示的条数</td>
+                        </tr>
+                        <tr>
+                            <td>orderProperty</td>
+                            <td>String</td>
+                            <td>根据该属性进行排序</td>
+                        </tr>
+                        <tr>
+                            <td>orderDirection</td>
+                            <td>String</td>
+                            <td>desc/asc(降序/升序)</td>
+                        </tr>
+                        <tr>
+                            <td>fullTextSearchValue</td>
+                            <td>String</td>
+                            <td>全文搜索(正则表达式匹配)</td>
+                        </tr>
+                        <tr>
+                             <td>参数名+"Start"</td>
+                             <td>查询大于或等于某Date</td>
+                             <td> 如查询创建时间大于或等于某时间则传createTimeStart="yyyy-MM-dd HH:mm:ss"
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>参数名+"End"</td>
+                             <td>查询小于某Date</td>
+                             <td>
+                                  如查询创建时间小于某时间则传createTimeEnd="2018-1-30 23:59:59.9"(yyyy-MM-dd HH:mm:ss.SSS)S为毫秒
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>参数名+"List"</td>
+                             <td>值为多个或匹配</td>
+                             <td>
+                                  如查询类型为a或者b的数据则传type=['a','b']
+                             </td>
+                         </tr>
+                         <tr>
+                             <td></td>
+                             <td></td>
+                             <td>值为一对多关联表的参数规则:
+                                 参数key为表名,值为json数组，数组内对象的key为字段名
+                             </td>
+                         </tr>
+                    </table>
+                </div>
+                <div class="api" id="deleteCommon">
+                    <h3>删除接口公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>String</td>
+                            <td>需要删除数据的id(必填)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="saveOrUpdateCommon">
+                    <h3>保存或修改接口公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>String</td>
+                            <td>需要修改数据的id(不传该值为新增保存)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="returnCommon">
+                    <h3>返回公共字段</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>code</td>
+                            <td>Integer</td>
+                            <td>200为成功500与其他值为失败</td>
+                        </tr>
+                        <tr>
+                            <td>msg</td>
+                            <td>String</td>
+                            <td>提示消息</td>
+                        </tr>
+                        <tr>
+                            <td>body</td>
+                            <td>Object</td>
+                            <td>返回的数据(见具体接口数据结构)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="loginCommon">
+                    <h3>登录接口</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>account</td>
+                            <td>String</td>
+                            <td>账号</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>String</td>
+                            <td>密码</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>将返回的token放到http请求头中</td>
+                        </tr>
+                    </table>
+                </div>
+        <div class="api" id="carSellCampaign">
+             <h3>汽车售卖活动</h3>
+             <h6><a  href="" onclick="openUri('/carSellCampaign/select?pageNum=1');" >查询接口</a> host+"/carSellCampaign/select"</h6>
+             <h6>删除接口 host+"/carSellCampaign/delete"</h6>
+             <h6>保存或修改接口 host+"/carSellCampaign/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td>用户表主键</td>
+                 </tr>
+                 <tr>
+                     <td>publicCarInfoId</td>
+                     <td>String</td>
+                     <td>汽车信息</td>
+                 </tr>
+                 <tr>
+                     <td>campaignTopic</td>
+                     <td>String</td>
+                     <td>活动主题</td>
+                 </tr>
+                 <tr>
+                     <td>colour</td>
+                     <td>String</td>
+                     <td>颜色（外观/内饰）</td>
+                 </tr>
+                 <tr>
+                     <td>endTime</td>
+                     <td>Date</td>
+                     <td>汽车售卖结束时间</td>
+                 </tr>
+                 <tr>
+                     <td>sellPrice</td>
+                     <td>Long</td>
+                     <td>售卖价格（分），注意是分。</td>
+                 </tr>
+                 <tr>
+                     <td>deposit</td>
+                     <td>Long</td>
+                     <td>定金，默认给出售卖价格的5%为定金。</td>
+                 </tr>
+                 <tr>
+                     <td>invoiceType</td>
+                     <td>Integer</td>
+                     <td>发票类型：1可增可普，2增值税发票 3普通发票</td>
+                 </tr>
+                 <tr>
+                     <td>carSellCampaigncol</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>isSellNow</td>
+                     <td>Integer</td>
+                     <td>是否现车：1现车 0非现车（非现车可以不选择仓库）</td>
+                 </tr>
+                 <tr>
+                     <td>carStoreId</td>
+                     <td>String</td>
+                     <td>汽车仓库主键</td>
+                 </tr>
+                 <tr>
+                     <td>carNumber</td>
+                     <td>Integer</td>
+                     <td>汽车售卖数量</td>
+                 </tr>
+                 <tr>
+                     <td>carCreateDate</td>
+                     <td>Date</td>
+                     <td>汽车生产日期</td>
+                 </tr>
+                 <tr>
+                     <td>sellerName</td>
+                     <td>String</td>
+                     <td>销售姓名</td>
+                 </tr>
+                 <tr>
+                     <td>sellerPhone</td>
+                     <td>String</td>
+                     <td>销售电话</td>
+                 </tr>
+                 <tr>
+                     <td>carImg1Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>carImg2Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>carImg3Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>carImg4Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>carImg5Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>carImg6Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>html</td>
+                     <td>String</td>
+                     <td>HTML编辑器内容</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="carStore">
+             <h3>汽车仓库</h3>
+             <h6><a  href="" onclick="openUri('/carStore/select?pageNum=1');" >查询接口</a> host+"/carStore/select"</h6>
+             <h6>删除接口 host+"/carStore/delete"</h6>
+             <h6>保存或修改接口 host+"/carStore/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>name</td>
+                     <td>String</td>
+                     <td>仓库名称</td>
+                 </tr>
+                 <tr>
+                     <td>address</td>
+                     <td>String</td>
+                     <td>详细地址</td>
+                 </tr>
+                 <tr>
+                     <td>openHours</td>
+                     <td>String</td>
+                     <td>营业时间，文本形式</td>
+                 </tr>
+                 <tr>
+                     <td>gpsLongitude</td>
+                     <td>String</td>
+                     <td>经度</td>
+                 </tr>
+                 <tr>
+                     <td>gpsLatitude</td>
+                     <td>String</td>
+                     <td>纬度</td>
+                 </tr>
+                 <tr>
+                     <td>img1Url</td>
+                     <td>String</td>
+                     <td>仓库图片1</td>
+                 </tr>
+                 <tr>
+                     <td>img2Url</td>
+                     <td>String</td>
+                     <td>仓库图片2</td>
+                 </tr>
+                 <tr>
+                     <td>img3Url</td>
+                     <td>String</td>
+                     <td>仓库图片3</td>
+                 </tr>
+                 <tr>
+                     <td>img4Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>img5Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>img6Url</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>isSale</td>
+                     <td>Integer</td>
+                     <td>是否售卖</td>
+                 </tr>
+                 <tr>
+                     <td>saleCount</td>
+                     <td>Integer</td>
+                     <td>售卖车位数</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>Long</td>
+                     <td>出租价格（分）/每天/车位</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="publicCarInfo">
+             <h3>公共的汽车信息，网络爬虫数据</h3>
+             <h6><a  href="" onclick="openUri('/publicCarInfo/select?pageNum=1');" >查询接口</a> host+"/publicCarInfo/select"</h6>
+             <h6>删除接口 host+"/publicCarInfo/delete"</h6>
+             <h6>保存或修改接口 host+"/publicCarInfo/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>code</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>parentid</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>initial</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>importLocation</td>
+                     <td>String</td>
+                     <td>车规（进口地址）：中规/国产、美规、加规、中东、欧规、墨版等。</td>
+                 </tr>
+                 <tr>
+                     <td>brand</td>
+                     <td>String</td>
+                     <td>汽车品牌，比如奥迪、宝马等</td>
+                 </tr>
+                 <tr>
+                     <td>vender</td>
+                     <td>String</td>
+                     <td>厂家、供应商：比如一气奥迪、进口等</td>
+                 </tr>
+                 <tr>
+                     <td>series</td>
+                     <td>String</td>
+                     <td>汽车系列，比如奥迪A3、奥迪A4。</td>
+                 </tr>
+                 <tr>
+                     <td>model</td>
+                     <td>String</td>
+                     <td>型号，比如：2018款 30周年年型 40 TFSI 进取型</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>Long</td>
+                     <td>指导价单位分，请注意单位是分。</td>
+                 </tr>
+                 <tr>
+                     <td>imgUrl</td>
+                     <td>String</td>
+                     <td>汽车图片，45°角白色底照片，照片比例3:2。</td>
+                 </tr>
+                 <tr>
+                     <td>isStopSale</td>
+                     <td>Integer</td>
+                     <td>是否停售</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>更新时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="relUserRole">
+             <h3>用户角色关系表</h3>
+             <h6><a  href="" onclick="openUri('/relUserRole/select?pageNum=1');" >查询接口</a> host+"/relUserRole/select"</h6>
+             <h6>删除接口 host+"/relUserRole/delete"</h6>
+             <h6>保存或修改接口 host+"/relUserRole/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>userRoleInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="sysUserSearchLog">
+             <h3>用户搜索日志</h3>
+             <h6><a  href="" onclick="openUri('/sysUserSearchLog/select?pageNum=1');" >查询接口</a> host+"/sysUserSearchLog/select"</h6>
+             <h6>删除接口 host+"/sysUserSearchLog/delete"</h6>
+             <h6>保存或修改接口 host+"/sysUserSearchLog/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>keyword</td>
+                     <td>String</td>
+                     <td>搜索关键词</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>创建时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userCarOrder">
+             <h3>用户汽车订单表</h3>
+             <h6><a  href="" onclick="openUri('/userCarOrder/select?pageNum=1');" >查询接口</a> host+"/userCarOrder/select"</h6>
+             <h6>删除接口 host+"/userCarOrder/delete"</h6>
+             <h6>保存或修改接口 host+"/userCarOrder/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>carSellCampaignId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>下单时间</td>
+                 </tr>
+                 <tr>
+                     <td>carCount</td>
+                     <td>Integer</td>
+                     <td>购买汽车数量</td>
+                 </tr>
+                 <tr>
+                     <td>carAllMoney</td>
+                     <td>Long</td>
+                     <td>汽车总金额（分），</td>
+                 </tr>
+                 <tr>
+                     <td>carPayMoney</td>
+                     <td>Long</td>
+                     <td>汽车定金金额（分）</td>
+                 </tr>
+                 <tr>
+                     <td>orderState</td>
+                     <td>Integer</td>
+                     <td>订单状态：1待支付 2已支付 3已完成 4已取消</td>
+                 </tr>
+                 <tr>
+                     <td>payType</td>
+                     <td>Integer</td>
+                     <td>支付方式：1微信 2支付宝 3银联</td>
+                 </tr>
+                 <tr>
+                     <td>payState</td>
+                     <td>Integer</td>
+                     <td>支付状态</td>
+                 </tr>
+                 <tr>
+                     <td>payNumber</td>
+                     <td>String</td>
+                     <td>支付流水号</td>
+                 </tr>
+                 <tr>
+                     <td>payCallbackMsg</td>
+                     <td>String</td>
+                     <td>支付方反馈消息，比如异常，限额等。</td>
+                 </tr>
+                 <tr>
+                     <td>payTime</td>
+                     <td>Date</td>
+                     <td>支付时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userCarStoreOrder">
+             <h3>仓库订单表</h3>
+             <h6><a  href="" onclick="openUri('/userCarStoreOrder/select?pageNum=1');" >查询接口</a> host+"/userCarStoreOrder/select"</h6>
+             <h6>删除接口 host+"/userCarStoreOrder/delete"</h6>
+             <h6>保存或修改接口 host+"/userCarStoreOrder/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>carStoreId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>下单时间</td>
+                 </tr>
+                 <tr>
+                     <td>storeCount</td>
+                     <td>Integer</td>
+                     <td>购买仓库数量</td>
+                 </tr>
+                 <tr>
+                     <td>storePayMoney</td>
+                     <td>Long</td>
+                     <td>仓库定金金额（分）</td>
+                 </tr>
+                 <tr>
+                     <td>orderState</td>
+                     <td>Integer</td>
+                     <td>订单状态：1待支付 2已支付 3已完成 4已取消</td>
+                 </tr>
+                 <tr>
+                     <td>payType</td>
+                     <td>Integer</td>
+                     <td>支付方式：1微信 2支付宝 3银联</td>
+                 </tr>
+                 <tr>
+                     <td>payState</td>
+                     <td>Integer</td>
+                     <td>支付状态</td>
+                 </tr>
+                 <tr>
+                     <td>payNumber</td>
+                     <td>String</td>
+                     <td>支付流水号</td>
+                 </tr>
+                 <tr>
+                     <td>payCallbackMsg</td>
+                     <td>String</td>
+                     <td>支付方反馈消息，比如异常，限额等。</td>
+                 </tr>
+                 <tr>
+                     <td>payTime</td>
+                     <td>Date</td>
+                     <td>支付时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userCompanyAuth">
+             <h3>用户企业认证</h3>
+             <h6><a  href="" onclick="openUri('/userCompanyAuth/select?pageNum=1');" >查询接口</a> host+"/userCompanyAuth/select"</h6>
+             <h6>删除接口 host+"/userCompanyAuth/delete"</h6>
+             <h6>保存或修改接口 host+"/userCompanyAuth/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>companyName</td>
+                     <td>String</td>
+                     <td>公司名称</td>
+                 </tr>
+                 <tr>
+                     <td>companyType</td>
+                     <td>String</td>
+                     <td>公司类型：直接文本写入方便阅读（品牌4S店/港口商家/综合展厅/资源公司）</td>
+                 </tr>
+                 <tr>
+                     <td>companyLocation</td>
+                     <td>String</td>
+                     <td>公司所在位置：省/市</td>
+                 </tr>
+                 <tr>
+                     <td>companyLicenseImgUrl</td>
+                     <td>String</td>
+                     <td>公司营业执照上传URL地址，要http/https开头</td>
+                 </tr>
+                 <tr>
+                     <td>userCardName</td>
+                     <td>String</td>
+                     <td>身份证姓名</td>
+                 </tr>
+                 <tr>
+                     <td>userCardNumber</td>
+                     <td>String</td>
+                     <td>用户身份证号码</td>
+                 </tr>
+                 <tr>
+                     <td>cardHeadsImgUrl</td>
+                     <td>String</td>
+                     <td>身份证正面上传URL地址</td>
+                 </tr>
+                 <tr>
+                     <td>cardTailsImgUrl</td>
+                     <td>String</td>
+                     <td>身份证反面上传URL地址</td>
+                 </tr>
+                 <tr>
+                     <td>authType</td>
+                     <td>Integer</td>
+                     <td>认证类型：1在职证明 2名片证明</td>
+                 </tr>
+                 <tr>
+                     <td>authImgUrl</td>
+                     <td>String</td>
+                     <td>在职、名片上传图片URL</td>
+                 </tr>
+                 <tr>
+                     <td>authState</td>
+                     <td>Integer</td>
+                     <td>认证状态：1待认证 2认证成功 3认证失败</td>
+                 </tr>
+                 <tr>
+                     <td>authErrMsg</td>
+                     <td>String</td>
+                     <td>认证失败消息</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>认证创建时间</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>更新时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userFinanceMsgLog">
+             <h3>用户金融需求日志表</h3>
+             <h6><a  href="" onclick="openUri('/userFinanceMsgLog/select?pageNum=1');" >查询接口</a> host+"/userFinanceMsgLog/select"</h6>
+             <h6>删除接口 host+"/userFinanceMsgLog/delete"</h6>
+             <h6>保存或修改接口 host+"/userFinanceMsgLog/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>金融库留言类型：1配资买车  2汽车变现</td>
+                 </tr>
+                 <tr>
+                     <td>name</td>
+                     <td>String</td>
+                     <td>姓名</td>
+                 </tr>
+                 <tr>
+                     <td>phone</td>
+                     <td>String</td>
+                     <td>电话</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userFindCarInfo">
+             <h3>用户寻车发布表</h3>
+             <h6><a  href="" onclick="openUri('/userFindCarInfo/select?pageNum=1');" >查询接口</a> host+"/userFindCarInfo/select"</h6>
+             <h6>删除接口 host+"/userFindCarInfo/delete"</h6>
+             <h6>保存或修改接口 host+"/userFindCarInfo/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>publicCarInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>colour</td>
+                     <td>String</td>
+                     <td>颜色：外观、内饰</td>
+                 </tr>
+                 <tr>
+                     <td>city</td>
+                     <td>String</td>
+                     <td>上牌城市</td>
+                 </tr>
+                 <tr>
+                     <td>endTime</td>
+                     <td>Date</td>
+                     <td>有效期截止时间</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>Long</td>
+                     <td>想要的成交价（分）</td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>寻车状态：1寻车中 2已完成 3已取消</td>
+                 </tr>
+                 <tr>
+                     <td>note</td>
+                     <td>String</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td></td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userFindCarInfoSub">
+             <h3>用户寻车子表报价</h3>
+             <h6><a  href="" onclick="openUri('/userFindCarInfoSub/select?pageNum=1');" >查询接口</a> host+"/userFindCarInfoSub/select"</h6>
+             <h6>删除接口 host+"/userFindCarInfoSub/delete"</h6>
+             <h6>保存或修改接口 host+"/userFindCarInfoSub/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userFindCarInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>city</td>
+                     <td>String</td>
+                     <td>车辆所在城市</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>Long</td>
+                     <td>报价，</td>
+                 </tr>
+                 <tr>
+                     <td>endTime</td>
+                     <td>Date</td>
+                     <td>报价有效时间</td>
+                 </tr>
+                 <tr>
+                     <td>note</td>
+                     <td>String</td>
+                     <td>备注</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userInfo">
+             <h3>用户表</h3>
+             <h6><a  href="" onclick="openUri('/userInfo/select?pageNum=1');" >查询接口</a> host+"/userInfo/select"</h6>
+             <h6>删除接口 host+"/userInfo/delete"</h6>
+             <h6>保存或修改接口 host+"/userInfo/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>loginName</td>
+                     <td>String</td>
+                     <td>登录名，目前是手机号。</td>
+                 </tr>
+                 <tr>
+                     <td>password</td>
+                     <td>String</td>
+                     <td>密码，加密后的，可以为空，用短信验证码登录</td>
+                 </tr>
+                 <tr>
+                     <td>userCompanyAuthId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>userPersonalAuthId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>状态：1正常可登陆 2冻结不能登录</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>创建时间</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>更新时间</td>
+                 </tr>
+                 <tr>
+                     <td>headImg</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userMsgInfo">
+             <h3>用户消息表</h3>
+             <h6><a  href="" onclick="openUri('/userMsgInfo/select?pageNum=1');" >查询接口</a> host+"/userMsgInfo/select"</h6>
+             <h6>删除接口 host+"/userMsgInfo/delete"</h6>
+             <h6>保存或修改接口 host+"/userMsgInfo/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userInfoId</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>msgType</td>
+                     <td>Integer</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>msgTitle</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+                 <tr>
+                     <td>msgValue</td>
+                     <td>String</td>
+                     <td></td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userPersonalAuth">
+             <h3>用户个人认证</h3>
+             <h6><a  href="" onclick="openUri('/userPersonalAuth/select?pageNum=1');" >查询接口</a> host+"/userPersonalAuth/select"</h6>
+             <h6>删除接口 host+"/userPersonalAuth/delete"</h6>
+             <h6>保存或修改接口 host+"/userPersonalAuth/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userCardName</td>
+                     <td>String</td>
+                     <td>身份证姓名</td>
+                 </tr>
+                 <tr>
+                     <td>userCardNumber</td>
+                     <td>String</td>
+                     <td>用户身份证号码</td>
+                 </tr>
+                 <tr>
+                     <td>cardHeadsImgUrl</td>
+                     <td>String</td>
+                     <td>身份证正面上传URL地址</td>
+                 </tr>
+                 <tr>
+                     <td>cardTailsImgUrl</td>
+                     <td>String</td>
+                     <td>身份证反面上传URL地址</td>
+                 </tr>
+                 <tr>
+                     <td>authState</td>
+                     <td>Integer</td>
+                     <td>认证状态：1待认证 2认证成功 3认证失败</td>
+                 </tr>
+                 <tr>
+                     <td>authErrMsg</td>
+                     <td>String</td>
+                     <td>认证失败消息</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>认证创建时间</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>更新时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userRoleInfo">
+             <h3>用户角色信息</h3>
+             <h6><a  href="" onclick="openUri('/userRoleInfo/select?pageNum=1');" >查询接口</a> host+"/userRoleInfo/select"</h6>
+             <h6>删除接口 host+"/userRoleInfo/delete"</h6>
+             <h6>保存或修改接口 host+"/userRoleInfo/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>name</td>
+                     <td>String</td>
+                     <td>角色名称</td>
+                 </tr>
+             </table>
+        </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="interactivead:war">
+    <output-path>$PROJECT_DIR$/interactivead/target</output-path>
+    <root id="archive" name="ROOT.war">
+      <element id="artifact" artifact-name="interactivead:war exploded" />
+    </root>
+  </artifact>
+</component>

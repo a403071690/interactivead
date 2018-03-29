@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="Shortcut Icon" href=""/>
+    <title>接口文档(solar)</title>
+<style type="text/css">
+*{
+    padding: 0px;
+    margin: 0px;
+    text-decoration:none;
+}
+
+.nav{
+	background-color: #313D4D;
+	width: 300px;
+}
+ul.nav{
+	position: fixed;
+	text-align: left;
+    overflow: auto;
+    height:100%;
+}
+ul.nav li{
+	padding :0 20px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+ul.nav li a{
+    color: #fff;
+}
+h3,h6{
+    background-color: #fff;
+}
+body{
+	width: 98%;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+ table td {
+    text-align: center;
+    border: 1px solid #fff;
+    min-width: 40px;
+    height: 40px;
+}
+.api{
+    border-bottom: 45px solid #fff;
+}
+h3{
+	background-color: #313D4D;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+}
+.api table tr:nth-child(odd) {
+    background-color: #F9F9F9;
+}
+
+.api table tr:nth-child(even) {
+    background-color: #fff;
+}
+.api table tr td:nth-child(1) {
+    width: 30%;
+}
+.api table tr td:nth-child(2) {
+    width: 10%;
+}
+.api table tr td:nth-child(3) {
+    width: 58%;
+}
+ </style>
+	<script type="text/javascript">
+		var host="${host}"
+
+		function openUri(uri){
+		     if(host==""||host=="null"){
+		        host="";
+		     }
+			 window.open(host+uri);
+		}
+	</script>
+</head>
+<body>
+	<table id="content-body" class="body">
+        <tr>
+            <td valign="top" class="nav">
+                    <ul class="nav">
+                    	<li>
+                        文档版本:${date}
+                        </li>
+                        <li>
+                      host: <a href="${host}" target="_blank">${host}</a>
+                        </li>
+                        <li><hr/></li>
+ <li>
+                    <a href="#apiDocExplain">*、 接口文档说明</a>
+                </li>
+                <li>
+                    <a href="#selectCommon">*、 查询公共参数</a>
+                </li>
+                <li>
+                    <a href="#deleteCommon">*、 删除接口公共参数</a>
+                </li>
+                <li>
+                    <a href="#saveOrUpdateCommon">*、 保存或修改接口公共参数</a>
+                </li>
+                <li>
+                    <a href="#returnCommon">*、 返回公共字段</a>
+                </li>
+                <li>
+                    <a href="#loginCommon">*、 登录接口</a>
+                </li>
+                <li>
+                    <hr/>
+                </li>
+${apiNavList}
+                 <li> </li>  <li>  </li> <li></li>
+                    </ul>
+            </td>
+            <td valign="top">
+                <div id="mainView">
+<div class="api" id="apiDocExplain">
+                    <h3>接口文档说明</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>请求方法</td>
+                            <td>http</td>
+                            <td>get/post都可以</td>
+                        </tr>
+                        <tr>
+                            <td>请求参数格式</td>
+                            <td>json格式(application/json)</td>
+                            <td>查询和删除参数放入url,保存和更新用post将json数据放入请求体</td>
+                        </tr>
+                        <tr>
+                            <td>返回格式</td>
+                            <td>json格式</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="selectCommon">
+                    <h3>查询公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>pageNum</td>
+                            <td>Integer</td>
+                            <td>分页查询的第几页(分页查询必传该参数)</td>
+                        </tr>
+                        <tr>
+                            <td>pageSize</td>
+                            <td>Integer</td>
+                            <td>每页显示的条数</td>
+                        </tr>
+                        <tr>
+                            <td>orderProperty</td>
+                            <td>String</td>
+                            <td>根据该属性进行排序</td>
+                        </tr>
+                        <tr>
+                            <td>orderDirection</td>
+                            <td>String</td>
+                            <td>desc/asc(降序/升序)</td>
+                        </tr>
+                        <tr>
+                            <td>fullTextSearchValue</td>
+                            <td>String</td>
+                            <td>全文搜索(正则表达式匹配)</td>
+                        </tr>
+                        <tr>
+                             <td>参数名+"Start"</td>
+                             <td>查询大于或等于某Date</td>
+                             <td> 如查询创建时间大于或等于某时间则传createTimeStart="yyyy-MM-dd HH:mm:ss"
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>参数名+"End"</td>
+                             <td>查询小于某Date</td>
+                             <td>
+                                  如查询创建时间小于某时间则传createTimeEnd="2018-1-30 23:59:59.9"(yyyy-MM-dd HH:mm:ss.SSS)S为毫秒
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>参数名+"List"</td>
+                             <td>值为多个或匹配</td>
+                             <td>
+                                  如查询类型为a或者b的数据则传type=['a','b']
+                             </td>
+                         </tr>
+                         <tr>
+                             <td></td>
+                             <td></td>
+                             <td>值为一对多关联表的参数规则:
+                                 参数key为表名,值为json数组，数组内对象的key为字段名
+                             </td>
+                         </tr>
+                    </table>
+                </div>
+                <div class="api" id="deleteCommon">
+                    <h3>删除接口公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>String</td>
+                            <td>需要删除数据的id(必填)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="saveOrUpdateCommon">
+                    <h3>保存或修改接口公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>String</td>
+                            <td>需要修改数据的id(不传该值为新增保存)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="returnCommon">
+                    <h3>返回公共字段</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>code</td>
+                            <td>Integer</td>
+                            <td>200为成功500与其他值为失败</td>
+                        </tr>
+                        <tr>
+                            <td>msg</td>
+                            <td>String</td>
+                            <td>提示消息</td>
+                        </tr>
+                        <tr>
+                            <td>body</td>
+                            <td>Object</td>
+                            <td>返回的数据(见具体接口数据结构)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="loginCommon">
+                    <h3>登录接口</h3>
+                    <h6><a  href="" onclick="openUri('/login?account=admin&password=admin');" >登录接口</a> host+"/login"</h6>
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>account</td>
+                            <td>String</td>
+                            <td>账号</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>String</td>
+                            <td>密码</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>将返回的token放到http请求头中</td>
+                        </tr>
+                    </table>
+                </div>
+${apiList}
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

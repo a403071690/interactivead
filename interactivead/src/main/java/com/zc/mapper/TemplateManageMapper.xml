@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TemplateManage" >
+  <resultMap id="BaseResultMap" type="com.zc.entity.TemplateManage" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , name , url , state , create_time
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from template_manage
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from template_manage
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from template_manage
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from template_manage
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zc.entity.TemplateManage" >
+    insert into template_manage (id
+     , name , url , state , create_time
+      )
+    values (#{id},
+     , #{name} , #{url} , #{state} , #{createTime}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zc.entity.TemplateManage" >
+    insert into template_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="url != null" >
+        #{url},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.TemplateManage" >
+    update template_manage
+    <set>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="url != null" >
+        url = #{url},
+      </if>
+      <if test="state != null" >
+        state = #{state},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="name != null" >
+        AND name = #{name}
+      </if>
+      <if test="url != null" >
+        AND url = #{url}
+      </if>
+      <if test="state != null" >
+        AND state = #{state}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime}
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''" >
+        AND create_time &gt;= #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''" >
+        AND create_time &lt; #{createTimeEnd}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="nameList != null" >
+        AND name in
+        <foreach collection="nameList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="urlList != null" >
+        AND url in
+        <foreach collection="urlList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="stateList != null" >
+        AND state in
+        <foreach collection="stateList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="createTimeList != null" >
+        AND create_time in
+        <foreach collection="createTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="nameLike != null" >
+        AND name like #{nameLike}
+      </if>
+      <if test="urlLike != null" >
+        AND url like #{urlLike}
+      </if>
+      <if test="stateLike != null" >
+        AND state like #{stateLike}
+      </if>
+      <if test="createTimeLike != null" >
+        AND create_time like #{createTimeLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              name like #{fullTextSearchValue}
+           or url like #{fullTextSearchValue}
+           or state like #{fullTextSearchValue}
+           or create_time like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

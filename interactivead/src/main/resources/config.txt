@@ -1,0 +1,73 @@
+﻿#-----------------------数据库连接配置--------------------------------
+DriverForName =com.mysql.jdbc.Driver
+#数据库IP和数据库名称--?????>需要配置<??????
+DBurl =jdbc:mysql://rm-2zeq7f09ka2n496k2o.mysql.rds.aliyuncs.com:3306/hudong?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+#账号和密码--?????>需要配置<??????
+DBuserName =yuanweiwangluo
+DBpassword =Beijing2017
+#-----------------------密码配置--------------------------------
+aesPassword=zc-ssp
+#-----------------------创意点击url前缀----------------------------------------
+#线上
+click_url_prefix=http://hd.adsmar.com:6868/adclick?token=
+#本地测试
+#click_url_prefix=http://192.168.31.152:8080/adclick?token=
+#-----------------------阿里云短信配置--------------------------------
+ali_Msg_accessKeyId=LTAIanioakwlcYek
+ali_Msg_accessSecret=KwcRQOGN466kPlMbirldqukZsQQ1wd
+#-----------------------阿里连接池配置--------------------------------
+filters=stat
+maxActive=10
+initialSize=5
+maxWait=20000
+minIdle=5
+maxIdle=10
+timeBetweenEvictionRunsMillis=5000
+minEvictableIdleTimeMillis=10000
+validationQuery=SELECT 'x'  
+testWhileIdle=true  
+testOnBorrow=false  
+testOnReturn=false  
+maxOpenPreparedStatements=20  
+removeAbandoned=true  
+removeAbandonedTimeout=1800  
+logAbandoned=true
+#--------------------------redis配置-------------------------------------
+#本地
+#redis.host=192.168.31.157
+#redis.port=6379
+#redis.password=123456
+#线上
+redis.host=47.95.195.32
+redis.port=6379
+redis.password=dsponly8888
+#控制一个pool最多有多少个状态为idle(空闲)的jedis实例，默认值是8
+redis.maxIdle=3000
+redis.minIdle=100
+redis.timeout=10000
+# 等待可用连接的最大时间，单位是毫秒，默认值为-1，表示永不超时。
+# 如果超过等待时间，则直接抛出JedisConnectionException
+redis.maxWaitMillis=3000
+
+#在borrow(用)一个jedis实例时，是否提前进行validate(验证)操作；
+#如果为true，则得到的jedis实例均是可用的
+redis.testOnBorrow=true
+
+# 可用连接实例的最大数目，默认为8；
+# 如果赋值为-1，则表示不限制，如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+redis.maxTotal=1024
+
+#---------------------日志配置路径--------------------------
+#本地测试
+#logpath=D:/mywork/interactivead/interactivead/src/main/webapp/static/logs/
+
+#线上日志路径
+logpath=/home/hudong/tomcat9/logs/
+#-----------------------图片上传路径------------------------
+#本地上传图片路径
+#uploadRealPath=d:/mywork/interactivead/interactivead/src/main/webapp/static/userimg/
+#本地访问图片路径
+#线上上传路径
+uploadRealPath=/home/hudong/tomcat9/userimg/
+#线上访问路径
+#uploadRealPath=/hudong/img/

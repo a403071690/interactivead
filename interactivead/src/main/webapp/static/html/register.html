@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <title>纷熙移动-互动广告平台</title>
+    <link rel="stylesheet" type="text/css" href="../css/index.css?v=171227">
+    <link rel="stylesheet" type="text/css" href="../css/style.css?v=171227">
+    <link rel="stylesheet" type="text/css" href="../css/login.css?v=171227">
+    <link rel="Shortcut Icon" href="../img/icon/favicon.ico"/>
+</head>
+
+<body class="login_bg">
+<div id="main" v-if="showView=false" class="app-main"   >
+    <div  id="app" class="login">
+        <div class="loginView">
+            <ul style="background-color: #fff;box-shadow: 10px 10px 25px #150202d9;">
+
+                <div class="ivu-card-head">
+                    <p> 注册 </p>
+                </div>
+                <li style="height: 50px;">
+                    <table class="float-left" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td style=" border: none">
+                                <div :class="type==0 ? 'type' : '' " @click="type=0;"
+                                     style="height: 40px;text-align: center;margin: 0px;">
+
+                                    <h4 style="height: 40px;line-height: 40px;">个人注册</h4></div>
+
+                            </td>
+                            <td style=" border: none">
+                                <div :class="type==1 ? 'type' : '' " style="text-align: center;margin: 0px;"
+                                     @click="type=1;">
+                                    <h4 style="height: 40px;line-height: 40px;">企业注册</h4></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li style="height: 2px;">
+                </li>
+                <li>
+                    <div class="input"><img style="position:relative;top: 3px;margin-left: 5px;height: 12px;"
+                                            src="../img/icon/注册_07.png"/>
+                        <input id="mail" v-model="account" placeholder="用户名/邮箱"  type="text"/>
+                    </div>
+                </li>
+                <li style="height: 2px;">
+                </li>
+                <li>
+                    <img class="float-right" style="position: relative;
+                    margin-right: 12px;
+                    border:1px solid #ccc;top: 0px;cursor: pointer;height: 30px;" src="/captcha"
+                         onclick="this.src='/captcha?d='+Math.random();"/>
+
+                    <div class="input" style="width: 200px"><img
+                            style="position:relative;top: 3px;margin-left: 5px;height: 16px;"
+                            src="../img/icon/注册_11.png"/>
+                        <input id="imgCode"  placeholder="验证码"  style="width: 120px" type="text"/>
+
+                    </div>
+
+                </li>
+                <li style="height: 2px;">
+                </li>
+
+                <li>
+                    <div class="input"><img style="position:relative;top: 3px;margin-left: 5px;"
+                                            src="../img/icon/登录_07.png"/>
+                        <input id="password" v-model="password" placeholder="密码" type="password"/></div>
+                </li>
+                <li style="height: 2px;">
+                </li>
+                <li>
+                    <div class="input"><img style="position:relative;top: 3px;margin-left: 5px;"
+                                            src="../img/icon/登录_07.png"/>
+                        <input id="password2" placeholder="确认密码" type="password"/></div>
+                </li>
+
+                <li style="margin-top: 20px;">
+
+                    <button type="button" @click="showView=true;" class="ivu-btn">
+                        <span>立即注册</span></button>
+                </li>
+
+                <li style="height: 20px;margin-top:5px;text-align: left">
+                    <span style="margin-left: 5px;font-size: 12px; ">
+                        如果已有账号,请<a href="login.html">直接登录</a>
+                    </span>
+
+                </li>
+            </ul>
+        </div>
+
+
+        <div style="clear: both"></div>
+        <div v-if="showView" class="bindMobieNo" style="width: 350px;height: 250px;background-color: #fff;border-radius: 3px;
+position: fixed;top: 200px;margin-left: 40%">
+            <h5 style="text-align: right;padding:5px 10px;border-bottom: 1px solid #ccc">
+                <span style="cursor: pointer" @click="showView=false;">X</span>
+            </h5>
+            <h6 style="margin-top:15px;"><img style="position:relative;top: 2px;margin-left: 5px;height: 12px;"
+                                              src="../img/icon/nt.png"/> 需要短信验证</h6>
+            <div style="margin-top: 20px;">
+                <div style="margin: 5px">
+                    <div class="float-left" style="border: none;margin-left: 30px;line-height: 30px;">手机号: &nbsp;</div>
+                    <div  class="input float-left" style="width: 180px;text-align: left"> <img
+                            style="position:relative;top: 3px;margin-left: 5px;height: 12px;"
+                            src="../img/icon/phoneNumber.png"/>
+                        <input id="phoneNumber" v-model="phoneNumber" placeholder="手机号码" style="width: 100px;" type="text"/>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div style="margin: 5px">
+
+                    <div class="float-left" style="border: none;margin-left: 30px;line-height: 30px;">激活码: &nbsp;</div>
+                    <div  class="float-left" style="width: 180px;text-align: left">
+                        <div class="float-left" style="border: 1px solid #ccc;margin-left: 0px;
+                    text-align: center;height: 30px;
+                    line-height: 30px;width: 90px;   border-radius: 3px;">
+
+                            <span style="font-size: 10px;cursor: pointer" @click="sendMsg()">获取激活码</span>
+                        </div>
+                        <div  class="input float-left" style="width: 76px;text-align: left;height:30px;margin-left: 10px;">
+                            <input id="msgCode"   style="width: 60px;" type="text"/>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+
+                <div   style="border: none;margin-top: 10px;text-align: center;margin: 10px 74px 20px 96px;">
+
+                    <button type="button" @click="register()" class="ivu-btn">
+                        <span>立即注册</span></button>
+                </div>
+                <div style="width: 20px">&nbsp;</div>
+                <!--<h6 style="margin-top: 10px;"><span class="type">注册</span></h6>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<template id="templates"></template>
+<!--第三方开源框架-->
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/fileUtil.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script src="../js/moment.js"></script>
+<script src="../js/layer/layer.js"></script>
+<!--基础js 共享 全局变量 和全局方法-->
+<script src="../js/base.js"></script>
+<!--配置应用-->
+<!--首页vue启动js-->
+<script>
+    /**
+     * Created by xianchuanwu on 2017/9/23.
+     */
+    var baseHost = '';
+    // 定义路由 - 组件
+    var templates = {};
+    // 定义路由
+    // 如果baseHost未指定 则取当前默认url host
+    var curWwwPath = window.document.location.href;
+    var pathName = window.document.location.pathname;
+    var pos = curWwwPath.indexOf(pathName);
+    var localhostPath = curWwwPath.substring(0, pos);
+    if (baseHost == "") {
+        baseHost = localhostPath;
+    }
+
+    function setAjaxHeader(name, val) {
+        $.ajaxSetup({
+            //发送请求前触发
+            beforeSend: function (XMLHttpRequest) {
+                //可以设置自定义标头
+                XMLHttpRequest.setRequestHeader(name, val);
+            }
+        })
+    }
+
+    if (typeof(localStorage.token) != "undefined") {
+        setAjaxHeader("token", localStorage.token);
+    }
+    /**
+     * Created by xianchuanwu on 2017/9/23.
+     */
+    Vue.filter('time', function (value, formatString) {
+        formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
+        if (value == "" || !value) {
+            return "";
+        }
+        return moment(value).format(formatString);
+    });
+
+    // 4. 创建和挂载根实例。
+    // 记得要通过 router 配置参数注入路由，
+    // 从而让整个应用都有路由功能
+    const app = new Vue({
+        el: "#app",
+        data: {
+            openModuleName: "nrgl",
+            activeName: "",
+            account: "",
+            password: "",
+            phoneNumber: "",
+            showView: false,
+            type: 0,
+        },
+        methods: {
+            login: function () {
+                var _this = this;
+                $.ajax({
+                    type: "post",
+                    url: baseHost + "/login",
+                    data: {account: this.account, password: this.password},
+                    async: false,
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.alert("登录成功!", {icon: 6}, function (index) {
+                                layer.close(index);
+                                _this.showLoginView = false;
+                            });
+                            setAjaxHeader("token", data.msg);
+                            localStorage.token = data.msg;
+                            location = "/";
+                        } else {
+                            layer.alert(data.msg, {icon: 5}, function (index) {
+                                layer.close(index);
+                            });
+                        }
+                    }
+                });
+            },
+            register: function () {
+                var _this = this;
+                if ($("#mail").val() == '') {
+                    solar.alert("邮箱不能为空!", 5);
+                    return;
+                }
+                if ($("#password").val() == '') {
+                    solar.alert("密码不能为空!", 5);
+                    return;
+                }
+                if ($("#password").val() != $("#password2").val()) {
+                    solar.alert("密码不一致!", 5);
+                    return;
+                }
+                var body = {
+                    mail: $("#mail").val(),
+                    password: $("#password").val(),
+                    imgCode: $("#imgCode").val(),
+                    phoneNumber: $("#phoneNumber").val(),
+                    msgCode: $("#msgCode").val(),
+                    type: this.type
+                }
+                console.log(body);
+                var data = solar.post(baseHost + "/advregister", body);
+                if (data.code == 200) {
+                    layer.alert(data.msg, {icon: 6}, function (index) {
+                        location = 'index.html';
+                    });
+                } else {
+                    layer.alert(data.msg, {icon: 5});
+                }
+
+            },
+            sendMsg: function () {
+                if ($("#phoneNumber").val().length < 8) {
+                    solar.alert("请输入正确的手机号!", 5);
+                    return;
+                }
+                if ($("#imgCode").val().length != 4) {
+                    solar.alert("请输入正确的图片验证码!", 5);
+                    return;
+                }
+                var sendMsgUrl = baseHost + "/sendMsgCode";
+                var data = solar.post(sendMsgUrl, {
+                    mobileNo: $("#phoneNumber").val(),
+                    imgCode: $("#imgCode").val()
+                });
+
+            }
+        },
+        mounted: function () {
+
+        }
+    });
+    //app.$mount('#app')
+
+
+</script>
+

@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="Shortcut Icon" href=""/>
+    <title>接口文档(solar)</title>
+<style type="text/css">
+*{
+    padding: 0px;
+    margin: 0px;
+    text-decoration:none;
+}
+
+.nav{
+	background-color: #313D4D;
+	width: 300px;
+}
+ul.nav{
+	position: fixed;
+	text-align: left;
+    overflow: auto;
+    height:100%;
+}
+ul.nav li{
+	padding :0 20px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+ul.nav li a{
+    color: #fff;
+}
+h3,h6{
+    background-color: #fff;
+}
+body{
+	width: 98%;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+ table td {
+    text-align: center;
+    border: 1px solid #fff;
+    min-width: 40px;
+    height: 40px;
+}
+.api{
+    border-bottom: 45px solid #fff;
+}
+h3{
+	background-color: #313D4D;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+}
+.api table tr:nth-child(odd) {
+    background-color: #F9F9F9;
+}
+
+.api table tr:nth-child(even) {
+    background-color: #fff;
+}
+.api table tr td:nth-child(1) {
+    width: 30%;
+}
+.api table tr td:nth-child(2) {
+    width: 10%;
+}
+.api table tr td:nth-child(3) {
+    width: 58%;
+}
+ </style>
+	<script type="text/javascript">
+		var host="localhost:8080/"
+
+		function openUri(uri){
+		     if(host==""||host=="null"){
+		        host="";
+		     }
+			 window.open(host+uri);
+		}
+	</script>
+</head>
+<body>
+	<table id="content-body" class="body">
+        <tr>
+            <td valign="top" class="nav">
+                    <ul class="nav">
+                    	<li>
+                        文档版本:2018年03月29日 20:17
+                        </li>
+                        <li>
+                      host: <a href="localhost:8080/" target="_blank">localhost:8080/</a>
+                        </li>
+                        <li><hr/></li>
+ <li>
+                    <a href="#apiDocExplain">*、 接口文档说明</a>
+                </li>
+                <li>
+                    <a href="#selectCommon">*、 查询公共参数</a>
+                </li>
+                <li>
+                    <a href="#deleteCommon">*、 删除接口公共参数</a>
+                </li>
+                <li>
+                    <a href="#saveOrUpdateCommon">*、 保存或修改接口公共参数</a>
+                </li>
+                <li>
+                    <a href="#returnCommon">*、 返回公共字段</a>
+                </li>
+                <li>
+                    <a href="#loginCommon">*、 登录接口</a>
+                </li>
+                <li>
+                    <hr/>
+                </li>
+                        <li>
+                            <a  href="#advertiserAccountLog">1、 广告主账务信息</a>
+                        </li>
+                        <li>
+                            <a  href="#advertiserAccountVirtualLog">2、 广告主虚拟账务信息</a>
+                        </li>
+                        <li>
+                            <a  href="#advertiserCampaign">3、 广告主推广计划</a>
+                        </li>
+                        <li>
+                            <a  href="#advertiserCreative">4、 广告主创意</a>
+                        </li>
+                        <li>
+                            <a  href="#advertiserInfo">5、 用户信息表</a>
+                        </li>
+                        <li>
+                            <a  href="#advertiserQualifications">6、 广告主资质</a>
+                        </li>
+                        <li>
+                            <a  href="#campaignCreativeRealtimeReport">7、 活动创意实时报表</a>
+                        </li>
+                        <li>
+                            <a  href="#campaignCreativeReport">8、 活动创意报表</a>
+                        </li>
+                        <li>
+                            <a  href="#mediaBankCard">9、 媒体主银行卡</a>
+                        </li>
+                        <li>
+                            <a  href="#mediaOwnerInfo">10、 媒体主信息表</a>
+                        </li>
+                        <li>
+                            <a  href="#mediaOwnerRealtimeReport">11、 媒体主实时报表</a>
+                        </li>
+                        <li>
+                            <a  href="#mediaOwnerReport">12、 媒体主报表</a>
+                        </li>
+                        <li>
+                            <a  href="#templateManage">13、 模板管理</a>
+                        </li>
+                        <li>
+                            <a  href="#templateRealtimeReport">14、 模板实时报表</a>
+                        </li>
+                        <li>
+                            <a  href="#templateReport">15、 模板报表</a>
+                        </li>
+                        <li>
+                            <a  href="#userPrizeLog">16、 中奖信息</a>
+                        </li>
+
+                 <li> </li>  <li>  </li> <li></li>
+                    </ul>
+            </td>
+            <td valign="top">
+                <div id="mainView">
+<div class="api" id="apiDocExplain">
+                    <h3>接口文档说明</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>请求方法</td>
+                            <td>http</td>
+                            <td>get/post都可以</td>
+                        </tr>
+                        <tr>
+                            <td>请求参数格式</td>
+                            <td>json格式(application/json)</td>
+                            <td>查询和删除参数放入url,保存和更新用post将json数据放入请求体</td>
+                        </tr>
+                        <tr>
+                            <td>返回格式</td>
+                            <td>json格式</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="selectCommon">
+                    <h3>查询公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>pageNum</td>
+                            <td>Integer</td>
+                            <td>分页查询的第几页(分页查询必传该参数)</td>
+                        </tr>
+                        <tr>
+                            <td>pageSize</td>
+                            <td>Integer</td>
+                            <td>每页显示的条数</td>
+                        </tr>
+                        <tr>
+                            <td>orderProperty</td>
+                            <td>String</td>
+                            <td>根据该属性进行排序</td>
+                        </tr>
+                        <tr>
+                            <td>orderDirection</td>
+                            <td>String</td>
+                            <td>desc/asc(降序/升序)</td>
+                        </tr>
+                        <tr>
+                            <td>fullTextSearchValue</td>
+                            <td>String</td>
+                            <td>全文搜索(正则表达式匹配)</td>
+                        </tr>
+                        <tr>
+                             <td>参数名+"Start"</td>
+                             <td>查询大于或等于某Date</td>
+                             <td> 如查询创建时间大于或等于某时间则传createTimeStart="yyyy-MM-dd HH:mm:ss"
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>参数名+"End"</td>
+                             <td>查询小于某Date</td>
+                             <td>
+                                  如查询创建时间小于某时间则传createTimeEnd="2018-1-30 23:59:59.9"(yyyy-MM-dd HH:mm:ss.SSS)S为毫秒
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>参数名+"List"</td>
+                             <td>值为多个或匹配</td>
+                             <td>
+                                  如查询类型为a或者b的数据则传type=['a','b']
+                             </td>
+                         </tr>
+                         <tr>
+                             <td></td>
+                             <td></td>
+                             <td>值为一对多关联表的参数规则:
+                                 参数key为表名,值为json数组，数组内对象的key为字段名
+                             </td>
+                         </tr>
+                    </table>
+                </div>
+                <div class="api" id="deleteCommon">
+                    <h3>删除接口公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>String</td>
+                            <td>需要删除数据的id(必填)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="saveOrUpdateCommon">
+                    <h3>保存或修改接口公共参数</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>String</td>
+                            <td>需要修改数据的id(不传该值为新增保存)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="returnCommon">
+                    <h3>返回公共字段</h3>
+
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>code</td>
+                            <td>Integer</td>
+                            <td>200为成功500与其他值为失败</td>
+                        </tr>
+                        <tr>
+                            <td>msg</td>
+                            <td>String</td>
+                            <td>提示消息</td>
+                        </tr>
+                        <tr>
+                            <td>body</td>
+                            <td>Object</td>
+                            <td>返回的数据(见具体接口数据结构)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="api" id="loginCommon">
+                    <h3>登录接口</h3>
+                    <h6><a  href="" onclick="openUri('/login?account=admin&password=admin');" >登录接口</a> host+"/login"</h6>
+                    <table>
+                        <tr>
+                            <td>参数名</td>
+                            <td>类型</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>account</td>
+                            <td>String</td>
+                            <td>账号</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>String</td>
+                            <td>密码</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>将返回的token放到http请求头中</td>
+                        </tr>
+                    </table>
+                </div>
+        <div class="api" id="advertiserAccountLog">
+             <h3>广告主账务信息</h3>
+             <h6><a  href="" onclick="openUri('/advertiserAccountLog/select?pageNum=1');" >查询接口</a> host+"/advertiserAccountLog/select"</h6>
+             <h6>删除接口 host+"/advertiserAccountLog/delete"</h6>
+             <h6>保存或修改接口 host+"/advertiserAccountLog/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>advertiserId</td>
+                 </tr>
+                 <tr>
+                     <td>accountDataTime</td>
+                     <td>Date</td>
+                     <td>账户数据日期，比如扣款是扣20180316，create_time为20180317</td>
+                 </tr>
+                 <tr>
+                     <td>accountType</td>
+                     <td>Integer</td>
+                     <td>1入账 2出账</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>Long</td>
+                     <td>金额（分）</td>
+                 </tr>
+                 <tr>
+                     <td>note</td>
+                     <td>String</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="advertiserAccountVirtualLog">
+             <h3>广告主虚拟账务信息</h3>
+             <h6><a  href="" onclick="openUri('/advertiserAccountVirtualLog/select?pageNum=1');" >查询接口</a> host+"/advertiserAccountVirtualLog/select"</h6>
+             <h6>删除接口 host+"/advertiserAccountVirtualLog/delete"</h6>
+             <h6>保存或修改接口 host+"/advertiserAccountVirtualLog/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>advertiserId</td>
+                 </tr>
+                 <tr>
+                     <td>accountDataTime</td>
+                     <td>Date</td>
+                     <td>账户数据日期，比如扣款是扣20180316，create_time为20180317</td>
+                 </tr>
+                 <tr>
+                     <td>accountType</td>
+                     <td>Integer</td>
+                     <td>1入账 2出账</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>Long</td>
+                     <td>金额（分）</td>
+                 </tr>
+                 <tr>
+                     <td>note</td>
+                     <td>String</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="advertiserCampaign">
+             <h3>广告主推广计划</h3>
+             <h6><a  href="" onclick="openUri('/advertiserCampaign/select?pageNum=1');" >查询接口</a> host+"/advertiserCampaign/select"</h6>
+             <h6>删除接口 host+"/advertiserCampaign/delete"</h6>
+             <h6>保存或修改接口 host+"/advertiserCampaign/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>广告主id</td>
+                 </tr>
+                 <tr>
+                     <td>campaignName</td>
+                     <td>String</td>
+                     <td>活动名称</td>
+                 </tr>
+                 <tr>
+                     <td>beginTime</td>
+                     <td>Date</td>
+                     <td>beginTime</td>
+                 </tr>
+                 <tr>
+                     <td>endTime</td>
+                     <td>Date</td>
+                     <td>endTime</td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>活动状态：1开启 2暂停</td>
+                 </tr>
+                 <tr>
+                     <td>dayPrice</td>
+                     <td>Long</td>
+                     <td>活动每天预算（分）</td>
+                 </tr>
+                 <tr>
+                     <td>bidType</td>
+                     <td>Integer</td>
+                     <td>竞价方式：1CPM 2CPC 3CPA 4CPS</td>
+                 </tr>
+                 <tr>
+                     <td>bidPrice</td>
+                     <td>Long</td>
+                     <td>竞价出价单位分，0.1元起</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>创建时间</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>更新时间</td>
+                 </tr>
+                 <tr>
+                     <td>isDelete</td>
+                     <td>Integer</td>
+                     <td>是否删除：1是 0否</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="advertiserCreative">
+             <h3>广告主创意</h3>
+             <h6><a  href="" onclick="openUri('/advertiserCreative/select?pageNum=1');" >查询接口</a> host+"/advertiserCreative/select"</h6>
+             <h6>删除接口 host+"/advertiserCreative/delete"</h6>
+             <h6>保存或修改接口 host+"/advertiserCreative/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>campaignId</td>
+                     <td>String</td>
+                     <td>campaignId</td>
+                 </tr>
+                 <tr>
+                     <td>creativeName</td>
+                     <td>String</td>
+                     <td>创意名称</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>创意类型：1跳转URL</td>
+                 </tr>
+                 <tr>
+                     <td>ctTitle</td>
+                     <td>String</td>
+                     <td>中奖名称，20个字以内，显示在中奖弹出层</td>
+                 </tr>
+                 <tr>
+                     <td>ctImgUrl</td>
+                     <td>String</td>
+                     <td>创意图片URL，3:2比例，要求图片小于1MB。</td>
+                 </tr>
+                 <tr>
+                     <td>ctTargetUrl</td>
+                     <td>String</td>
+                     <td>目标URL，请以http或https开头</td>
+                 </tr>
+                 <tr>
+                     <td>ctNote</td>
+                     <td>String</td>
+                     <td>创意信息</td>
+                 </tr>
+                 <tr>
+                     <td>isDelete</td>
+                     <td>Integer</td>
+                     <td>是否删除1是 0否</td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>状态：1启动 2暂停</td>
+                 </tr>
+                 <tr>
+                     <td>checkState</td>
+                     <td>Integer</td>
+                     <td>审核状态：1通过 2不通过</td>
+                 </tr>
+                 <tr>
+                     <td>checkMsg</td>
+                     <td>String</td>
+                     <td>审核信息</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="advertiserInfo">
+             <h3>用户信息表</h3>
+             <h6><a  href="" onclick="openUri('/advertiserInfo/select?pageNum=1');" >查询接口</a> host+"/advertiserInfo/select"</h6>
+             <h6>删除接口 host+"/advertiserInfo/delete"</h6>
+             <h6>保存或修改接口 host+"/advertiserInfo/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>loginName</td>
+                     <td>String</td>
+                     <td>登录名称，使用邮箱注册</td>
+                 </tr>
+                 <tr>
+                     <td>password</td>
+                     <td>String</td>
+                     <td>登录密码，使用不可逆加密。</td>
+                 </tr>
+                 <tr>
+                     <td>phone</td>
+                     <td>String</td>
+                     <td>手机号，需要短信认证，才可注册。</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>类型：1.媒体主，2.广告主</td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>状态：1待审核 2审核通过 3审核未通过 4冻结</td>
+                 </tr>
+                 <tr>
+                     <td>stateMsg</td>
+                     <td>String</td>
+                     <td>状态信息，用于审核不通过原因，冻结说明等。</td>
+                 </tr>
+                 <tr>
+                     <td>company</td>
+                     <td>String</td>
+                     <td>公司名称</td>
+                 </tr>
+                 <tr>
+                     <td>companyLicenseImg</td>
+                     <td>String</td>
+                     <td>公司营业执照URL</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>updateTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="advertiserQualifications">
+             <h3>广告主资质</h3>
+             <h6><a  href="" onclick="openUri('/advertiserQualifications/select?pageNum=1');" >查询接口</a> host+"/advertiserQualifications/select"</h6>
+             <h6>删除接口 host+"/advertiserQualifications/delete"</h6>
+             <h6>保存或修改接口 host+"/advertiserQualifications/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>advertiserId</td>
+                 </tr>
+                 <tr>
+                     <td>name</td>
+                     <td>String</td>
+                     <td>资质名称</td>
+                 </tr>
+                 <tr>
+                     <td>imgUrl</td>
+                     <td>String</td>
+                     <td>资质图片上传</td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>状态：1待审核 2审核通过 3审核失败</td>
+                 </tr>
+                 <tr>
+                     <td>stateMsg</td>
+                     <td>String</td>
+                     <td>stateMsg</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="campaignCreativeRealtimeReport">
+             <h3>活动创意实时报表</h3>
+             <h6><a  href="" onclick="openUri('/campaignCreativeRealtimeReport/select?pageNum=1');" >查询接口</a> host+"/campaignCreativeRealtimeReport/select"</h6>
+             <h6>删除接口 host+"/campaignCreativeRealtimeReport/delete"</h6>
+             <h6>保存或修改接口 host+"/campaignCreativeRealtimeReport/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>uuid</td>
+                     <td>String</td>
+                     <td>UUID</td>
+                 </tr>
+                 <tr>
+                     <td>reportTime</td>
+                     <td>Date</td>
+                     <td>报表生成时间</td>
+                 </tr>
+                 <tr>
+                     <td>hourTime</td>
+                     <td>Date</td>
+                     <td>业务时间段</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>广告主ID</td>
+                 </tr>
+                 <tr>
+                     <td>campaignId</td>
+                     <td>String</td>
+                     <td>活动ID</td>
+                 </tr>
+                 <tr>
+                     <td>creativeId</td>
+                     <td>String</td>
+                     <td>创意ID</td>
+                 </tr>
+                 <tr>
+                     <td>impCount</td>
+                     <td>Long</td>
+                     <td>曝光量</td>
+                 </tr>
+                 <tr>
+                     <td>clickCount</td>
+                     <td>Long</td>
+                     <td>点击量</td>
+                 </tr>
+                 <tr>
+                     <td>validClickCount</td>
+                     <td>Long</td>
+                     <td>有效点击量</td>
+                 </tr>
+                 <tr>
+                     <td>payMoney</td>
+                     <td>Long</td>
+                     <td>支付金额（分）</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="campaignCreativeReport">
+             <h3>活动创意报表</h3>
+             <h6><a  href="" onclick="openUri('/campaignCreativeReport/select?pageNum=1');" >查询接口</a> host+"/campaignCreativeReport/select"</h6>
+             <h6>删除接口 host+"/campaignCreativeReport/delete"</h6>
+             <h6>保存或修改接口 host+"/campaignCreativeReport/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>广告主ID</td>
+                 </tr>
+                 <tr>
+                     <td>reportDate</td>
+                     <td>Date</td>
+                     <td>reportDate</td>
+                 </tr>
+                 <tr>
+                     <td>campaignId</td>
+                     <td>String</td>
+                     <td>活动ID</td>
+                 </tr>
+                 <tr>
+                     <td>creativeId</td>
+                     <td>String</td>
+                     <td>创意ID</td>
+                 </tr>
+                 <tr>
+                     <td>impCount</td>
+                     <td>Long</td>
+                     <td>曝光量</td>
+                 </tr>
+                 <tr>
+                     <td>clickCount</td>
+                     <td>Long</td>
+                     <td>点击量</td>
+                 </tr>
+                 <tr>
+                     <td>validClickCount</td>
+                     <td>Long</td>
+                     <td>有效点击量</td>
+                 </tr>
+                 <tr>
+                     <td>payMoney</td>
+                     <td>Long</td>
+                     <td>支付金额（分）</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="mediaBankCard">
+             <h3>媒体主银行卡</h3>
+             <h6><a  href="" onclick="openUri('/mediaBankCard/select?pageNum=1');" >查询接口</a> host+"/mediaBankCard/select"</h6>
+             <h6>删除接口 host+"/mediaBankCard/delete"</h6>
+             <h6>保存或修改接口 host+"/mediaBankCard/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>mediaOwnerId</td>
+                     <td>String</td>
+                     <td>mediaOwnerId</td>
+                 </tr>
+                 <tr>
+                     <td>isDelete</td>
+                     <td>Integer</td>
+                     <td>是否删除 1是 0否</td>
+                 </tr>
+                 <tr>
+                     <td>bankName</td>
+                     <td>String</td>
+                     <td>银行名称</td>
+                 </tr>
+                 <tr>
+                     <td>bankAddress</td>
+                     <td>String</td>
+                     <td>开户行地址具体支行名称</td>
+                 </tr>
+                 <tr>
+                     <td>accountName</td>
+                     <td>String</td>
+                     <td>账户名/开户人姓名</td>
+                 </tr>
+                 <tr>
+                     <td>accountNumber</td>
+                     <td>String</td>
+                     <td>账户号码、银行卡号</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>创建时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="mediaOwnerInfo">
+             <h3>媒体主信息表</h3>
+             <h6><a  href="" onclick="openUri('/mediaOwnerInfo/select?pageNum=1');" >查询接口</a> host+"/mediaOwnerInfo/select"</h6>
+             <h6>删除接口 host+"/mediaOwnerInfo/delete"</h6>
+             <h6>保存或修改接口 host+"/mediaOwnerInfo/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>loginName</td>
+                     <td>String</td>
+                     <td>登录名称，使用邮箱注册</td>
+                 </tr>
+                 <tr>
+                     <td>password</td>
+                     <td>String</td>
+                     <td>登录密码，使用不可逆加密。</td>
+                 </tr>
+                 <tr>
+                     <td>phone</td>
+                     <td>String</td>
+                     <td>手机号，需要短信认证，才可注册。</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>类型：1.媒体主，2.广告主</td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>状态：1待审核 2审核通过 3审核未通过 4冻结</td>
+                 </tr>
+                 <tr>
+                     <td>stateMsg</td>
+                     <td>String</td>
+                     <td>状态信息，用于审核不通过原因，冻结说明等。</td>
+                 </tr>
+                 <tr>
+                     <td>company</td>
+                     <td>String</td>
+                     <td>公司名称</td>
+                 </tr>
+                 <tr>
+                     <td>companyLicenseImg</td>
+                     <td>String</td>
+                     <td>公司营业执照URL</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>updateTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="mediaOwnerRealtimeReport">
+             <h3>媒体主实时报表</h3>
+             <h6><a  href="" onclick="openUri('/mediaOwnerRealtimeReport/select?pageNum=1');" >查询接口</a> host+"/mediaOwnerRealtimeReport/select"</h6>
+             <h6>删除接口 host+"/mediaOwnerRealtimeReport/delete"</h6>
+             <h6>保存或修改接口 host+"/mediaOwnerRealtimeReport/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>uuid</td>
+                     <td>String</td>
+                     <td>uuid</td>
+                 </tr>
+                 <tr>
+                     <td>mediaOwnerId</td>
+                     <td>String</td>
+                     <td>mediaOwnerId</td>
+                 </tr>
+                 <tr>
+                     <td>reportTime</td>
+                     <td>Date</td>
+                     <td>reportTime</td>
+                 </tr>
+                 <tr>
+                     <td>statementTime</td>
+                     <td>Date</td>
+                     <td>statementTime</td>
+                 </tr>
+                 <tr>
+                     <td>clickCount</td>
+                     <td>Long</td>
+                     <td>点击量</td>
+                 </tr>
+                 <tr>
+                     <td>validClickCount</td>
+                     <td>Long</td>
+                     <td>有效点击量</td>
+                 </tr>
+                 <tr>
+                     <td>payMoney</td>
+                     <td>Long</td>
+                     <td>支付金额（分）</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="mediaOwnerReport">
+             <h3>媒体主报表</h3>
+             <h6><a  href="" onclick="openUri('/mediaOwnerReport/select?pageNum=1');" >查询接口</a> host+"/mediaOwnerReport/select"</h6>
+             <h6>删除接口 host+"/mediaOwnerReport/delete"</h6>
+             <h6>保存或修改接口 host+"/mediaOwnerReport/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>mediaOwnerId</td>
+                     <td>String</td>
+                     <td>mediaOwnerId</td>
+                 </tr>
+                 <tr>
+                     <td>reportDate</td>
+                     <td>Date</td>
+                     <td>reportDate</td>
+                 </tr>
+                 <tr>
+                     <td>clickCount</td>
+                     <td>Long</td>
+                     <td>点击量</td>
+                 </tr>
+                 <tr>
+                     <td>validClickCount</td>
+                     <td>Long</td>
+                     <td>有效点击量</td>
+                 </tr>
+                 <tr>
+                     <td>payMoney</td>
+                     <td>Long</td>
+                     <td>支付金额（分）</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="templateManage">
+             <h3>模板管理</h3>
+             <h6><a  href="" onclick="openUri('/templateManage/select?pageNum=1');" >查询接口</a> host+"/templateManage/select"</h6>
+             <h6>删除接口 host+"/templateManage/delete"</h6>
+             <h6>保存或修改接口 host+"/templateManage/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>name</td>
+                     <td>String</td>
+                     <td>模板名称</td>
+                 </tr>
+                 <tr>
+                     <td>url</td>
+                     <td>String</td>
+                     <td>模板地址</td>
+                 </tr>
+                 <tr>
+                     <td>state</td>
+                     <td>Integer</td>
+                     <td>状态：1有效 2停止</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="templateRealtimeReport">
+             <h3>模板实时报表</h3>
+             <h6><a  href="" onclick="openUri('/templateRealtimeReport/select?pageNum=1');" >查询接口</a> host+"/templateRealtimeReport/select"</h6>
+             <h6>删除接口 host+"/templateRealtimeReport/delete"</h6>
+             <h6>保存或修改接口 host+"/templateRealtimeReport/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>uuid</td>
+                     <td>String</td>
+                     <td>UUID</td>
+                 </tr>
+                 <tr>
+                     <td>reportTime</td>
+                     <td>Date</td>
+                     <td>报表生成时间</td>
+                 </tr>
+                 <tr>
+                     <td>hourTime</td>
+                     <td>Date</td>
+                     <td>业务时间段</td>
+                 </tr>
+                 <tr>
+                     <td>mediaOwnerId</td>
+                     <td>String</td>
+                     <td>媒体主id</td>
+                 </tr>
+                 <tr>
+                     <td>templateId</td>
+                     <td>String</td>
+                     <td>模板id</td>
+                 </tr>
+                 <tr>
+                     <td>pvCount</td>
+                     <td>Long</td>
+                     <td>页面曝光数</td>
+                 </tr>
+                 <tr>
+                     <td>uvCount</td>
+                     <td>Long</td>
+                     <td>用户访问数</td>
+                 </tr>
+                 <tr>
+                     <td>ctImpCount</td>
+                     <td>Long</td>
+                     <td>奖券曝光数</td>
+                 </tr>
+                 <tr>
+                     <td>ctClickCount</td>
+                     <td>Long</td>
+                     <td>奖券点击数</td>
+                 </tr>
+                 <tr>
+                     <td>ctValidClickCount</td>
+                     <td>Long</td>
+                     <td>奖券有效点击数</td>
+                 </tr>
+                 <tr>
+                     <td>payMoney</td>
+                     <td>Long</td>
+                     <td>广告主支付金额（分）</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="templateReport">
+             <h3>模板报表</h3>
+             <h6><a  href="" onclick="openUri('/templateReport/select?pageNum=1');" >查询接口</a> host+"/templateReport/select"</h6>
+             <h6>删除接口 host+"/templateReport/delete"</h6>
+             <h6>保存或修改接口 host+"/templateReport/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>templateId</td>
+                     <td>String</td>
+                     <td>templateId</td>
+                 </tr>
+                 <tr>
+                     <td>reportDate</td>
+                     <td>Date</td>
+                     <td>reportDate</td>
+                 </tr>
+                 <tr>
+                     <td>mediaOwnerId</td>
+                     <td>String</td>
+                     <td>mediaOwnerId</td>
+                 </tr>
+                 <tr>
+                     <td>pvCount</td>
+                     <td>Long</td>
+                     <td>页面曝光数</td>
+                 </tr>
+                 <tr>
+                     <td>uvCount</td>
+                     <td>Long</td>
+                     <td>uvCount</td>
+                 </tr>
+                 <tr>
+                     <td>ctImpCount</td>
+                     <td>Long</td>
+                     <td>奖券曝光数</td>
+                 </tr>
+                 <tr>
+                     <td>ctClickCount</td>
+                     <td>Long</td>
+                     <td>点击量</td>
+                 </tr>
+                 <tr>
+                     <td>ctValidClickCount</td>
+                     <td>Long</td>
+                     <td>有效点击量</td>
+                 </tr>
+                 <tr>
+                     <td>payMoney</td>
+                     <td>Long</td>
+                     <td>广告主支付金额（分）</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="userPrizeLog">
+             <h3>中奖信息</h3>
+             <h6><a  href="" onclick="openUri('/userPrizeLog/select?pageNum=1');" >查询接口</a> host+"/userPrizeLog/select"</h6>
+             <h6>删除接口 host+"/userPrizeLog/delete"</h6>
+             <h6>保存或修改接口 host+"/userPrizeLog/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>templateId</td>
+                     <td>String</td>
+                     <td>templateId</td>
+                 </tr>
+                 <tr>
+                     <td>mediaOwnerId</td>
+                     <td>String</td>
+                     <td>创意ID</td>
+                 </tr>
+                 <tr>
+                     <td>channelId</td>
+                     <td>String</td>
+                     <td>channelId</td>
+                 </tr>
+                 <tr>
+                     <td>userCookieId</td>
+                     <td>String</td>
+                     <td>userCookieId</td>
+                 </tr>
+                 <tr>
+                     <td>userOpenId</td>
+                     <td>String</td>
+                     <td>userOpenId</td>
+                 </tr>
+                 <tr>
+                     <td>userFingerId</td>
+                     <td>String</td>
+                     <td>userFingerId</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>String</td>
+                     <td>type</td>
+                 </tr>
+                 <tr>
+                     <td>creativeId</td>
+                     <td>String</td>
+                     <td>creativeId</td>
+                 </tr>
+                 <tr>
+                     <td>prizeId</td>
+                     <td>String</td>
+                     <td>prizeId</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>String</td>
+                     <td>price</td>
+                 </tr>
+                 <tr>
+                     <td>duration</td>
+                     <td>String</td>
+                     <td>duration</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>String</td>
+                     <td>createTime</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>广告主ID</td>
+                 </tr>
+             </table>
+        </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

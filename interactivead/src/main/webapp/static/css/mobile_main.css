@@ -1,0 +1,56 @@
+/*全局样式*/
+* {
+    -webkit-text-size-adjust:none;
+    padding: 0px;
+    margin: 0px;
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.fullWidth {
+    width: 100%;
+}
+.button {
+    min-width: 60px;
+    height: 28px;
+    background-color: #fff;
+    border: 1px solid #DDDDDD;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    cursor: pointer;
+}
+
+.button.blue {
+    background-color: #3A76E2;
+    border: 1px solid #3A76E2;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+}
+table{
+    width: 100%;
+}
+input{
+    border-radius: 0px;
+    height: 28px;
+    width: 150px;
+    border: 1px solid #DDDDDD;
+    padding:0 10px;
+}
+[v-cloak] {
+    display: none;
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- 引入样式 -->
+    <title>广告主管理平台</title>
+    <link rel="stylesheet" href="/static/css/element-ui.css">
+    <link rel="Shortcut Icon" href="/static/img/icon/favicon.ico"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .header {
+            border-bottom: 1px solid #545c64;
+            line-height: 60px;
+            padding: 0px 30px;
+            background-color: #304156;
+            color: #FFFEFE;
+        }
+
+        .breadcrumb {
+            border-bottom: 2px solid #F3F3F4;
+            padding-bottom: 15px;
+        }
+        .tool-bar {
+            padding: 10px 0px;
+            height: 70px;
+        }
+
+        .pagination {
+            text-align: right;
+            padding: 20px;
+            padding-right: 25px;
+            padding-top: 10px;
+        }
+
+        .form {
+            width: 600px;
+            margin-top: 30px;
+        }
+        .el-menu-item.is-active{
+            background-color: #222d3c !important;
+        }
+        .el-upload__tip {
+            font-size: 12px;
+            color: #606266;
+            margin-top: 7px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app" v-cloak>
+    <el-container>
+        <el-header class="header">
+            <el-row>
+                <el-col class="logo" :span="1"
+                        style="cursor: pointer;" onclick="location='/admin'">
+                    <!--<img style="height: 30px;position: relative;top:10px;" src="/static/img/icon/logo.png"/>-->
+                </el-col>
+                <el-col :span="2" >
+                    <span  style="cursor: pointer;" onclick="location='/admin'">广告主平台</span>
+                </el-col>
+                <el-col :span="4" :offset="18" style="text-align: right">
+                    <span style="cursor: pointer"
+                          onclick="location='/admin'">{{account}} &nbsp;</span>
+
+                    <i class="el-icon-circle-close-outline"></i>
+                    <span v-if="!showLoginView" @click="loginOut" style="cursor:pointer">退出</span>
+                </el-col>
+            </el-row>
+        </el-header>
+        <el-container>
+            <el-aside  width="160px" style="background-color:#545c64">
+                <el-menu id="menu-nav"
+                        default-active="1"
+                        style="border: none"
+                        background-color="#545c64"
+                        text-color="#fff"
+                        :router="true"
+                        :collapse="false"
+                         unique-opened
+                        active-text-color="#409eff">
+                    <el-submenu index="1">
+                        <template slot="title">
+                            <i class="el-icon-document"></i>
+                            <span>我要推广</span>
+                        </template>
+                        <el-menu-item index="/advertiserCampaign/advertiserCampaignPage" >广告主推广计划</el-menu-item>
+                        <el-menu-item index="/advertiserCreative/advertiserCreativePage" >广告主创意</el-menu-item>
+
+                     <!--   <el-menu-item index="/mediaBankCard/mediaBankCardPage" >媒体主银行卡</el-menu-item>
+                        <el-menu-item index="/mediaOwnerInfo/mediaOwnerInfoPage" >媒体主信息表</el-menu-item>
+                        <el-menu-item index="/mediaOwnerReport/mediaOwnerReportPage" >媒体主报表</el-menu-item>
+                        <el-menu-item index="/templateManage/templateManagePage" >模板管理</el-menu-item>
+                        <el-menu-item index="/templateReport/templateReportPage" >模板报表</el-menu-item>-->
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>报表数据</span>
+                        </template>
+                        <el-menu-item index="/campaignCreativeReport/campaignCreativeReportPage" >活动创意报表</el-menu-item>
+                    </el-submenu>
+
+                    <el-submenu index="3">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>财务管理</span>
+                        </template>
+                        <el-menu-item index="/advertiserAccountLog/advertiserAccountLogPage" >广告主账务信息</el-menu-item>
+                        <el-menu-item index="/advertiserAccountVirtualLog/advertiserAccountVirtualLogPage" >广告主虚拟账务信息</el-menu-item>
+                    </el-submenu>
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>用户管理</span>
+                        </template>
+                        <el-menu-item index="/advertiserInfo/advertiserInfo" >用户信息表</el-menu-item>
+                        <el-menu-item index="/advertiserQualifications/advertiserQualificationsPage" >广告主资质</el-menu-item>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            <el-main>
+                <div id="mainView">
+                    <router-view></router-view>
+                </div>
+            </el-main>
+        </el-container>
+    </el-container>
+
+
+</div>
+</body>
+</html>
+<template id="templates"></template>
+<!--第三方开源框架-->
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/vue-router.js"></script>
+<script src="/static/js/element-ui.js"></script>
+<script src="../js/moment.js"></script>
+<script src="../js/layer/layer.js"></script>
+<!--基础js 共享 全局变量 和全局方法-->
+<script src="../js/solar.js?v=0309"></script>
+<!--配置应用-->
+<script src="../js/adv.js?v=0309"></script>
+<!--首页vue启动js-->
+<script>
+    const app = new Vue({
+        el: "#app",
+        router: router,
+        data: {
+            openModuleName: "nrgl",
+            activeName: "",
+            account: localStorage.account,
+            password:"",
+            today: new Date().Format("yyyy年-MM月-dd日"),
+            showLoginView: false,
+            accountRole:localStorage.accountRole,
+        },
+        methods: {
+            chcekLogin: function () {
+                var isLogin = true;
+                var _this = this;
+                $.ajax({
+                    type: "get",
+                    url: baseHost + "/isLogin?t=u",
+                    async: false,
+                    success: function (data) {
+                        if (data.code != 200) {
+                            // layer.alert("请先登录!", {icon: 6}, function (index) {
+                            //     layer.close(index);
+                            //
+                            // });
+                            _this.showLoginView = true;
+                            isLogin = false;
+                            location="login.html";
+                        }
+                    }
+                });
+                return isLogin;
+            },
+            login: function () {
+                var _this = this;
+                $.ajax({
+                    type: "post",
+                    url: baseHost + "/login",
+                    data: {account:this.account,password:this.password},
+                    async: false,
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.alert("登录成功!", {icon: 6}, function (index) {
+                                layer.close(index);
+                                _this.showLoginView = false;
+                            });
+                            setAjaxHeader("token", data.msg);
+                            localStorage.token = data.msg;
+                            localStorage.account = _this.account;
+                            location="/";
+                        }else {
+                            layer.alert(data.msg, {icon: 5}, function (index) {
+                                layer.close(index);
+                            });
+                        }
+                    }
+                });
+            },
+            loginOut: function () {
+                var _this = this;
+                $.ajax({
+                    type: "post",
+                    url: baseHost + "/loginOut",
+                    data: {},
+                    async: false,
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.alert(data.msg, {icon: 6});
+                            location="/";
+                            _this.showLoginView = true;
+                        }
+                    }
+                });
+                localStorage.token = '';
+            },
+
+        },
+        mounted: function () {
+            if (typeof(localStorage.token) != "undefined") {
+                setAjaxHeader("token", localStorage.token);
+            }
+            var isLogin = this.chcekLogin();
+            if (!isLogin) {
+                this.showLoginView = true;
+                return;
+            }
+            this.account=localStorage.account;
+        }
+    });
+</script>

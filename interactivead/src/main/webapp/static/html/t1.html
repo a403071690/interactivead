@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>测试</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+
+
+ </head>
+ <body>
+ <h2>this is 模板1</h2>
+ <input type="button" onclick="javascript:history.go(-1)" value="返回"></br>
+<a href="#" onclick="getPrize()" >测试:请求中奖接口</a></br>
+<a href="#" onclick="getPrizeList()" >测试:请求奖品列表</a></br>
+ </br>返回JSON：</br>
+ <textarea id="text1" rows="25" cols="80"  name="text1" ></textarea>
+
+ </body>
+
+     <script type="text/javascript">
+
+         function  getPrize() {
+             //定义json对象
+             var tid = "341234";
+             var fid = "4523423";
+             var json = {
+                 "tid" : tid,
+                 "fid" : fid
+             };
+             // Jquery Ajax请求
+             $.ajax({
+                 url : "/prize",
+                 type : "POST",
+                 async : true,
+                 data : json,
+                 dataType : 'json',
+                 success : function(data) {
+                     if (data.code == "200") {
+                         var sss = JSON.stringify(data);
+                         $('#text1').attr("value", sss);
+                         console.log(data.body);
+
+                     } else {
+                         var sss = JSON.stringify(data);
+                         $('#text1').attr("value", sss);
+                     }
+                 }
+             });
+         }
+     function getPrizeList() {
+         //定义json对象
+         var fid = "4523423";
+         var json = {
+             "fid" : fid
+         };
+         // Jquery Ajax请求
+         $.ajax({
+             url : "/getPrizeList",
+             type : "POST",
+             async : true,
+             data : json,
+             dataType : 'json',
+             success : function(data) {
+                 if (data.code == "200") {
+                     var sss = JSON.stringify(data);
+                     $('#text1').attr("value", sss);
+                 } else {
+                     var sss = JSON.stringify(data);
+                     $('#text1').attr("value", sss);
+                 }
+             }
+         });
+     }
+
+ </script>
+</html>

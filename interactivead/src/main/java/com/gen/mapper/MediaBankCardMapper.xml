@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MediaBankCard" >
+  <resultMap id="BaseResultMap" type="com.gen.entity.MediaBankCard" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="media_owner_id" property="mediaOwnerId" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_address" property="bankAddress" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="account_number" property="accountNumber" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , media_owner_id , is_delete , bank_name , bank_address , account_name , account_number , create_time
+
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from media_bank_card
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from media_bank_card
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from media_bank_card
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from media_bank_card
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.gen.entity.MediaBankCard" >
+    insert into media_bank_card (id
+     , media_owner_id , is_delete , bank_name , bank_address , account_name , account_number , create_time
+
+      )
+    values (#{id},
+     , #{mediaOwnerId} , #{isDelete} , #{bankName} , #{bankAddress} , #{accountName} , #{accountNumber} , #{createTime}
+
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.gen.entity.MediaBankCard" >
+    insert into media_bank_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mediaOwnerId != null" >
+        media_owner_id,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankAddress != null" >
+        bank_address,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="accountNumber != null" >
+        account_number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="mediaOwnerId != null" >
+        #{mediaOwnerId},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete},
+      </if>
+      <if test="bankName != null" >
+        #{bankName},
+      </if>
+      <if test="bankAddress != null" >
+        #{bankAddress},
+      </if>
+      <if test="accountName != null" >
+        #{accountName},
+      </if>
+      <if test="accountNumber != null" >
+        #{accountNumber},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.gen.entity.MediaBankCard" >
+    update media_bank_card
+    <set>
+      <if test="mediaOwnerId != null" >
+        media_owner_id = #{mediaOwnerId},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName},
+      </if>
+      <if test="bankAddress != null" >
+        bank_address = #{bankAddress},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName},
+      </if>
+      <if test="accountNumber != null" >
+        account_number = #{accountNumber},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="mediaOwnerId != null" >
+        AND media_owner_id = #{mediaOwnerId}
+      </if>
+      <if test="isDelete != null" >
+        AND is_delete = #{isDelete}
+      </if>
+      <if test="bankName != null" >
+        AND bank_name = #{bankName}
+      </if>
+      <if test="bankAddress != null" >
+        AND bank_address = #{bankAddress}
+      </if>
+      <if test="accountName != null" >
+        AND account_name = #{accountName}
+      </if>
+      <if test="accountNumber != null" >
+        AND account_number = #{accountNumber}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime}
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''" >
+        AND create_time &gt;= #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''" >
+        AND create_time &lt; #{createTimeEnd}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="mediaOwnerIdList != null" >
+        AND media_owner_id in
+        <foreach collection="mediaOwnerIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="isDeleteList != null" >
+        AND is_delete in
+        <foreach collection="isDeleteList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="bankNameList != null" >
+        AND bank_name in
+        <foreach collection="bankNameList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="bankAddressList != null" >
+        AND bank_address in
+        <foreach collection="bankAddressList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="accountNameList != null" >
+        AND account_name in
+        <foreach collection="accountNameList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="accountNumberList != null" >
+        AND account_number in
+        <foreach collection="accountNumberList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="createTimeList != null" >
+        AND create_time in
+        <foreach collection="createTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="mediaOwnerIdLike != null" >
+        AND media_owner_id like #{mediaOwnerIdLike}
+      </if>
+      <if test="isDeleteLike != null" >
+        AND is_delete like #{isDeleteLike}
+      </if>
+      <if test="bankNameLike != null" >
+        AND bank_name like #{bankNameLike}
+      </if>
+      <if test="bankAddressLike != null" >
+        AND bank_address like #{bankAddressLike}
+      </if>
+      <if test="accountNameLike != null" >
+        AND account_name like #{accountNameLike}
+      </if>
+      <if test="accountNumberLike != null" >
+        AND account_number like #{accountNumberLike}
+      </if>
+      <if test="createTimeLike != null" >
+        AND create_time like #{createTimeLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              media_owner_id like #{fullTextSearchValue}
+           or is_delete like #{fullTextSearchValue}
+           or bank_name like #{fullTextSearchValue}
+           or bank_address like #{fullTextSearchValue}
+           or account_name like #{fullTextSearchValue}
+           or account_number like #{fullTextSearchValue}
+           or create_time like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>
