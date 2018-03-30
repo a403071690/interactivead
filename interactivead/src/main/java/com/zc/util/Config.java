@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by xianchuanwu on 2017/9/24.
  */
 public class Config {
-    private static Map map=PropertiesUtil.getProperty("config.txt");
+    private static Map map=PropertiesUtil.getProperty("config.properties");
 //    static{
 //        map.putAll(PropertiesUtil.getProperty("file:/ssp-config.txt"));
 //    }

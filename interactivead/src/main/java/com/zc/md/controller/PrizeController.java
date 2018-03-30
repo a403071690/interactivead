@@ -78,23 +78,23 @@ public class PrizeController {
         if (StringUtil.isEmpty(fid)){
             return  JsonResult.error("fid不能为空");
         }
-
-        CookieUtil.addCookie(response,"tid",tid,60*60*24*7);
         long start = System.currentTimeMillis();
         log.info("tid:"+tid+"fid:"+fid);
         CookieUtil.addCookie(response,"fid",fid,60*60*24*7);//保存7天
+
         log.info("redis取出所有活动");
         Jedis cpjedis = RedisPool.getJedis();
         List<AdvertiserCampaign> cplist = JSONObject.parseArray(cpjedis.hvals("cp").toString(),AdvertiserCampaign.class);
         AdvertiserCampaign advertiserCampaignBest = advertiserCampaignBest = prizeService.getBestCampaign(cplist);
         AdvertiserCreative advertiserCreativeBest = null;
-
+        String userPrizeLogId = IDGenerater.getNextId();//中奖日志表id
         if (advertiserCampaignBest!=null){
 
             log.info("redis取出该活动下的创意:"+advertiserCampaignBest.getCampaignName());
             List<AdvertiserCreative> advertiserCreativelist = JSONObject.parseArray(cpjedis.hvals("cp#"+advertiserCampaignBest.getId()).toString(),AdvertiserCreative.class);
             advertiserCreativeBest = prizeService.getBestCreatve(advertiserCreativelist);
             RedisPool.returnResource(cpjedis);
+
             //写入中奖信息
             if (advertiserCreativeBest!=null) {
                 log.info("最佳创意："+advertiserCreativeBest.getCreativeName());
@@ -104,7 +104,7 @@ public class PrizeController {
                 userPrizeLog.setCreativeId(advertiserCreativeBest.getId());
                 long end2 = System.currentTimeMillis();
                 userPrizeLog.setDuration((end2-start) + "");//
-                userPrizeLog.setId(IDGenerater.getNextId());
+                userPrizeLog.setId(userPrizeLogId);
                 userPrizeLog.setMediaOwnerId( CookieUtil.getUid(req, "mid"));//meitiid
                 userPrizeLog.setPrice(advertiserCampaignBest.getBidPrice() + "");
                 userPrizeLog.setPrizeId("");//目前没有奖品表
@@ -158,9 +158,10 @@ public class PrizeController {
             //将创意信息写入token响应给用户
             Map<String, String> map = new HashMap<String, String>();
             map.put("advertiserCreativeid", advertiserCreativeBest.getId());
-            //  map.put("userPrizeLogId",u.getId());
+            map.put("userPrizeLogId",userPrizeLogId);
             map.put("advertiser_id", advertiserCampaignBest.getAdvertiserId());
             map.put("fid", fid);
+            map.put("tid",tid);
             String token = aesCoder.AESEncode(JsonUtil.toJSONString(map));
             advertiserCreativeBest.setCtTargetUrl(click_url_prefix + token);
             log.info("取最优创意响应给用户:" + advertiserCreativeBest.getCreativeName());
@@ -196,21 +197,7 @@ public class PrizeController {
                Prize prize = new Prize();
                prize.setImg_url(advertiserCreative.getCtImgUrl());
                prize.setTitle(advertiserCreative.getCtTitle());
-               /*private String  id;//	主键，32位UUID
-               private String  template_id;//	模板ID
-               private String  media_owner_id;//	媒体主ID
-               private String  channel_id;//	渠道ID
-               private String  user_cookie_id;//	用户ID，基于Cookie
-               private String  user_open_id;//	微信用户唯一ID
-               private String  user_finger_id;//	用户指纹ID，基于JS
-               private String  type;//	类型：1创意 2奖品
-               private String  creative_id;//	创意ID
-               private String  prize_id;//	奖品ID
-               private String  price;//	点击价格（整数，分）
-               private String  duration;//	运行时间，毫秒数
-               private String  create_time;//	时间
-               private String advertiser_id;//广告主id
-               private String campaign_id;//活动id*/
+
                //将创意信息写入token
                Map<String,String> map = new HashMap<String,String>();
                map.put("advertiserCreativeid",advertiserCreative.getId());
@@ -245,13 +232,22 @@ public class PrizeController {
         long start = System.currentTimeMillis();
         //根据token查询创意url
         String tokens = aesCoder.AESDecode(token);
-        Map<String,String> map = JsonUtil.parseObject(tokens);
-        String advertiserCreativeid = map.get("advertiserCreativeid");
-
-        String userPrizeLogId = map.get("userPrizeLogId");
-        String advertiser_id = map.get("advertiser_id");
-        String fid = map.get("fid");
-        log.info("fid:"+fid);
+        Map<String, String> map = JsonUtil.parseObject(tokens);
+        String advertiserCreativeid ="";
+        String userPrizeLogId = "";
+        String advertiser_id = "";
+        String tid = "";
+        String fid ="";
+        try {
+             advertiserCreativeid = map.get("advertiserCreativeid");
+             userPrizeLogId = map.get("userPrizeLogId");
+             advertiser_id = map.get("advertiser_id");
+             tid = map.get("tid");
+             fid = map.get("fid");
+            log.info("fid:" + fid + "；tid:" + tid + "；advertiser_id:" + advertiser_id + "；advertiserCreativeid:" + advertiserCreativeid + "；userPrizeLogId：" + userPrizeLogId);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
         AdvertiserCreative advertiserCreative = advertiserCreativeService.getById(advertiserCreativeid);
        // UserPrizeLog userPrizeLog = userPrizeLogService.getById(userPrizeLogId);
         String click_url = advertiserCreative.getCtTargetUrl();
@@ -274,15 +270,15 @@ public class PrizeController {
             jedis.hincrBy("adv_cons#"+advertiser_id,DateUtil.format(new Date(),"yyyyMMdd")+"#"+advertiserCreative.getCampaignId(),bidprice);
             log.info("记录点击信息保存redis 1分钟");
             //记录点击信息保存redis 1分钟 click#[campaign_id]#[finger_id]
-            jedis.hset("click#"+advertiserCreative.getCampaignId()+"#"+fid,"1","1");
-            jedis.pexpire("click#"+advertiserCreative.getCampaignId()+"#"+fid,60000);//一分钟
+            jedis.hset("click#"+advertiserCreative.getCampaignId()+"#"+fid,"1","1");//写入redis
+            jedis.pexpire("click#"+advertiserCreative.getCampaignId()+"#"+fid,60000);//设置key有效期为一分钟
             creativeClick.setIsValid("1");
         }else {
             creativeClick.setIsValid("0");
         }
         RedisPool.returnResource(jedis);
         //点击写入log
-        log.info("写入点击日志log");
+        log.info("写入创意点击日志log");
 
         creativeClick.setAdvertiser_id(advertiser_id);
         creativeClick.setCampaign_id(advertiserCreative.getCampaignId());
@@ -292,19 +288,19 @@ public class PrizeController {
         creativeClick.setId(IDGenerater.getNextId());
         creativeClick.setMedia_owner_id(CookieUtil.getUid(req,"mid"));
         creativeClick.setPrice(bidprice+"");
-        creativeClick.setTemplate_id(CookieUtil.getUid(req,"tid"));
+        creativeClick.setTemplate_id(tid);
         log.info("click========tid:"+CookieUtil.getUid(req,"tid"));
         creativeClick.setUser_cookie_id(CookieUtil.getUid(req,"cookieid"));
-        if (StringUtil.isEmpty(CookieUtil.getUid(req, "mid"))){
-            creativeClick.setMedia_owner_id("");
+        if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "mid"))){
+            creativeClick.setMedia_owner_id(CookieUtil.getUid(req, "mid"));
         }
-        if (StringUtil.isEmpty(CookieUtil.getUid(req, "cookieid"))){
-            creativeClick.setUser_cookie_id("");
+        if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "cookieid"))){
+            creativeClick.setUser_cookie_id(CookieUtil.getUid(req, "cookieid"));
         }
-        if (StringUtil.isEmpty(CookieUtil.getUid(req, "cid"))){
-            creativeClick.setChannel_id("");
-        } if (StringUtil.isEmpty(CookieUtil.getUid(req, "tid"))){
-            creativeClick.setTemplate_id("");
+        if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "cid"))){
+            creativeClick.setChannel_id(CookieUtil.getUid(req, "cid"));
+        } if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "tid"))){
+            creativeClick.setTemplate_id(CookieUtil.getUid(req, "tid"));
         }
         creativeClick.setUser_finger_id(fid);
         long end =System.currentTimeMillis();

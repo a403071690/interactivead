@@ -25,8 +25,8 @@ public class CaptchaController {
     private static final Logger logger = LoggerFactory.getLogger(CaptchaController.class);
     AESCoder aesCoder = new AESCoder(Config.aesPassword);
     static {
-        AliMessageSender.accessKeyId= PropertiesUtil.getValueByKey("ali_Msg_accessKeyId","config.txt");
-        AliMessageSender.accessSecret= PropertiesUtil.getValueByKey("ali_Msg_accessSecret","config.txt");
+        AliMessageSender.accessKeyId= PropertiesUtil.getValueByKey("ali_Msg_accessKeyId","config.properties");
+        AliMessageSender.accessSecret= PropertiesUtil.getValueByKey("ali_Msg_accessSecret","config.properties");
     }
 
     @RequestMapping("captcha")

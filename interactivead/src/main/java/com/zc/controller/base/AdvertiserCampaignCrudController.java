@@ -42,9 +42,13 @@ public class AdvertiserCampaignCrudController extends BaseController {
     @ResponseBody
     public  JsonResult select(HttpServletRequest req,@RequestParam Map requestMap,
                             @RequestParam(value = "idList[]", required = false) List idList) {
-        String advertiserId= TokenUtil.getUid(req);
+        try {
+            String advertiserId= TokenUtil.getUid(req);
+            requestMap.put("advertiserId", advertiserId);
+        }catch (Exception e){
+            logger.debug("没有登录");
+        }
         requestMap.put("idList", idList);
-        requestMap.put("advertiserId", advertiserId);
         String id=(String)requestMap.get("id");
         String pageNum=(String)requestMap.get("pageNum");
          //按条件查询List
