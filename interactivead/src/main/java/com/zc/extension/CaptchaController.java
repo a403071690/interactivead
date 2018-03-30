@@ -53,7 +53,7 @@ public class CaptchaController {
         session.setAttribute("mobileNoCode:"+mobileNo,mobileNoCode);
         Map codeMap=new HashMap();
         codeMap.put("code",mobileNoCode);
-        //AliMessageSender.sendMsg("纷熙平台","SMS_117300079",mobileNo,JsonUtil.toJSONString(codeMap));
+        AliMessageSender.sendMsg("纷熙平台","SMS_117300079",mobileNo,JsonUtil.toJSONString(codeMap));
         return JsonResult.success("发送成功!");
 
     }

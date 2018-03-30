@@ -97,6 +97,22 @@ solar.httpGet = function (url, fun, async) {
         }
     }
 }
+
+solar.post = function (url, body) {
+    $.ajaxSettings.async = false;
+    var result;
+    $.post(url, body, function (data) {
+        if (data.code == 200) {
+            layer.alert(data.msg, {icon: 6});
+        } else {
+            layer.alert(data.msg, {icon: 5});
+        }
+        result = data;
+    });
+    $.ajaxSettings.async = true;
+    return result;
+},
+
 solar.httpPost = function (url, data, fun) {
     var ajax = new XMLHttpRequest();
     ajax.open('post', url);
@@ -718,6 +734,14 @@ solar.baseMethods = {
         }
         return moment(date).format("YYYY-MM-DD HH:mm:ss");
     },
+    getCreativeName: function (row, column) {
+        var sendMsgUrl = baseHost + "/advertiserCreative/select";
+        var data = solar.post(sendMsgUrl, {
+            id: row[column.property],
+        });
+        return  data.body.creativeName;
+    },
+
     formatMoney : function (row, column) {
         var money = row[column.property]/100;
         return money+"元";

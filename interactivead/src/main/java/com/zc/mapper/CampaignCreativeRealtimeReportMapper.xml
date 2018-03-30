@@ -7,8 +7,11 @@
     <result column="report_time" property="reportTime" jdbcType="TIMESTAMP" />
     <result column="hour_time" property="hourTime" jdbcType="TIMESTAMP" />
     <result column="advertiser_id" property="advertiserId" jdbcType="VARCHAR" />
+      <result column="login_name" property="advertiserName" jdbcType="VARCHAR" />
     <result column="campaign_id" property="campaignId" jdbcType="VARCHAR" />
+      <result column="campaign_name" property="campaignName" jdbcType="VARCHAR" />
     <result column="creative_id" property="creativeId" jdbcType="VARCHAR" />
+      <result column="creative_name" property="creativeName" jdbcType="VARCHAR" />
     <result column="imp_count" property="impCount" jdbcType="BIGINT" />
     <result column="click_count" property="clickCount" jdbcType="BIGINT" />
     <result column="valid_click_count" property="validClickCount" jdbcType="BIGINT" />
@@ -18,7 +21,9 @@
 
   <sql id="Base_Column_List" >
     id  , uuid , report_time , hour_time , advertiser_id , campaign_id , creative_id , imp_count , click_count
- , valid_click_count , pay_money
+ , valid_click_count , pay_money,(SELECT advertiser_info.login_name from advertiser_info where advertiser_info.id=campaign_creative_realtime_report.advertiser_id) as login_name ,
+(SELECT advertiser_campaign.campaign_name from advertiser_campaign where advertiser_campaign.id=campaign_creative_realtime_report.campaign_id) as campaign_name ,
+(SELECT advertiser_creative.creative_name from advertiser_creative where advertiser_creative.id=campaign_creative_realtime_report.creative_id) as creative_name
   </sql>
 
   <select id="selectByWhere" resultMap="BaseResultMap"  >

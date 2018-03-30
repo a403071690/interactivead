@@ -21,12 +21,14 @@ public class CampaignCreativeRealtimeReport {
 
     //广告主ID
     private String advertiserId;
-
+    private String advertiserName;
     //活动ID
     private String campaignId;
+    private String campaignName;
 
     //创意ID
     private String creativeId;
+    private String creativeName;
 
     //曝光量
     private Long impCount;
@@ -40,6 +42,29 @@ public class CampaignCreativeRealtimeReport {
     //支付金额（分）
     private Long payMoney;
 
+    public String getAdvertiserName() {
+        return advertiserName;
+    }
+
+    public void setAdvertiserName(String advertiserName) {
+        this.advertiserName = advertiserName;
+    }
+
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
+    }
+
+    public String getCreativeName() {
+        return creativeName;
+    }
+
+    public void setCreativeName(String creativeName) {
+        this.creativeName = creativeName;
+    }
 
     public String getId() {
         return id;

@@ -40,7 +40,7 @@ public class RegisterController {
         if (!captchaPhoneNumber.equalsIgnoreCase(msgCode)){
             return JsonResult.error("手机验证码错误!");
         };
-        List li=advertiserInfoService.selectByWhere("login_name",mail);//  selectbyWhere("mail",mail);
+        List li=advertiserInfoService.selectByWhere("loginName",mail);//  selectbyWhere("mail",mail);
         if (li.size()>0){
             return JsonResult.error("该邮箱已经被注册!");
         }

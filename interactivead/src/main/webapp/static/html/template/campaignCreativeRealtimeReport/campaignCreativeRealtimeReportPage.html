@@ -23,10 +23,19 @@
                     label="编号"
                     type="index">
             </el-table-column>
+            <el-table-column sortable="custom" min-width="110px"
+                             label="活动名称"
+                             prop="campaignName">
+            </el-table-column>C
+            <el-table-column sortable="custom" min-width="110px"
+                             label="创意名称"
+                             prop="creativeName">
+            </el-table-column>
             <el-table-column sortable="custom" min-width="110px" :formatter="datetimeFormat"
                 label="报表更新时间"
                 prop="reportTime">
             </el-table-column>
+
             <el-table-column sortable="custom" min-width="110px" :formatter="datetimeFormat"
                 label="业务时间段"
                 prop="hourTime">
@@ -86,6 +95,8 @@
             dateFormat: solar.baseMethods.dateFormat,
             datetimeFormat:solar.baseMethods.datetimeFormat,
             formatMoney:solar.baseMethods.formatMoney,
+
+
         },
         mounted: function () {
             this.select();

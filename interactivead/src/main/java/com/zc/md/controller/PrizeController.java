@@ -54,6 +54,7 @@ public class PrizeController {
     static AESCoder aesCoder = new AESCoder(Config.aesPassword);
 
    static String click_url_prefix =  Config.get("click_url_prefix");
+    static String yuming =  Config.get("yuming");
     /**
      * 请求奖品
      * @param "tid":"模板id","fid":"指纹id",
@@ -166,6 +167,7 @@ public class PrizeController {
             map.put("tid",tid);
             String token = aesCoder.AESEncode(JsonUtil.toJSONString(map));
             advertiserCreativeBest.setCtTargetUrl(click_url_prefix + token);
+            advertiserCreativeBest.setCtImgUrl(yuming+advertiserCreativeBest.getCtImgUrl());
             log.info("取最优创意响应给用户:" + advertiserCreativeBest.getCreativeName());
 
         }
@@ -197,7 +199,7 @@ public class PrizeController {
                AdvertiserCreative advertiserCreative =  advertiserCreativeService.getById(u.getCreativeId());
                //advertiserCreativeList.add(advertiserCreative);
                Prize prize = new Prize();
-               prize.setImg_url(advertiserCreative.getCtImgUrl());
+               prize.setImg_url(yuming+advertiserCreative.getCtImgUrl());
                prize.setTitle(advertiserCreative.getCtTitle());
 
                //将创意信息写入token
@@ -208,7 +210,6 @@ public class PrizeController {
                map.put("fid",fid);
                String token = aesCoder.AESEncode(JsonUtil.toJSONString(map));
                prize.setClk_url(click_url_prefix+token);//advertiserCreative.getCtTargetUrl());
-
                prize.setTime(DateUtil.parse(u.getCreateTime()));
                log.info("有效期为当前创建日期加3个月："+DateUtil.format(DateUtil.addDay(DateUtil.parse(u.getCreateTime()),90),"yyyy-MM-dd HH:mm:ss"));
                prize.setEnd_time(DateUtil.parse(DateUtil.format(DateUtil.addDay(DateUtil.parse(u.getCreateTime()),90),"yyyy-MM-dd HH:mm:ss")));

@@ -144,6 +144,8 @@ public class AdvertiserCreativeCrudController extends BaseController {
             int row=advertiserCreativeService.updateByPrimaryKey(bean);
             return JsonResult.success(row);
         }
+        bean.setState(1);
+        bean.setCheckState(1);
         int row=advertiserCreativeService.save(bean);
         synchrodDateService.synchrodDateToRedis();
         return JsonResult.success(row);
