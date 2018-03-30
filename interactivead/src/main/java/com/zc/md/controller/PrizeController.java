@@ -312,4 +312,16 @@ public class PrizeController {
 
     }
 
+    @RequestMapping(value = "changeGame")
+    public String changeGame(HttpServletRequest req, HttpServletResponse response ,@RequestParam Map requestMap,
+                             @RequestParam(value = "tid", required = false) String tid){
+        String changeUrl = "http://hd.adsmar.com/zhuanpan/";
+        if ("1".equals(tid)){
+            changeUrl= "http://hd.adsmar.com/jindan/";
+        }else {
+            changeUrl="http://hd.adsmar.com/zhuanpan/";
+        }
+     return  "redirect:"+changeUrl;
+    }
+
 }

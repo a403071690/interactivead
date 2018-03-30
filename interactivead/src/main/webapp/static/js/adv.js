@@ -32,6 +32,8 @@ var Config = {
         "advertiserQualifications-advertiserQualificationsPage",
         "campaignCreativeReport-campaignCreativeReport",
         "campaignCreativeReport-campaignCreativeReportPage",
+        "campaignCreativeRealtimeReport-campaignCreativeRealtimeReport",
+        "campaignCreativeRealtimeReport-campaignCreativeRealtimeReportPage",
         "mediaBankCard-mediaBankCard",
         "mediaBankCard-mediaBankCardPage",
         "mediaOwnerInfo-mediaOwnerInfo",

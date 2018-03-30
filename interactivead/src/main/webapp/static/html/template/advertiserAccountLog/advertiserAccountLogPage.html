@@ -28,13 +28,17 @@
                 label="账户数据日期"
                 prop="accountDataTime">
             </el-table-column>
+            <!--1入账 2出账-->
             <el-table-column sortable="custom" min-width="150px"
-                label="1入账 2出账"
+                label="类别"
                 prop="accountType">
+                <template slot-scope="scope">
+                    <span>{{scope.row.accountType==1?'充值':'消费'}}</span>
+                </template>
             </el-table-column>
             <el-table-column sortable="custom" min-width="150px"
-                label="金额（分）"
-                prop="price">
+                label="金额"
+                prop="price" :formatter="formatMoney">
             </el-table-column>
             <el-table-column sortable="custom" min-width="110px" :formatter="dateFormat"
                 label="创建时间"
@@ -91,6 +95,7 @@
             goUpdatePage: solar.baseMethods.goUpdatePage,
             changeOrder: solar.baseMethods.changeOrder,
             dateFormat: solar.baseMethods.dateFormat,
+            formatMoney:solar.baseMethods.formatMoney,
         },
         mounted: function () {
             this.select();

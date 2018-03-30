@@ -36,7 +36,7 @@
 
 
                     <el-form-item label="每天预算" prop="dayPrice" >
-                        <el-input style="width:220px;"  v-model="bean.dayPrice"><template slot="append">元</template></el-input>
+                        <el-input style="width:220px;" :formatter="formatMoney"   v-model="bean.dayPrice" ><template slot="append">元</template></el-input>
                     </el-form-item>
                     <!--<el-form-item label="竞价方式"   prop="bidType">
                         <el-input style="width:220px;" v-model="bean.bidType"></el-input>-->
@@ -55,7 +55,7 @@
                     </el-form-item>
 
                     <el-form-item label="竞价出价(元)" prop="bidPrice">
-                        <el-input style="width:220px;" v-model="bean.bidPrice"><template slot="append">元</template></el-input>
+                        <el-input style="width:220px;" v-model="bean.bidPrice" :formatter="formatMoney"><template slot="append">元</template></el-input>
                     </el-form-item>
                     <!--  <el-form-item label="创建时间" prop="createTime">
                         <el-date-picker placeholder="选择日期" type="date"
@@ -113,11 +113,54 @@
             }
         },
         methods: {
-            select: solar.baseMethods.select,
+
             deleteBean: solar.baseMethods.deleteBeanGoBack,
-            saveOrUpdate: solar.baseMethods.saveOrUpdate,
             switchBidType:solar.baseMethods.switchBidType,
             formatMoney:solar.baseMethods.formatMoney,
+            select: function () {
+                if (!this.$route.query.id) {
+                    return;
+                }
+                var _this = this;
+                $.get(baseHost + "/" + this.beanName + "/select?id=" + this.$route.query.id, function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                    _this.bean = solar.formatObjectTime(data.body);
+                    _this.bean.dayPrice = _this.bean.dayPrice/100;
+                    _this.bean.bidPrice = _this.bean.bidPrice/100;
+                    solar.formatObjectCodeToArray(_this.bean);
+                });
+            },
+            saveOrUpdate: function () {
+                var _this = this;
+                if(_this.bean.dayPrice< 0 &&  _this.bean.bidPrice<0){
+                    solar.alert("金额不能小于0", {icon: 5});
+                }else{
+                    _this.bean.dayPrice =  Math.round(_this.bean.dayPrice*10000)/100;
+                    _this.bean.bidPrice =  Math.round( _this.bean.bidPrice*10000)/100;
+
+           /*     _this.bean.dayPrice = _this.bean.dayPrice*100;
+                _this.bean.bidPrice = _this.bean.bidPrice*100;*/
+                $.ajax({
+                    type: "post",
+                    url: baseHost + "/" + _this.beanName + "/saveOrUpdate",
+                    datType: "JSON",
+                    contentType: "application/json",
+                    data: JSON.stringify(this.bean),
+                    async: false,
+                    success: function (data) {
+                        if (data.code == 200) {
+                            solar.alert(data.msg + "(已保存:" + data.body + "条)", {icon: 6});
+                            history.back();
+                        } else {
+                            solar.alert(data.msg, {icon: 5});
+                        }
+                    }
+                });
+                }
+            },
         },
         mounted: function () {
             this.select();

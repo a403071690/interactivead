@@ -3,6 +3,7 @@ package com.zc.controller.base;
 import com.zc.controller.base.BaseController;
 import com.zc.entity.CampaignCreativeRealtimeReport;
 import com.zc.service.CampaignCreativeRealtimeReportService;
+import com.zc.util.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.solar.bean.JsonResult;
@@ -37,9 +38,11 @@ public class CampaignCreativeRealtimeReportCrudController extends BaseController
     @ResponseBody
     public  JsonResult select(HttpServletRequest req,@RequestParam Map requestMap,
                             @RequestParam(value = "idList[]", required = false) List idList) {
+        String advertiserId= TokenUtil.getUid(req);
         requestMap.put("idList", idList);
+        requestMap.put("advertiserId", advertiserId);
         String id=(String)requestMap.get("id");
-        String pazcum=(String)requestMap.get("pazcum");
+        String pazcum=(String)requestMap.get("pageNum");//pazucm
          //按条件查询List
         if (StringUtil.isEmpty(id)&&StringUtil.isEmpty(pazcum)){
            return JsonResult.success(campaignCreativeRealtimeReportService.selectByWhere(requestMap));

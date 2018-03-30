@@ -40,8 +40,8 @@
                 prop="validClickCount">
             </el-table-column>
             <el-table-column sortable="custom" min-width="150px"
-                label="支付金额（分）"
-                prop="payMoney">
+                label="支付金额"
+                prop="payMoney" :formatter="formatMoney">
             </el-table-column>
 
            <!-- <el-table-column
@@ -94,6 +94,7 @@
             goUpdatePage: solar.baseMethods.goUpdatePage,
             changeOrder: solar.baseMethods.changeOrder,
             dateFormat: solar.baseMethods.dateFormat,
+            formatMoney:solar.baseMethods.formatMoney,
         },
         mounted: function () {
             this.select();

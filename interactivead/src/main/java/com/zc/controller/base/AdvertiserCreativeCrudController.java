@@ -3,6 +3,7 @@ package com.zc.controller.base;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zc.entity.AdvertiserCampaign;
+import com.zc.md.service.SynchrodDateService;
 import com.zc.service.AdvertiserCampaignService;
 import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
@@ -35,6 +36,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("advertiserCreative")
 public class AdvertiserCreativeCrudController extends BaseController {
     Logger logger=LoggerFactory.getLogger(AdvertiserCreativeCrudController.class);
+
+    @Autowired
+    private SynchrodDateService synchrodDateService;
     @Resource
     private AdvertiserCreativeService advertiserCreativeService;
     @Autowired
@@ -141,6 +145,7 @@ public class AdvertiserCreativeCrudController extends BaseController {
             return JsonResult.success(row);
         }
         int row=advertiserCreativeService.save(bean);
+        synchrodDateService.synchrodDateToRedis();
         return JsonResult.success(row);
     }
 
@@ -154,6 +159,7 @@ public class AdvertiserCreativeCrudController extends BaseController {
             advertiserCreative.setState(1);
         }
         int row=advertiserCreativeService.updateByPrimaryKey(advertiserCreative);
+        synchrodDateService.synchrodDateToRedis();
         return JsonResult.success(row);
     }
 

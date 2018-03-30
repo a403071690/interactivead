@@ -1,6 +1,7 @@
 package com.zc.controller.base;
 
 import com.sun.xml.internal.ws.resources.HttpserverMessages;
+import com.zc.md.service.SynchrodDateService;
 import com.zc.util.Config;
 import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
@@ -9,6 +10,7 @@ import org.solar.bean.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.solar.coder.AESCoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +37,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("advertiserCampaign")
 public class AdvertiserCampaignCrudController extends BaseController {
     Logger logger=LoggerFactory.getLogger(AdvertiserCampaignCrudController.class);
+    @Autowired
+    private SynchrodDateService synchrodDateService;
     AESCoder aesCoder = new AESCoder(Config.aesPassword);
     @Resource
     private AdvertiserCampaignService advertiserCampaignService;
@@ -93,6 +97,7 @@ public class AdvertiserCampaignCrudController extends BaseController {
         //设置默认值
         bean.setState(2);
         int row=advertiserCampaignService.save(bean);
+        synchrodDateService.synchrodDateToRedis();
         return JsonResult.success(row);
     }
 
@@ -108,6 +113,7 @@ public class AdvertiserCampaignCrudController extends BaseController {
             advertiserCampaign.setState(1);
         }
         int row=advertiserCampaignService.updateByPrimaryKey(advertiserCampaign);
+        synchrodDateService.synchrodDateToRedis();
         return JsonResult.success(row);
     }
 

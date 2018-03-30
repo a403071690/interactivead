@@ -67,15 +67,15 @@
         <el-header class="header">
             <el-row>
                 <el-col class="logo" :span="1"
-                        style="cursor: pointer;" onclick="location='/admin'">
+                        style="cursor: pointer;" onclick="location='/'">
                     <!--<img style="height: 30px;position: relative;top:10px;" src="/static/img/icon/logo.png"/>-->
                 </el-col>
                 <el-col :span="2" >
-                    <span  style="cursor: pointer;" onclick="location='/admin'">广告主平台</span>
+                    <span  style="cursor: pointer;" onclick="location='/'">广告主平台</span>
                 </el-col>
                 <el-col :span="4" :offset="18" style="text-align: right">
                     <span style="cursor: pointer"
-                          onclick="location='/admin'">{{account}} &nbsp;</span>
+                          onclick="location='/'">{{account}} &nbsp;</span>
 
                     <i class="el-icon-circle-close-outline"></i>
                     <span v-if="!showLoginView" @click="loginOut" style="cursor:pointer">退出</span>
