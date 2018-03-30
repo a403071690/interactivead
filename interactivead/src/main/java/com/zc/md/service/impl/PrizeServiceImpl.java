@@ -10,6 +10,7 @@ import com.zc.util.CustomLogUtil;
 import com.zc.util.RedisPool;
 import org.apache.log4j.Logger;
 import org.solar.bean.JsonResult;
+import org.solar.util.StringUtil;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
@@ -20,7 +21,7 @@ import java.util.stream.Stream;
 public class PrizeServiceImpl implements PrizeService {
     Logger log = Logger.getLogger(PrizeServiceImpl.class);
     @Override
-    public AdvertiserCampaign getBestCampaign(List<AdvertiserCampaign> cplist) {
+    public AdvertiserCampaign getBestCampaign(List<AdvertiserCampaign> cplist,String fid) {
         log.info("遍历一遍找出符合条件的活动");
         /*  1. 活动和创意状态
             2. 是否符合投放时间
@@ -67,6 +68,18 @@ public class PrizeServiceImpl implements PrizeService {
                 log.info("去除日预算花完的活动："+advertiserCampaign.getCampaignName());
                 listIterator.remove();
             }
+            //去除所有1分钟之内出现3次以及以上的活动
+            String count = jedis.hget("CampaignCount#"+advertiserCampaign.getId()+"#"+fid,"getCampaignCount");
+            log.info("出现次数：count:"+count);
+            if (StringUtil.isNotEmpty(count)){
+                if(Integer.parseInt(count) >=2){
+                    if (cplist.size()>1) {
+                        listIterator.remove();
+                    }
+                }
+            }
+
+
             log.info("剩余活动数："+cplist.size());
         }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PrizeService {
     //优选活动
-    AdvertiserCampaign getBestCampaign(List<AdvertiserCampaign> list);
+    AdvertiserCampaign getBestCampaign(List<AdvertiserCampaign> list,String fid);
 
     //优选创意
     AdvertiserCreative getBestCreatve(List<AdvertiserCreative> list);

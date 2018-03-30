@@ -85,10 +85,12 @@ public class PrizeController {
         log.info("redis取出所有活动");
         Jedis cpjedis = RedisPool.getJedis();
         List<AdvertiserCampaign> cplist = JSONObject.parseArray(cpjedis.hvals("cp").toString(),AdvertiserCampaign.class);
-        AdvertiserCampaign advertiserCampaignBest = advertiserCampaignBest = prizeService.getBestCampaign(cplist);
+        AdvertiserCampaign advertiserCampaignBest = advertiserCampaignBest = prizeService.getBestCampaign(cplist,fid);
         AdvertiserCreative advertiserCreativeBest = null;
         String userPrizeLogId = IDGenerater.getNextId();//中奖日志表id
         if (advertiserCampaignBest!=null){
+            cpjedis.hincrBy("CampaignCount#"+advertiserCampaignBest.getId()+"#"+fid,"getCampaignCount",1);
+            cpjedis.pexpire("CampaignCount#"+advertiserCampaignBest.getId()+"#"+fid,60000);//设置key有效期为一分钟
 
             log.info("redis取出该活动下的创意:"+advertiserCampaignBest.getCampaignName());
             List<AdvertiserCreative> advertiserCreativelist = JSONObject.parseArray(cpjedis.hvals("cp#"+advertiserCampaignBest.getId()).toString(),AdvertiserCreative.class);
@@ -286,13 +288,14 @@ public class PrizeController {
         creativeClick.setCreate_time(DateUtil.format(new Date()));
         creativeClick.setCreative_id(advertiserCreative.getId());
         creativeClick.setId(IDGenerater.getNextId());
-        creativeClick.setMedia_owner_id(CookieUtil.getUid(req,"mid"));
         creativeClick.setPrice(bidprice+"");
         creativeClick.setTemplate_id(tid);
         log.info("click========tid:"+CookieUtil.getUid(req,"tid"));
         creativeClick.setUser_cookie_id(CookieUtil.getUid(req,"cookieid"));
         if (StringUtil.isEmpty(CookieUtil.getUid(req, "mid"))){
-            creativeClick.setMedia_owner_id(CookieUtil.getUid(req, "mid"));
+            creativeClick.setMedia_owner_id("");
+        }else {
+            creativeClick.setMedia_owner_id(CookieUtil.getUid(req,"mid"));
         }
         if (StringUtil.isEmpty(CookieUtil.getUid(req, "cookieid"))){
             creativeClick.setUser_cookie_id(CookieUtil.getUid(req, "cookieid"));
