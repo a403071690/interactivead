@@ -293,6 +293,7 @@ public class PrizeController {
         creativeClick.setMedia_owner_id(CookieUtil.getUid(req,"mid"));
         creativeClick.setPrice(bidprice+"");
         creativeClick.setTemplate_id(CookieUtil.getUid(req,"tid"));
+        log.info("click========tid:"+CookieUtil.getUid(req,"tid"));
         creativeClick.setUser_cookie_id(CookieUtil.getUid(req,"cookieid"));
         if (StringUtil.isEmpty(CookieUtil.getUid(req, "mid"))){
             creativeClick.setMedia_owner_id("");
