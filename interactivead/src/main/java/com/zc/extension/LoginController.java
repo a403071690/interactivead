@@ -63,7 +63,7 @@ public class LoginController {
             return JsonResult.error("账号密码不能为空!");
         }
         password = Md5Util.getMd5Hex(password);
-        List<AdvertiserInfo> li = advertiserInfoService.selectByWhere("login_name", account, "password", password);
+        List<AdvertiserInfo> li = advertiserInfoService.selectByWhere("loginName", account, "password", password);
         if (li == null || li.size() == 0) {
             return JsonResult.error("账号或密码错误!");
         }
@@ -80,6 +80,7 @@ public class LoginController {
         }
         if (advertiserInfo.getState() == 2) {
             Map map = new HashMap();
+            logger.info("login_id:"+advertiserInfo.getId());
             map.put("id", advertiserInfo.getId());
             map.put("t", "u");
             map.put("e", 60 * 60 * 1);//秒单位

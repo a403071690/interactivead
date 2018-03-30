@@ -291,15 +291,16 @@ public class PrizeController {
         creativeClick.setTemplate_id(tid);
         log.info("click========tid:"+CookieUtil.getUid(req,"tid"));
         creativeClick.setUser_cookie_id(CookieUtil.getUid(req,"cookieid"));
-        if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "mid"))){
+        if (StringUtil.isEmpty(CookieUtil.getUid(req, "mid"))){
             creativeClick.setMedia_owner_id(CookieUtil.getUid(req, "mid"));
         }
-        if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "cookieid"))){
+        if (StringUtil.isEmpty(CookieUtil.getUid(req, "cookieid"))){
             creativeClick.setUser_cookie_id(CookieUtil.getUid(req, "cookieid"));
         }
-        if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "cid"))){
+        if (StringUtil.isEmpty(CookieUtil.getUid(req, "cid"))){
             creativeClick.setChannel_id(CookieUtil.getUid(req, "cid"));
-        } if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "tid"))){
+        }
+        if (StringUtil.isNotEmpty(CookieUtil.getUid(req, "tid"))){
             creativeClick.setTemplate_id(CookieUtil.getUid(req, "tid"));
         }
         creativeClick.setUser_finger_id(fid);
