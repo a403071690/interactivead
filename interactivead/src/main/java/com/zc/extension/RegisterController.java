@@ -48,7 +48,8 @@ public class RegisterController {
         advertiserInfo.setLoginName(mail);
         advertiserInfo.setPassword(Md5Util.getMd5Hex(password));
         System.out.println("type:"+type);
-        advertiserInfo.setType(type);
+        advertiserInfo.setType(2);
+        //advertiserInfo.setType(type);
         advertiserInfo.setPhone(phoneNumber);
         //状态：1待审核 2审核通过 3审核未通过 4冻结
         advertiserInfo.setState(1);

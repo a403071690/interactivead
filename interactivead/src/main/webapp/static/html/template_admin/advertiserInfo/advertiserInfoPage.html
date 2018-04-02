@@ -7,7 +7,7 @@
             </el-breadcrumb>
         </el-row>
         <el-row class="tool-bar">
-            <el-col :span="9" :offset="1">
+            <el-col :span="9" :offset="0">
                 <el-button size="small" icon="el-icon-refresh" onclick="location.reload()">刷新</el-button>
                 <el-button size="small" type="primary" icon="el-icon-plus" @click="goBeanPage(null)">新增</el-button>
             </el-col>
@@ -20,8 +20,10 @@
         </el-row>
         <el-table class="table" max-height="510" :data="beans" size="small"
             stripe border @sort-change="changeOrder">
+
+
             <el-table-column
-                    label=" "
+                    label="编号"
                     type="index">
             </el-table-column>
             <el-table-column sortable="custom" min-width="150px"
@@ -40,23 +42,31 @@
             <el-table-column sortable="custom" min-width="150px"
                 label="类型"
                 prop="type">
+                <template slot-scope="scope">
+                    <span>{{scope.row.type==1?'媒体':(scope.row.type==2?'广告主':"管理员")}}</span>
+                    <!-- <span v-if='scope.row.state==0'>关闭</span> -->
+                </template>
             </el-table-column>
             <!--：1待审核 2审核通过 3审核未通过 4冻结-->
             <el-table-column sortable="custom" min-width="150px"
                 label="状态"
                 prop="state">
+                <template slot-scope="scope">
+                    <span>{{scope.row.state==1?'待审核':(scope.row.state==2?'审核通过':"审核未通过")}}</span>
+                    <!-- <span v-if='scope.row.state==0'>关闭</span> -->
+                </template>
             </el-table-column>
             <!--，用于审核不通过原因，冻结说明等。-->
             <el-table-column sortable="custom" min-width="150px"
-                label="状态信息"
+                label="审核信息"
                 prop="stateMsg">
             </el-table-column>
             <el-table-column sortable="custom" min-width="110px" :formatter="datetimeFormat"
-                label="createTime"
+                label="创建时间"
                 prop="createTime">
             </el-table-column>
             <el-table-column sortable="custom" min-width="110px" :formatter="datetimeFormat"
-                label="updateTime"
+                label="更新时间"
                 prop="updateTime">
             </el-table-column>
 

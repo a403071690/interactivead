@@ -44,6 +44,10 @@ public class AdvertiserInfoCrudController extends BaseController {
         requestMap.put("idList", idList);
         String id=(String)requestMap.get("id");
         String pageNum=(String)requestMap.get("pageNum");
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(2);
+        list.add(1);
+        requestMap.put("typeList",list);
          //按条件查询List
         if (StringUtil.isEmpty(id)&&StringUtil.isEmpty(pageNum)){
            return JsonResult.success(advertiserInfoService.selectByWhere(requestMap));
