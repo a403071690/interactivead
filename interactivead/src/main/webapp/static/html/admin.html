@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- 引入样式 -->
-    <title>广告主管理平台</title>
+    <title>运营管理平台</title>
     <link rel="stylesheet" href="/static/css/element-ui.css"/>
     <link rel="stylesheet" href="/static/css/myindex.css"/>
     <link rel="Shortcut Icon" href="/static/img/icon/favicon.ico"/>
@@ -72,7 +72,7 @@
                     <!--<img style="height: 30px;position: relative;top:10px;" src="/static/img/icon/logo.png"/>-->
                 </el-col>
                 <el-col :span="2" >
-                    <span  style="cursor: pointer;" onclick="location='/'">广告主平台</span>
+                    <span  style="cursor: pointer;" onclick="location='/'">运营管理平台</span>
                 </el-col>
                 <el-col :span="4" :offset="18" style="text-align: right">
                     <span style="cursor: pointer"
@@ -94,7 +94,7 @@
                         :collapse="false"
                          unique-opened
                         active-text-color="#409eff">
-                    <el-submenu index="1">
+                   <!-- <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-document"></i>
                             <span>我的首页</span>
@@ -102,15 +102,15 @@
                         <el-menu-item index="/myindex/myindex" >我的首页</el-menu-item>
 
 
-                    </el-submenu>
+                    </el-submenu>-->
                     <el-submenu index="2">
                         <template slot="title">
                             <i class="el-icon-document"></i>
-                            <span>我要推广</span>
+                            <span>审核管理</span>
                         </template>
-                        <el-menu-item index="/advertiserCampaign/advertiserCampaignPage" >广告主推广计划</el-menu-item>
-                        <el-menu-item index="/advertiserCreative/advertiserCreativePage" >广告主创意</el-menu-item>
-
+                        <el-menu-item index="/advertiserInfo/advertiserInfoPage" >广告主审核</el-menu-item>
+                        <el-menu-item index="/advertiserCampaign/advertiserCampaignPage" >活动审核</el-menu-item>
+                        <el-menu-item index="/advertiserCreative/advertiserCreativePage" >创意审核</el-menu-item>
 
                      <!--   <el-menu-item index="/mediaBankCard/mediaBankCardPage" >媒体主银行卡</el-menu-item>
                         <el-menu-item index="/mediaOwnerInfo/mediaOwnerInfoPage" >媒体主信息表</el-menu-item>
@@ -140,8 +140,8 @@
                             <i class="el-icon-menu"></i>
                             <span>用户管理</span>
                         </template>
-                        <el-menu-item index="/advertiserInfo/advertiserInfo" >用户信息表</el-menu-item>
-                        <el-menu-item index="/advertiserQualifications/advertiserQualificationsPage" >广告主资质</el-menu-item>
+                        <el-menu-item index="/advertiserInfo/advertiserInfoPage" >广告主信息表</el-menu-item>
+                        <el-menu-item index="/advertiserQualifications/advertiserQualificationsPage" >广告主资质审核</el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-aside>
@@ -170,7 +170,7 @@
 <!--基础js 共享 全局变量 和全局方法-->
 <script src="../js/solar.js?v=0309"></script>
 <!--配置应用-->
-<script src="../js/adv.js?v=0309"></script>
+<script src="../js/myadmin.js?v=0309"></script>
 <!--首页vue启动js-->
 <script>
     const app = new Vue({

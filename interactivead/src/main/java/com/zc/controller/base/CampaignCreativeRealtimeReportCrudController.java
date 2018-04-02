@@ -40,7 +40,7 @@ public class CampaignCreativeRealtimeReportCrudController extends BaseController
                             @RequestParam(value = "idList[]", required = false) List idList) {
         String advertiserId= TokenUtil.getUid(req);
         requestMap.put("idList", idList);
-        requestMap.put("advertiserId", advertiserId);
+        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){                requestMap.put("advertiserId", advertiserId);            }
         String id=(String)requestMap.get("id");
         String pazcum=(String)requestMap.get("pageNum");//pazucm
          //按条件查询List

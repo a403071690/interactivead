@@ -1,0 +1,69 @@
+<script type="text/template" id="template-mediaBankCard-mediaBankCard">
+    <div class="MainContainer beanView mediaBankCard">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>媒体主银行卡</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="mediaOwnerId" prop="mediaOwnerId">
+                        <el-input v-model="bean.mediaOwnerId"></el-input>
+                    </el-form-item>
+                    <el-form-item label="是否删除 1是 0否" prop="isDelete">
+                        <el-input v-model="bean.isDelete"></el-input>
+                    </el-form-item>
+                    <el-form-item label="银行名称" prop="bankName">
+                        <el-input v-model="bean.bankName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="开户行地址具体支行名称" prop="bankAddress">
+                        <el-input v-model="bean.bankAddress"></el-input>
+                    </el-form-item>
+                    <el-form-item label="账户名/开户人姓名" prop="accountName">
+                        <el-input v-model="bean.accountName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="账户号码、银行卡号" prop="accountNumber">
+                        <el-input v-model="bean.accountNumber"></el-input>
+                    </el-form-item>
+                    <el-form-item label="创建时间" prop="createTime">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.createTime">
+                        </el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "mediaBankCard-mediaBankCard";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"mediaBankCard",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

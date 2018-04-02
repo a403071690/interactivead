@@ -1,0 +1,276 @@
+<script type="text/template" id="template-myindex-myindex">
+    <div class="MainContainer beanView myindex">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>今日实时数据</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <div data-v-5f14284a="" class="pull-auto" style="margin-top: 20px;  ">
+            <div data-v-7c630142="" data-v-5f14284a="" class="pull-auto">
+                <div data-v-7c630142="" class="el-row" span="24">
+                    <div data-v-7c630142="" class="el-col el-col-6">
+                        <div data-v-7c630142="" class="item" style="background: rgb(49, 180, 141);">
+                            <div data-v-7c630142="" class="item-header"><p data-v-7c630142="">曝光数据</p> <span
+                                    data-v-7c630142="">实时</span></div>
+                            <div data-v-7c630142="" class="item-body"><h2 data-v-7c630142="">{{bean.impCount}}</h2></div>
+                            <div data-v-7c630142="" class="item-footer"><span data-v-7c630142=""></span>
+                                <p data-v-7c630142="">今日所有创意曝光数</p></div>
+                            <p data-v-7c630142="" class="item-tip">互</p></div>
+                    </div>
+                    <div data-v-7c630142="" class="el-col el-col-6">
+                        <div data-v-7c630142="" class="item" style="background: rgb(56, 161, 242);">
+                            <div data-v-7c630142="" class="item-header"><p data-v-7c630142="">总点击量</p> <span
+                                    data-v-7c630142="">实时</span></div>
+                            <div data-v-7c630142="" class="item-body"><h2 data-v-7c630142="">{{bean.clickCount}}</h2></div>
+                            <div data-v-7c630142="" class="item-footer"><span data-v-7c630142=""></span>
+                                <p data-v-7c630142="">未过滤无效点击</p></div>
+                            <p data-v-7c630142="" class="item-tip">动</p></div>
+                    </div>
+                    <div data-v-7c630142="" class="el-col el-col-6">
+                        <div data-v-7c630142="" class="item" style="background: rgb(215, 150, 44);">
+                            <div data-v-7c630142="" class="item-header"><p data-v-7c630142="">有效点击</p> <span
+                                    data-v-7c630142="">实时</span></div>
+                            <div data-v-7c630142="" class="item-body"><h2 data-v-7c630142="">{{bean.validClickCount}}</h2></div>
+                            <div data-v-7c630142="" class="item-footer"><span data-v-7c630142=""></span>
+                                <p data-v-7c630142="">已过滤无效点击</p></div>
+                            <p data-v-7c630142="" class="item-tip">营</p></div>
+                    </div>
+                    <div data-v-7c630142="" class="el-col el-col-6">
+                        <div data-v-7c630142="" class="item" style="background: rgb(59, 103, 164);">
+                            <div data-v-7c630142="" class="item-header"><p data-v-7c630142="">消费金额</p> <span
+                                    data-v-7c630142="">实时</span></div>
+                            <div data-v-7c630142="" class="item-body"><h2 data-v-7c630142="">{{bean.payMoney }}元</h2></div>
+                            <div data-v-7c630142="" class="item-footer"><span data-v-7c630142=""></span>
+                                <p data-v-7c630142="">今日消费总额</p></div>
+                            <p data-v-7c630142="" class="item-tip">销</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-v-5f14284a="" class="pull-auto" style="margin-top: 20px;"><h4 data-v-5f14284a="">历史数据</h4>
+            <div data-v-6e5c231c="" data-v-5f14284a="" class="pull-auto easyData-contailer">
+                <div data-v-6e5c231c="" class="el-row" span="24">
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-cuowu"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">今日注册</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">12678</h3></div>
+                        </div>
+                    </div>
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-shujuzhanshi2"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">今日登录</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">22139</h3></div>
+                        </div>
+                    </div>
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-jiaoseguanli"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">今日订阅</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">35623</h3></div>
+                        </div>
+                    </div>
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-caidanguanli"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">今日评论</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">16826</h3></div>
+                        </div>
+                    </div>
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-caidanguanli"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">今日评论</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">16826</h3></div>
+                        </div>
+                    </div>
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-caidanguanli"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">今日评论</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">16826</h3></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="pic" style="margin-top: 30px;" >
+            <div id="echarts_trend" style="width:100%;height:320px;"></div>
+        </div>
+    </div>
+</script>
+
+<script type="application/javascript">
+    templateName = "myindex-myindex";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+
+            return {
+                beanName: "campaignCreativeRealtimeReport",
+                bean: {  totalIncome: 0,
+                    totalWithdraw: 0,
+                    balance: 0,},
+                temp: {},
+                rules: solar.validatorRules,
+                sumMap:{},
+                period:7,
+                echarts_trend:{},
+                startTime: new Date(new Date().getTime()-2592000000).Format("yyyy-MM-dd"),
+                endTime: new Date().Format("yyyy-MM-dd"),
+                contentViewName: "",
+                contentView: "",
+                openContentView: false,
+            }
+
+        },
+        methods: {
+
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+            select: function () {
+                var _this = this;
+                $.get("/myindex/select", function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                    _this.bean = solar.formatObjectTime(data.body);
+
+                    _this.bean.payMoney =  _this.bean.payMoney/100;
+                    solar.formatObjectCodeToArray(_this.bean);
+                });
+            },
+            getcharts:function (val) {
+                },
+
+
+            trend: function (val) {
+                var _this=this;
+                // 指定图表的配置项和数据
+                var echartsOption = {
+                    legend: {
+                        data: []
+                    },
+                    xAxis: {
+                        data: []
+                    },
+                    yAxis: {},
+                    series: []
+                };
+                var url="/myindex/getchart?day="+val;
+                $.get(url, function (data) {
+                    _this.echarts_trend.setOption(echartsOption, true);
+                    var list = data.body;
+                    //solar.loadComplete();
+                    var myobj=eval(list);
+
+                    for(var i=0;i<myobj.length;i++){
+                        echartsOption.xAxis.data.push(new Date(myobj[i].reportDate).Format("yyyy-MM-dd"));
+                        //alert(myobj[i].reportDate+"|||"+myobj[i].clickCount)
+                    }
+
+                    echartsOption.xAxis.data.reverse();
+                    var clicksItem = {
+                        name: '有效点击数',
+                        type: 'line',
+                        data: [],
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    };
+                    var totalClickNumItem = {
+                        name: '总点击数',
+                        type: 'line',
+                        data: [],
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    };
+                    var totalShowNumItem = {
+                        name: '总展现数',
+                        type: 'line',
+                        data: [],
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    };
+                    var appExpendItem = {
+                        name: '收益',
+                        type: 'line',
+                        data: [],
+                        label: {
+                            normal: {
+                                show: true
+                            }
+                        }
+                    };
+                    echartsOption.legend.data.push("收益");
+                    echartsOption.legend.data.push("总展现数");
+                    echartsOption.legend.data.push("总点击数");
+                    echartsOption.legend.data.push("有效点击数");
+                    for(var i=0;i<myobj.length;i++){
+
+                        /*//曝光量
+                        private Long impCount;
+
+                        //点击量
+                        private Long clickCount;
+
+                        //有效点击量
+                        private Long validClickCount;
+
+                        //支付金额（分）
+                        private Long payMoney;*/
+                        totalClickNumItem.data.push(myobj[i].clickCount);
+                        clicksItem.data.push(myobj[i].validClickCount);
+                        totalShowNumItem.data.push(myobj[i].impCount);
+                        appExpendItem.data.push(myobj[i].payMoney);
+
+                        totalClickNumItem.data.reverse();
+                        clicksItem.data.reverse();
+                        totalShowNumItem.data.reverse();
+                        appExpendItem.data.reverse();
+
+                    }
+                    echartsOption.series.push(totalClickNumItem);
+                    echartsOption.series.push(clicksItem);
+                    echartsOption.series.push(totalShowNumItem);
+                    echartsOption.series.push(appExpendItem);
+                    _this.echarts_trend.setOption(echartsOption, true);
+                });
+
+            }
+
+
+        },
+        mounted: function () {
+            var _this = this;
+            this.select();
+            setTimeout(function () {
+                // 基于准备好的dom，初始化echarts实例
+                _this.echarts_trend = echarts.init(document.getElementById('echarts_trend'));
+
+                _this.trend(7);
+                //_this.getcharts(7);
+
+            }, 1500);
+        }
+
+    });
+</script>

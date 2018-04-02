@@ -48,7 +48,10 @@ public class AdvertiserCampaignCrudController extends BaseController {
                             @RequestParam(value = "idList[]", required = false) List idList) {
         try {
             String advertiserId= TokenUtil.getUid(req);
-            requestMap.put("advertiserId", advertiserId);
+            if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){
+                requestMap.put("advertiserId", advertiserId);
+            }
+
         }catch (Exception e){
             logger.debug("没有登录");
         }

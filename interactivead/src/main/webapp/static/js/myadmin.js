@@ -46,12 +46,12 @@ var Config = {
         "templateReport-templateReportPage",
         "myindex-myindex",
     ],
-    templateUrl: "template",
+    templateUrl: "template_admin",
     templateFileSuffix: ".html?v=0309"
 }
 // 定义路由 - 组件
 var templates = {};
-var routes = [ {path: '/', redirect: 'myindex/myindex'}];
+var routes = [ {path: '/', redirect: 'advertiserInfo/advertiserInfoPage'}];
 //模版加载 必须同步 不然templateName变量混乱 以及后面VUE 启动找不到组件
 for (var i = 0; i < Config.homeIndexTemplatesName.length; i++) {
     $.ajax({

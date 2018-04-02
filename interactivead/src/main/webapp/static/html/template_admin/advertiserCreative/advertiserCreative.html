@@ -1,0 +1,204 @@
+<script type="text/template" id="template-advertiserCreative-advertiserCreative">
+    <div class="MainContainer beanView advertiserCreative">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>广告主创意</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <!--<el-form-item label="campaignId" prop="campaignId">
+                        <el-input v-model="bean.campaignId"></el-input>
+                    </el-form-item>-->
+                    <el-form-item label="创意名称" prop="creativeName">
+                        <el-input v-model="bean.creativeName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="创意标题" prop="ctTitle">
+                        <el-input v-model="bean.ctTitle"></el-input>
+                    </el-form-item>
+                   <!-- <el-form-item label="创意类型：" prop="type">
+                        <el-input :disabled="true" v-model="bean.type==1?'跳转URL':'未知类型'"></el-input>
+                    </el-form-item>-->
+                    <el-form-item label="所属活动" prop="campaignId">
+                            <el-select style="width:350px;"  v-model="bean.campaignId"   placeholder="请选择">
+                                <el-option
+                                        v-for="item in campaignNameList"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"  >
+                                </el-option>
+                            </el-select>
+                    </el-form-item>
+
+
+
+                    <el-form-item label="创意类型"    prop="type">
+                        <el-select style="width:350px;"  v-model="bean.type" placeholder="请选择">
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    :disabled="item.disabled">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                   <!-- <el-form-item label="创意图片URL，3:2比例，要求图片小于1MB。" prop="ctImgUrl">
+                        <el-input type="textarea" :rows="5" v-model="bean.ctImgUrl"></el-input>
+                    </el-form-item>-->
+
+                    <el-form-item label="创意图片" prop="ctImgUrl">
+                        <el-upload style="width:350px;"
+                                   action="/imgUpload"
+                                   :on-preview="handlePreview"
+                                   :on-remove="handleRemove"
+                                   :on-success="handleAvatarSuccess"
+                                   :file-list="fileList2"
+                                   limit=1
+                                   list-type="picture">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
+                        </el-upload>
+                    </el-form-item>
+
+                    <el-form-item label="目标URL" prop="ctTargetUrl">
+                        <el-input type="text"   v-model="bean.ctTargetUrl" placeholder="请以http或https开头"></el-input>
+                    </el-form-item>
+                    <el-form-item label="创意信息" prop="ctNote">
+                        <el-input v-model="bean.ctNote"></el-input>
+                    </el-form-item>
+                   <!-- <el-form-item label="是否删除1是 0否" prop="isDelete">
+                        <el-input v-model="bean.isDelete"></el-input>
+                    </el-form-item>-->
+                    <el-form-item label="创意状态" prop="state" v-if="bean.state==1" >
+                        <el-tag type="success">开启</el-tag>
+                    </el-form-item>
+
+                    <el-form-item label="创意状态" prop="state" v-if="bean.state==2">
+                        <el-tag type="danger">暂停</el-tag>
+                    </el-form-item>
+
+                    <el-form-item label="审核状态" prop="checkState" v-if="bean.checkState==1" >
+                        <el-tag type="success">通过</el-tag>
+                    </el-form-item>
+
+                    <el-form-item label="审核状态" prop="checkState" v-if="bean.checkState==2">
+                        <el-tag type="danger">未通过</el-tag>
+                        <el-tag type="info">未通过原因：{{bean.checkMsg}}</el-tag>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "advertiserCreative-advertiserCreative";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"advertiserCreative",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+                options: [{
+                    value: 1,
+                    label: '跳转URL'
+                }],
+                options2:[],
+                fileList2:[],
+                advertiserCampaignbean:{},
+                campaignIdList:[],
+                campaignNameList:[{
+                    value: '0',
+                    label: '无可选择的活动',
+                    disabled: true
+                } ],
+                value12:''
+            }
+        },
+        methods: {
+
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+            select: function () {
+                if (!this.$route.query.id) {
+                    return;
+                }
+                var _this = this;
+                $.get(baseHost + "/" + this.beanName + "/select?id=" + this.$route.query.id, function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                    _this.bean = solar.formatObjectTime(data.body);
+                    solar.formatObjectCodeToArray(_this.bean);
+
+                    var lists = [{name:"创意图片",url:_this.bean.ctImgUrl}];
+                    //lists.push(_this.bean.companyLicenseImg);
+                    _this.fileList2 = lists;
+                });
+            },
+            selectCampaign: function () {
+                var _this = this;
+                $.get(baseHost + "/" + this.beanName + "/selectCampaign", function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                   _this.campaignNameList = solar.formatObjectTime(data.body);
+                   _this.options = options;
+                   //console.log(" _this.campaignNameList",  _this.campaignNameList);
+                   // solar.formatObjectCodeToArray(_this.campaignNameList);
+                });
+            },
+            handleRemove:function (file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview:function(file) {
+                console.log(file);
+            },
+            handleExceed:function(files, fileList) {
+                layer.alert("当前限制选择 1 个文件，本次选择了  个文件，共选择了  个文件", {icon: 6});
+    },
+            beforeRemove:function(file, fileList) {
+                layer.alert("确定移除 ？", {icon: 6});
+            },
+            handleAvatarSuccess:function(res, file) {
+                //上传成功后在图片框显示图片
+                this.bean.ctImgUrl  ='/file_server?uri='+ res.msg;
+                //this.select();
+                console.log(res)
+            },
+            handleError:function(res) {   //显示错误
+                console.log(res)
+            },
+            beforeAvatarUpload:function(file) {    //在图片提交前进行验证
+                const isJPG = file.type === 'image/jpeg'
+                const isPNG = file.type === 'image/png'
+                const isLt2M = file.size / 1024 / 1024 < 2
+
+                if (!isJPG&&!isPNG) {
+
+                    layer.alert("上传图片只能是 JPG/PNG 格式!", {icon: 6});
+                }
+                if (!isLt2M) {
+                    layer.alert("上传图片大小不能超过 2MB!", {icon: 6});
+                }
+                return isJPG && isPNG && isLt2m
+            }
+        },
+        mounted: function () {
+            this.select();
+            this.selectCampaign();
+        }
+
+    });
+</script>

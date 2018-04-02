@@ -49,11 +49,14 @@ public class AdvertiserCreativeCrudController extends BaseController {
                             @RequestParam(value = "idList[]", required = false) List idList) {
         String advertiserId= TokenUtil.getUid(req);
         requestMap.put("idList", idList);
-        requestMap.put("advertiserId", advertiserId);
 
         String id=(String)requestMap.get("id");
         String pageNum=(String)requestMap.get("pageNum");
-         //按条件查询List
+        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){
+            requestMap.put("advertiserId", advertiserId);
+        }
+
+        //按条件查询List
         if (StringUtil.isEmpty(id)&&StringUtil.isEmpty(pageNum)){
            return JsonResult.success(advertiserCreativeService.selectByWhere(requestMap));
         }
@@ -62,8 +65,15 @@ public class AdvertiserCreativeCrudController extends BaseController {
             AdvertiserCreative advertiserCreative=advertiserCreativeService.getById(id);
             return JsonResult.success(advertiserCreative);
         }
+
         //先查询该广告主下的所有活动
-        List<AdvertiserCampaign> advertiserCampaignList = advertiserCampaignService.selectByWhere("advertiserId",advertiserId);
+        List<AdvertiserCampaign> advertiserCampaignList = null;
+        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){
+           advertiserCampaignList = advertiserCampaignService.selectByWhere("advertiserId",advertiserId);
+        }else {
+            advertiserCampaignList = advertiserCampaignService.selectByWhere();
+        }
+
         //将所有活动id方到map
         List campaignIdList = new ArrayList();
         if(advertiserCampaignList.size()>0){
@@ -92,7 +102,7 @@ public class AdvertiserCreativeCrudController extends BaseController {
         String advertiserId= TokenUtil.getUid(req);
         logger.info("advertiserId----:"+advertiserId);
         requestMap.put("idList", idList);
-        requestMap.put("advertiserId", advertiserId);
+        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){                requestMap.put("advertiserId", advertiserId);            }
         String id=(String)requestMap.get("id");
         String pageNum=(String)requestMap.get("pageNum");
 
