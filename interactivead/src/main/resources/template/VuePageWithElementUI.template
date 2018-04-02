@@ -75,6 +75,7 @@ ${pageFieldList}
             goUpdatePage: solar.baseMethods.goUpdatePage,
             changeOrder: solar.baseMethods.changeOrder,
             dateFormat: solar.baseMethods.dateFormat,
+             datetimeFormat: solar.baseMethods.datetimeFormat,
         },
         mounted: function () {
             this.select();

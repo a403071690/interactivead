@@ -9,26 +9,43 @@
         <el-row class="bean">
             <el-col :span="10" :offset="2">
                 <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
-                    <el-form-item label="advertiserId" prop="advertiserId">
-                        <el-input v-model="bean.advertiserId"></el-input>
+                    <el-form-item label="选择广告主" prop="advertiserId">
+                        <el-select style="width:220px;"  v-model="bean.advertiserId" placeholder="请选择">
+                            <el-option
+                                    v-for="item in advertiserNameList"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    :disabled="item.disabled">
+                            </el-option>
                     </el-form-item>
+
                     <!--，比如扣款是扣20180316，create_time为20180317-->
                     <el-form-item label="账户数据日期" prop="accountDataTime">
                         <el-date-picker placeholder="选择日期" type="date"
                                         v-model="bean.accountDataTime">
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="1入账 2出账" prop="accountType">
-                        <el-input v-model="bean.accountType"></el-input>
+                    <el-form-item label="选择出入账" prop="accountType">
+                        <el-select style="width:220px;"  v-model="bean.accountType" placeholder="请选择">
+                        <el-option
+                                v-for="item in options5"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                                :disabled="item.disabled">
+                        </el-option>
+                    </el-select>
+
                     </el-form-item>
-                    <el-form-item label="金额（分）" prop="price">
-                        <el-input v-model="bean.price"></el-input>
+                    <el-form-item label="金额" prop="price">
+                        <el-input style="width:220px;" v-model="bean.price" :formatter="formatMoney"><template slot="append">元</template></el-input>
                     </el-form-item>
                     <el-form-item label="备注" prop="note">
                         <el-input type="textarea" :rows="5" v-model="bean.note"></el-input>
                     </el-form-item>
-                    <el-form-item label="createTime" prop="createTime">
-                        <el-date-picker placeholder="选择日期" type="date"
+                    <el-form-item label="创建时间" prop="createTime">
+                        <el-date-picker placeholder="选择日期" type="datetime"
                                         v-model="bean.createTime">
                         </el-date-picker>
                     </el-form-item>
@@ -53,16 +70,80 @@
                 bean: {},
                 temp: {},
                 rules: solar.validatorRules,
+                options5: [{
+                    value: 1,
+                    label: '入账',
+
+                }, {
+                    value: 2,
+                    label: '出账'
+                }  ],
+                advertiserNameList:[],
             }
         },
         methods: {
             select: solar.baseMethods.select,
             deleteBean: solar.baseMethods.deleteBeanGoBack,
             saveOrUpdate: solar.baseMethods.saveOrUpdate,
+            formatMoney:solar.baseMethods.formatMoney,
+            select: function () {
+                if (!this.$route.query.id) {
+                    return;
+                }
+                var _this = this;
+                $.get(baseHost + "/" + this.beanName + "/select?id=" + this.$route.query.id, function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                    _this.bean = solar.formatObjectTime(data.body);
+                    _this.bean.price = _this.bean.price/100;
+                    solar.formatObjectCodeToArray(_this.bean);
+                });
+            },
 
+            saveOrUpdate: function () {
+                var _this = this;
+                if(_this.bean.dayPrice< 0 &&  _this.bean.bidPrice<0){
+                    solar.alert("金额不能小于0", {icon: 5});
+                }else{
+                    _this.bean.dayPrice =  Math.round(_this.bean.dayPrice*10000)/100;
+                    _this.bean.bidPrice =  Math.round( _this.bean.bidPrice*10000)/100;
+                $.ajax({
+                    type: "post",
+                    url: baseHost + "/" + _this.beanName + "/saveOrUpdate",
+                    datType: "JSON",
+                    contentType: "application/json",
+                    data: JSON.stringify(this.bean),
+                    async: false,
+                    success: function (data) {
+                        if (data.code == 200) {
+                            solar.alert(data.msg + "(已保存:" + data.body + "条)", {icon: 6});
+                            history.back();
+                        } else {
+                            solar.alert(data.msg, {icon: 5});
+                        }
+                    }
+                });}
+            },
+
+            selectCampaign: function () {
+                var _this = this;
+                $.get(baseHost + "/" + this.beanName + "/selectAdvertiser", function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                    _this.advertiserNameList = solar.formatObjectTime(data.body);
+                    _this.options = options;
+                    //console.log(" _this.campaignNameList",  _this.campaignNameList);
+                    // solar.formatObjectCodeToArray(_this.campaignNameList);
+                });
+            },
         },
         mounted: function () {
             this.select();
+            this.selectCampaign();
         }
 
     });

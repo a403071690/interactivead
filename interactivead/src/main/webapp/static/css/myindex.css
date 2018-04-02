@@ -566,10 +566,10 @@
     padding: 12px 25px
 }
 
-.el-input__inner {
+/*.el-input__inner {
     height: 45px;
     line-height: 45px
-}
+}*/
 
 .el-dropdown-menu__item {
     font-size: 12px;

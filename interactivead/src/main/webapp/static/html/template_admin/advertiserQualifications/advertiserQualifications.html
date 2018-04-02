@@ -36,8 +36,24 @@
                     <el-form-item label="状态：1待审核 2审核通过 3审核失败" prop="state">
                         <el-input v-model="bean.state"></el-input>
                     </el-form-item>-->
+                    <el-form-item label="审核状态" prop="state">
+                    <el-select style="width:220px;"  v-model="bean.state" placeholder="请选择">
+                        <el-option
+                                v-for="item in options5"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                                :disabled="item.disabled">
+                        </el-option>
+                    </el-select>
+                    </el-form-item>
+                    </el-form-item>
+                    <el-form-item label="未通过原因" prop="stateMsg">
+                        <el-input v-model="bean.stateMsg"></el-input>
+                    </el-form-item>
 
-                    <el-form-item label="审核状态" prop="checkState" v-if="bean.state==1" >
+
+                  <!--  <el-form-item label="审核状态" prop="checkState" v-if="bean.state==1" >
                         <el-tag type="success">待审核</el-tag>
                     </el-form-item>
                     <el-form-item label="审核状态" prop="checkState" v-if="bean.state==2" >
@@ -47,7 +63,7 @@
                     <el-form-item label="审核状态" prop="checkState" v-if="bean.state==3">
                         <el-tag type="danger">审核未通过</el-tag>
                         <el-tag type="info">未通过原因：{{bean.stateMsg}}</el-tag>
-                    </el-form-item>
+                    </el-form-item>-->
                    <!-- <el-form-item label="stateMsg" prop="stateMsg">
                         <el-input v-model="bean.stateMsg"></el-input>
                     </el-form-item>-->
@@ -78,6 +94,17 @@
                 temp: {},
                 rules: solar.validatorRules,
                 fileList2:[],
+                options5: [{
+                    value: 1,
+                    label: '待审核',
+
+                }, {
+                    value: 2,
+                    label: '审核通过'
+                },  {
+                    value: 3,
+                    label: '未通过'
+                } ],
             }
         },
         methods: {

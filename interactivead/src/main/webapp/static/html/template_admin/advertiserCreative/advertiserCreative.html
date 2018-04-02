@@ -72,7 +72,34 @@
                    <!-- <el-form-item label="是否删除1是 0否" prop="isDelete">
                         <el-input v-model="bean.isDelete"></el-input>
                     </el-form-item>-->
-                    <el-form-item label="创意状态" prop="state" v-if="bean.state==1" >
+                    <el-form-item label="状态" prop="state">
+                        <el-select style="width:220px;"  v-model="bean.state" placeholder="请选择">
+                            <el-option
+                                    v-for="item in options4"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    :disabled="item.disabled">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="审核状态" prop="checkState">
+                        <el-select style="width:220px;"  v-model="bean.checkState" placeholder="请选择">
+                            <el-option
+                                    v-for="item in options5"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    :disabled="item.disabled">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="未通过原因" prop="checkMsg">
+                        <el-input v-model="bean.checkMsg"></el-input>
+                    </el-form-item>
+
+                    <!--<el-form-item label="创意状态" prop="state" v-if="bean.state==1" >
                         <el-tag type="success">开启</el-tag>
                     </el-form-item>
 
@@ -88,6 +115,7 @@
                         <el-tag type="danger">未通过</el-tag>
                         <el-tag type="info">未通过原因：{{bean.checkMsg}}</el-tag>
                     </el-form-item>
+                    -->
                     <el-form-item>
                         <el-button type="primary" @click="saveOrUpdate()">保存
                         </el-button>
@@ -112,6 +140,22 @@
                     value: 1,
                     label: '跳转URL'
                 }],
+                options4: [{
+                    value: 1,
+                    label: '启动',
+
+                }, {
+                    value: 2,
+                    label: '暂停'
+                }  ],
+                options5: [{
+                    value: 1,
+                    label: '通过',
+
+                }, {
+                    value: 2,
+                    label: '未通过'
+                }  ],
                 options2:[],
                 fileList2:[],
                 advertiserCampaignbean:{},

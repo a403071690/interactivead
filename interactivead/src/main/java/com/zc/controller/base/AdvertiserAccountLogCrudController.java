@@ -1,11 +1,15 @@
 package com.zc.controller.base;
 
+import com.alibaba.fastjson.JSONArray;
+import com.zc.entity.AdvertiserInfo;
+import com.zc.service.AdvertiserInfoService;
 import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
 import org.solar.bean.Page;
 import org.solar.bean.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +38,9 @@ public class AdvertiserAccountLogCrudController extends BaseController {
     Logger logger=LoggerFactory.getLogger(AdvertiserAccountLogCrudController.class);
     @Resource
     private AdvertiserAccountLogService advertiserAccountLogService;
+    @Autowired
+    private AdvertiserInfoService advertiserInfoService;
+
     @RequestMapping("/select")
     @ResponseBody
     public  JsonResult select(HttpServletRequest req,@RequestParam Map requestMap,
@@ -48,6 +55,7 @@ public class AdvertiserAccountLogCrudController extends BaseController {
         if (StringUtil.isEmpty(id)&&StringUtil.isEmpty(pageNum)){
            return JsonResult.success(advertiserAccountLogService.selectByWhere(requestMap));
         }
+
 
 
         //按id查询
@@ -72,6 +80,34 @@ public class AdvertiserAccountLogCrudController extends BaseController {
         int row=advertiserAccountLogService.delete(id);
         return JsonResult.success(row);
     }
+
+    @RequestMapping("/selectAdvertiser")
+    @ResponseBody
+    public  JsonResult selectAdvertiser(HttpServletRequest req) {
+        String advertiserId= TokenUtil.getUid(req);
+        System.out.println("/advertiserInfo/selectAdvertiserInfo:"+advertiserId);
+        //按id查询
+        JSONArray jsonArray = new JSONArray();
+        if (StringUtil.isNotEmpty(advertiserId)){
+            List <AdvertiserInfo> advertiserInfoList=advertiserInfoService.selectByWhere();
+            //List<String> advertiserNameList = new ArrayList<String>();
+
+            for (AdvertiserInfo advertiserInfo:advertiserInfoList){
+                //advertiserNameList.add("{label:'"+advertiserInfo.getLoginName()+"',"+"value:'"+advertiserInfo.getId()+"'}");
+                Map maps= new HashMap();
+                maps.put("label",advertiserInfo.getLoginName());
+                maps.put("value",advertiserInfo.getId());
+                // maps.put("disabled","");
+                jsonArray.add(maps);
+            }
+            //Map map = new HashMap();
+            //map.put("campaignNameList",jsonArray);
+            return JsonResult.success(jsonArray);
+        }
+        return null;
+
+    }
+
     @RequestMapping("/saveOrUpdate")
     @ResponseBody
     public  JsonResult saveOrUpdate(@RequestBody Map requestMap) {

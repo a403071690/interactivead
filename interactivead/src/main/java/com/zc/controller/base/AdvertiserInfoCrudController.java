@@ -1,5 +1,7 @@
 package com.zc.controller.base;
 
+import com.alibaba.fastjson.JSONArray;
+import com.zc.entity.AdvertiserCampaign;
 import com.zc.util.Config;
 import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
@@ -16,10 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zc.entity.AdvertiserInfo;
 import com.zc.service.AdvertiserInfoService;
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
 import org.solar.util.JsonUtil;
 import org.solar.util.BeanUtil;
 import org.solar.util.StringUtil;
@@ -78,6 +78,9 @@ public class AdvertiserInfoCrudController extends BaseController {
         return null;
 
     }
+
+
+
 
     @RequestMapping("/delete")
     @ResponseBody

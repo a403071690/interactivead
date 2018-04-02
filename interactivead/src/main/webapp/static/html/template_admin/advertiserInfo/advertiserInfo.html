@@ -21,10 +21,19 @@
                    <!-- <el-form-item label="类型：1.媒体主，2.广告主" prop="type">
                         <el-input v-model="bean.type"></el-input>
                     </el-form-item>-->
-                    <el-form-item label="状态：1待审核 2审核通过 3审核未通过 4冻结" prop="state">
-                        <el-input v-model="bean.state"></el-input>
+                    <el-form-item label="审核状态" prop="state">
+                       <!-- <el-input v-model="bean.state"></el-input>-->
+                        <el-select style="width:220px;"  v-model="bean.state" placeholder="请选择">
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    :disabled="item.disabled">
+                            </el-option>
+                        </el-select>
                     </el-form-item>
-                    <el-form-item label="状态信息，用于审核不通过原因，冻结说明等。" prop="stateMsg">
+                    <el-form-item label="不通过原因" prop="stateMsg">
                         <el-input v-model="bean.stateMsg"></el-input>
                     </el-form-item>
                     <el-form-item label="公司名称" prop="company">
@@ -102,13 +111,44 @@
                 temp: {},
                 rules: solar.validatorRules,
                 fileList2: [],
+                options: [{
+                    value: 1,
+                    label: '待审核',
+
+                }, {
+                    value: 2,
+                    label: '审核通过'
+                }, {
+                    value: 3,
+                    label: '审核未通过',
+
+                }, {
+                    value: 4,
+                    label: '冻结',
+
+                } ]
             }
         },
         methods: {
-
+            select: function () {
+                if (!this.$route.query.id) {
+                    return;
+                }
+                var _this = this;
+                $.get(baseHost + "/" + this.beanName + "/select?id=" + this.$route.query.id, function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                    _this.bean = solar.formatObjectTime(data.body);
+                    var lists = [{name:"企业营业执照",url:_this.bean.companyLicenseImg}];
+                    //lists.push(_this.bean.companyLicenseImg);
+                    _this.fileList2 = lists;
+                });
+            },
             deleteBean: solar.baseMethods.deleteBeanGoBack,
             saveOrUpdate: solar.baseMethods.saveOrUpdate,
-            select: function () {
+            selects: function () {
                 var _this = this;
                 $.get(baseHost + "/advertiserInfo/selectAdvertiserInfo", function (data) {
                     if (!data.body) {

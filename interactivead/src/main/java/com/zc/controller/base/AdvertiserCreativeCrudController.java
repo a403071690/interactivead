@@ -102,14 +102,20 @@ public class AdvertiserCreativeCrudController extends BaseController {
         String advertiserId= TokenUtil.getUid(req);
         logger.info("advertiserId----:"+advertiserId);
         requestMap.put("idList", idList);
-        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){                requestMap.put("advertiserId", advertiserId);            }
+
         String id=(String)requestMap.get("id");
         String pageNum=(String)requestMap.get("pageNum");
 
         JSONArray jsonArray = new JSONArray();
         //按条件查询List
         if (!StringUtil.isEmpty(advertiserId)){
-            List<AdvertiserCampaign> advertiserCampaignList = advertiserCampaignService.selectByWhere("advertiserId",advertiserId);
+            List<AdvertiserCampaign> advertiserCampaignList = null;
+            if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){
+                advertiserCampaignList =  advertiserCampaignService.selectByWhere("advertiserId",advertiserId);
+            }else {
+                advertiserCampaignList =  advertiserCampaignService.selectByWhere();
+            }
+
             List<String> campaignNameList = new ArrayList<String>();
 
             for (AdvertiserCampaign advertiserCampaign:advertiserCampaignList){
@@ -118,7 +124,7 @@ public class AdvertiserCreativeCrudController extends BaseController {
                 maps.put("label",advertiserCampaign.getCampaignName());
                 maps.put("value",advertiserCampaign.getId());
 
-               // maps.put("disabled","");
+                // maps.put("disabled","");
                 jsonArray.add(maps);
             }
             Map map = new HashMap();
