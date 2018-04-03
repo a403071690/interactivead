@@ -46,6 +46,7 @@
                     <el-button type="success"@click="changeState(scope.row.id,2)"  v-if="scope.row.state==2"  icon="el-icon-caret-right" round  size="mini">开启</el-button>
                 </template>
             </el-table-column>
+
             <el-table-column sortable="custom" min-width="150px"  :formatter="formatMoney"
                              label="每天预算"
                              prop="dayPrice"><!--（分）-->

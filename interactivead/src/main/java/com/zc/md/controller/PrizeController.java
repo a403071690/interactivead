@@ -190,7 +190,10 @@ public class PrizeController {
         if (StringUtil.isEmpty(fid)){
             return JsonResult.error("fid不能为空");
         }
-        List<UserPrizeLog> userPrizeLogList = userPrizeLogService.selectByWhere("userFingerId",fid);
+        Map mapl = new HashMap();
+        mapl.put("userFingerId",fid);
+        mapl.put("orderProperty","createTime");
+        List<UserPrizeLog> userPrizeLogList = userPrizeLogService.selectByWhere(mapl);
         log.info("奖品数目："+userPrizeLogList.size());
         //List<AdvertiserCreative> advertiserCreativeList = new ArrayList<AdvertiserCreative>();
         List<Prize> prizeList = new ArrayList<Prize>();

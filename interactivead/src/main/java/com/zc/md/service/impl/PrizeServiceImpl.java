@@ -78,17 +78,19 @@ public class PrizeServiceImpl implements PrizeService {
                     }
                 }
             }
-
-
             log.info("剩余活动数："+cplist.size());
         }
 
         log.info("把所有合格的活动进行规则排序,竞价价格最高优先");
-        OptionalLong sum = cplist.stream().mapToLong(AdvertiserCampaign::getBidPrice).max();
-        log.info(" 排序");
-        Stream collect = cplist.stream().sorted(Comparator.comparing(AdvertiserCampaign::getBidPrice));
-
+        OptionalLong sum = cplist.stream().mapToLong(AdvertiserCampaign::getBidPrice).min();
+        log.info(" 排序最大值是："+sum.getAsLong());
+        Stream collect2 = cplist.stream().sorted(Comparator.comparing(AdvertiserCampaign::getBidPrice));
+        Stream collect = cplist.stream().sorted(Comparator.comparing(AdvertiserCampaign::getBidPrice).reversed());
         Optional<AdvertiserCampaign> collectFirst = collect.findFirst();
+        Optional<AdvertiserCampaign> collectFirst2 = collect2.findFirst();
+        log.info("最大创意："+collectFirst.get().getCampaignName());
+        log.info("最小创意："+collectFirst2.get().getCampaignName());
+
         return   collectFirst.orElse(null);
     }
 
@@ -97,9 +99,18 @@ public class PrizeServiceImpl implements PrizeService {
         log.info("取出该活动下的所有创意");
         System.out.println("创意数目："+list.size());
         if (list.size() > 0) {
-            AdvertiserCreative advertiserCreative = list.stream().findAny().get();
-            advertiserCreative.setIsPrize("1");
-            return  advertiserCreative;
+            if (list.size()==1){
+                AdvertiserCreative advertiserCreative = list.get(0);
+                advertiserCreative.setIsPrize("1");
+                return  advertiserCreative;
+            }else {
+                int index =new Random().nextInt(list.size());
+                log.info("index:"+index);
+                AdvertiserCreative advertiserCreative = list.get(index);
+                log.info("随机获取一个："+advertiserCreative.getCreativeName());
+                advertiserCreative.setIsPrize("1");
+                return  advertiserCreative;
+            }
         }else {
             AdvertiserCreative advertiserCreative = new AdvertiserCreative();
             advertiserCreative.setIsPrize("0");
