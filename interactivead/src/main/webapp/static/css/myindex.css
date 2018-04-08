@@ -90,13 +90,13 @@
     position: absolute;
     width: 80px;
     height: 80px;
-    bottom: 10px;
+    bottom: -40px;
     right: 10px;
     border: 2px solid #fff;
     border-radius: 100%;
     font-size: 48px;
     transform: rotate(-40deg);
-    opacity: .1
+    opacity: .5
 }
 
 .item[data-v-c8efd100] {

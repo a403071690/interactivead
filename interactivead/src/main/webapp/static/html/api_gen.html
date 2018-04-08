@@ -88,7 +88,7 @@ h3{
             <td valign="top" class="nav">
                     <ul class="nav">
                     	<li>
-                        文档版本:2018年03月29日 20:17
+                        文档版本:2018年04月08日 17:40
                         </li>
                         <li>
                       host: <a href="localhost:8080/" target="_blank">localhost:8080/</a>
@@ -131,37 +131,40 @@ h3{
                             <a  href="#advertiserInfo">5、 用户信息表</a>
                         </li>
                         <li>
-                            <a  href="#advertiserQualifications">6、 广告主资质</a>
+                            <a  href="#advertiserInvoice">6、 advertiserInvoice</a>
                         </li>
                         <li>
-                            <a  href="#campaignCreativeRealtimeReport">7、 活动创意实时报表</a>
+                            <a  href="#advertiserQualifications">7、 广告主资质</a>
                         </li>
                         <li>
-                            <a  href="#campaignCreativeReport">8、 活动创意报表</a>
+                            <a  href="#campaignCreativeRealtimeReport">8、 活动创意实时报表</a>
                         </li>
                         <li>
-                            <a  href="#mediaBankCard">9、 媒体主银行卡</a>
+                            <a  href="#campaignCreativeReport">9、 活动创意报表</a>
                         </li>
                         <li>
-                            <a  href="#mediaOwnerInfo">10、 媒体主信息表</a>
+                            <a  href="#mediaBankCard">10、 媒体主银行卡</a>
                         </li>
                         <li>
-                            <a  href="#mediaOwnerRealtimeReport">11、 媒体主实时报表</a>
+                            <a  href="#mediaOwnerInfo">11、 媒体主信息表</a>
                         </li>
                         <li>
-                            <a  href="#mediaOwnerReport">12、 媒体主报表</a>
+                            <a  href="#mediaOwnerRealtimeReport">12、 媒体主实时报表</a>
                         </li>
                         <li>
-                            <a  href="#templateManage">13、 模板管理</a>
+                            <a  href="#mediaOwnerReport">13、 媒体主报表</a>
                         </li>
                         <li>
-                            <a  href="#templateRealtimeReport">14、 模板实时报表</a>
+                            <a  href="#templateManage">14、 模板管理</a>
                         </li>
                         <li>
-                            <a  href="#templateReport">15、 模板报表</a>
+                            <a  href="#templateRealtimeReport">15、 模板实时报表</a>
                         </li>
                         <li>
-                            <a  href="#userPrizeLog">16、 中奖信息</a>
+                            <a  href="#templateReport">16、 模板报表</a>
+                        </li>
+                        <li>
+                            <a  href="#userPrizeLog">17、 中奖信息</a>
                         </li>
 
                  <li> </li>  <li>  </li> <li></li>
@@ -649,6 +652,64 @@ h3{
                      <td>updateTime</td>
                      <td>Date</td>
                      <td>updateTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="advertiserInvoice">
+             <h3>advertiserInvoice</h3>
+             <h6><a  href="" onclick="openUri('/advertiserInvoice/select?pageNum=1');" >查询接口</a> host+"/advertiserInvoice/select"</h6>
+             <h6>删除接口 host+"/advertiserInvoice/delete"</h6>
+             <h6>保存或修改接口 host+"/advertiserInvoice/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>advertiserId</td>
+                     <td>String</td>
+                     <td>广告主id</td>
+                 </tr>
+                 <tr>
+                     <td>invoiceAmount</td>
+                     <td>String</td>
+                     <td>发票金额</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>类型</td>
+                 </tr>
+                 <tr>
+                     <td>status</td>
+                     <td>String</td>
+                     <td>当前状态：0-提交申请；1:等待审核；2：审核中；3:审核通过，4审核未通过。5:发票已寄出 </td>
+                 </tr>
+                 <tr>
+                     <td>taxNumber</td>
+                     <td>String</td>
+                     <td>税号</td>
+                 </tr>
+                 <tr>
+                     <td>companyName</td>
+                     <td>String</td>
+                     <td>公司名称</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>创建时间</td>
+                 </tr>
+                 <tr>
+                     <td>updateTime</td>
+                     <td>Date</td>
+                     <td>更新时间</td>
                  </tr>
              </table>
         </div>

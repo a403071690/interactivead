@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @Description:
  * @author solar
- * @date 2018年03月29日 20:17
+ * @date 2018年04月08日 17:40
  */
 @Repository("TemplateManageDao")
 public class TemplateManageDaoImpl extends BaseDaoImpl<TemplateManage> implements TemplateManageDao {

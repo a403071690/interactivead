@@ -738,8 +738,11 @@ solar.baseMethods = {
         var sendMsgUrl = baseHost + "/advertiserCreative/select";
         var data = solar.post(sendMsgUrl, {
             id: row[column.property],
+            imgCode: $("#imgCode").val()
         });
-        return  data.body.creativeName;
+
+        row[column.property]/100;
+        return money+"元";
     },
 
     formatMoney : function (row, column) {

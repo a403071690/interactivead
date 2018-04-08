@@ -4,7 +4,7 @@ import com.gen.entity.TemplateManage;
 /**
  * @Description:
  * @author solar
- * @date 2018年03月29日 20:17
+ * @date 2018年04月08日 17:40
  */
 public interface TemplateManageService extends BaseService<TemplateManage> {
 

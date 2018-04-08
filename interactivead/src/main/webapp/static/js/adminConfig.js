@@ -48,6 +48,8 @@ var Config = {
         "userPersonalAuth-userPersonalAuthPage",
         "userRoleInfo-userRoleInfo",
         "userRoleInfo-userRoleInfoPage",
+        "advertiserInvoice-advertiserInvoice",
+        "advertiserInvoice-advertiserInvoicePage",
     ],
     templateUrl: "template_bak",
     templateFileSuffix: ".html?v=0309"

@@ -1,9 +1,11 @@
 package com.zc.extension;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zc.entity.CampaignCreativeRealtimeReport;
 import com.zc.entity.CampaignCreativeReport;
 import com.zc.service.CampaignCreativeRealtimeReportService;
 import com.zc.service.CampaignCreativeReportService;
+import com.zc.util.RedisPool;
 import com.zc.util.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -107,7 +111,6 @@ public class MyIndexController {
                 return JsonResult.success(campaignCreativeReportList);
             }
 
-
         //按分页查询
         Pageable pageable=Pageable.getPageable(requestMap);
         Page page=campaignCreativeReportService.selectPage(pageable);
@@ -118,6 +121,32 @@ public class MyIndexController {
 //            page.setList(resultList);
         return JsonResult.success(page);
 
+    }
+
+    @RequestMapping("/getAccount")
+    @ResponseBody
+    public JsonResult getAccount(HttpServletRequest req,HttpServletResponse rs, @RequestParam Map requestMap){
+        //从redis查询数据
+        String advertiserId= TokenUtil.getUid(req);
+        logger.info("myindex-advertiserId:"+advertiserId);
+        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){
+            requestMap.put("advertiserId", advertiserId);
+        }
+        String id=(String)requestMap.get("id");
+        Jedis jedis = RedisPool.getJedis();
+        String all_price = jedis.hget("adv_rech#"+advertiserId,"all_price");
+        logger.info("充值金额:"+all_price);
+        List<Integer> conlist = JSONObject.parseArray(jedis.hvals("adv_cons#"+advertiserId).toString(),Integer.class);
+        RedisPool.returnResource(jedis);
+        long consum = conlist.stream().reduce(0, Integer::sum);
+        logger.info("计算消费总额："+consum);
+
+        long balance = Long.parseLong( all_price) - consum;
+        Map map = new HashMap();
+        map.put("all_account", Long.parseLong( all_price));
+        map.put("consum",consum);
+        map.put("balance",balance);
+        return JsonResult.success(map);
     }
 
 

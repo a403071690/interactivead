@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @Description:
  * @author solar
- * @date 2018年03月29日 20:17
+ * @date 2018年04月08日 17:40
  */
 @Service("UserPrizeLogService")
 public class UserPrizeLogServiceImpl extends BaseServiceImpl<UserPrizeLog> implements UserPrizeLogService {

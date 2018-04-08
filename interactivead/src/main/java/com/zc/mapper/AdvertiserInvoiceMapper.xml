@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AdvertiserInvoice" >
+    <resultMap id="BaseResultMap" type="com.zc.entity.AdvertiserInvoice" >
+        <id column="id" property="id" jdbcType="CHAR" />
+        <result column="advertiser_id" property="advertiserId" jdbcType="VARCHAR" />
+        <result column="invoice_amount" property="invoiceAmount" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="tax_number" property="taxNumber" jdbcType="VARCHAR" />
+        <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id  , advertiser_id , invoice_amount , type , status , tax_number , company_name , create_time , update_time
+
+    </sql>
+
+    <select id="selectByWhere" resultMap="BaseResultMap"  >
+        select
+        <include refid="Base_Column_List" />
+        from advertiser_invoice
+        <where >
+            <include refid="where_Column_List" />
+        </where>
+        <if test="orderProperty != null and orderDirection != null " >
+            ORDER BY ${orderProperty} ${orderDirection}
+        </if>
+        <if test="pageStart != null and pageLimit != null " >
+            limit #{pageStart},#{pageLimit}
+        </if>
+    </select>
+
+    <select id="selectByWhereCount" resultType="java.lang.Long" >
+        select count(*) from advertiser_invoice
+        <where >
+            <include refid="where_Column_List" />
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from advertiser_invoice
+        where id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from advertiser_invoice
+        where id = #{id,jdbcType=CHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.zc.entity.AdvertiserInvoice" >
+        insert into advertiser_invoice (id
+        , advertiser_id , invoice_amount , type , status , tax_number , company_name , create_time , update_time
+
+        )
+        values (#{id},
+        , #{advertiserId} , #{invoiceAmount} , #{type} , #{status} , #{taxNumber} , #{companyName} , #{createTime}
+        , #{updateTime}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zc.entity.AdvertiserInvoice" >
+        insert into advertiser_invoice
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="advertiserId != null" >
+                advertiser_id,
+            </if>
+            <if test="invoiceAmount != null" >
+                invoice_amount,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="taxNumber != null" >
+                tax_number,
+            </if>
+            <if test="companyName != null" >
+                company_name,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="advertiserId != null" >
+                #{advertiserId},
+            </if>
+            <if test="invoiceAmount != null" >
+                #{invoiceAmount},
+            </if>
+            <if test="type != null" >
+                #{type},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="taxNumber != null" >
+                #{taxNumber},
+            </if>
+            <if test="companyName != null" >
+                #{companyName},
+            </if>
+            <if test="createTime != null" >
+                #{createTime},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime},
+            </if>
+
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.AdvertiserInvoice" >
+        update advertiser_invoice
+        <set>
+            <if test="advertiserId != null" >
+                advertiser_id = #{advertiserId},
+            </if>
+            <if test="invoiceAmount != null" >
+                invoice_amount = #{invoiceAmount},
+            </if>
+            <if test="type != null" >
+                type = #{type},
+            </if>
+            <if test="status != null" >
+                status = #{status},
+            </if>
+            <if test="taxNumber != null" >
+                tax_number = #{taxNumber},
+            </if>
+            <if test="companyName != null" >
+                company_name = #{companyName},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime},
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+    <sql id="where_Column_List" >
+        <if test="advertiserId != null" >
+            AND advertiser_id = #{advertiserId}
+        </if>
+        <if test="invoiceAmount != null" >
+            AND invoice_amount = #{invoiceAmount}
+        </if>
+        <if test="type != null" >
+            AND type = #{type}
+        </if>
+        <if test="status != null" >
+            AND status = #{status}
+        </if>
+        <if test="taxNumber != null" >
+            AND tax_number = #{taxNumber}
+        </if>
+        <if test="companyName != null" >
+            AND company_name = #{companyName}
+        </if>
+        <if test="createTime != null" >
+            AND create_time = #{createTime}
+        </if>
+        <if test="createTimeStart != null and createTimeStart != ''" >
+            AND create_time &gt;= #{createTimeStart}
+        </if>
+        <if test="createTimeEnd != null and createTimeEnd != ''" >
+            AND create_time &lt; #{createTimeEnd}
+        </if>
+        <if test="updateTime != null" >
+            AND update_time = #{updateTime}
+        </if>
+        <if test="updateTimeStart != null and updateTimeStart != ''" >
+            AND update_time &gt;= #{updateTimeStart}
+        </if>
+        <if test="updateTimeEnd != null and updateTimeEnd != ''" >
+            AND update_time &lt; #{updateTimeEnd}
+        </if>
+        <if test="idList != null" >
+            AND id in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="advertiserIdList != null" >
+            AND advertiser_id in
+            <foreach collection="advertiserIdList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="invoiceAmountList != null" >
+            AND invoice_amount in
+            <foreach collection="invoiceAmountList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="typeList != null" >
+            AND type in
+            <foreach collection="typeList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="statusList != null" >
+            AND status in
+            <foreach collection="statusList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="taxNumberList != null" >
+            AND tax_number in
+            <foreach collection="taxNumberList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="companyNameList != null" >
+            AND company_name in
+            <foreach collection="companyNameList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="createTimeList != null" >
+            AND create_time in
+            <foreach collection="createTimeList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="updateTimeList != null" >
+            AND update_time in
+            <foreach collection="updateTimeList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="advertiserIdLike != null" >
+            AND advertiser_id like #{advertiserIdLike}
+        </if>
+        <if test="invoiceAmountLike != null" >
+            AND invoice_amount like #{invoiceAmountLike}
+        </if>
+        <if test="typeLike != null" >
+            AND type like #{typeLike}
+        </if>
+        <if test="statusLike != null" >
+            AND status like #{statusLike}
+        </if>
+        <if test="taxNumberLike != null" >
+            AND tax_number like #{taxNumberLike}
+        </if>
+        <if test="companyNameLike != null" >
+            AND company_name like #{companyNameLike}
+        </if>
+        <if test="createTimeLike != null" >
+            AND create_time like #{createTimeLike}
+        </if>
+        <if test="updateTimeLike != null" >
+            AND update_time like #{updateTimeLike}
+        </if>
+        <if test="fullTextSearchValue != null" >
+            AND (
+            advertiser_id like #{fullTextSearchValue}
+            or invoice_amount like #{fullTextSearchValue}
+            or type like #{fullTextSearchValue}
+            or status like #{fullTextSearchValue}
+            or tax_number like #{fullTextSearchValue}
+            or company_name like #{fullTextSearchValue}
+            or create_time like #{fullTextSearchValue}
+            or update_time like #{fullTextSearchValue}
+            )
+        </if>
+
+    </sql>
+</mapper>

@@ -19,7 +19,7 @@ public class GenerateCodeUtil {
         //配置
         //generator.templateRootPath="/templatePath/";//自定义模版
 
-/*       generator.vueHtmlRootPath = vueHtmlRootPath;
+      /* generator.vueHtmlRootPath = vueHtmlRootPath;
       generator.overWriteFile=true;
 //        //生成//根据数据库生成实体文件
         generator.generatePackageAndBaseDaoAndBaseService();

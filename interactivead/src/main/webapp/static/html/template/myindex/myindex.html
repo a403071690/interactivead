@@ -48,42 +48,89 @@
                 </div>
             </div>
         </div>
-        <div data-v-5f14284a="" class="pull-auto" style="margin-top: 20px;"><h4 data-v-5f14284a="">昨日数据</h4>
+        <div data-v-5f14284a="" class="pull-auto" style="margin-top: 20px;"><h4 data-v-5f14284a="">账户财务</h4>
             <div data-v-6e5c231c="" data-v-5f14284a="" class="pull-auto easyData-contailer">
                 <div data-v-6e5c231c="" class="el-row" span="24">
+
                     <div data-v-6e5c231c="" class="el-col el-col-4">
                         <div data-v-6e5c231c="" class="item">
                             <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
                                     data-v-6e5c231c="" class="icon-cuowu"></i></div>
-                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">曝光数据</span>
-                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">378</h3></div>
-                        </div>
-                    </div>
-                    <div data-v-6e5c231c="" class="el-col el-col-4">
-                        <div data-v-6e5c231c="" class="item">
-                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
-                                    data-v-6e5c231c="" class="icon-shujuzhanshi2"></i></div>
-                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">总点击量</span>
-                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">231</h3></div>
-                        </div>
-                    </div>
-                   <div data-v-6e5c231c="" class="el-col el-col-4">
-                        <div data-v-6e5c231c="" class="item">
-                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
-                                    data-v-6e5c231c="" class="icon-jiaoseguanli"></i></div>
-                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">有效点击</span>
-                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">24</h3></div>
-                        </div>
-                    </div>
-                    <div data-v-6e5c231c="" class="el-col el-col-4">
-                        <div data-v-6e5c231c="" class="item">
-                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
-                                    data-v-6e5c231c="" class="icon-caidanguanli"></i></div>
-                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">消费金额</span>
-                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">1.25元</h3></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">充值总额(元)</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">
+                                    <el-tooltip placement="right">
+                                        <div slot="content">{{all_account | formatMoney}}元</div>
+                                        <el-badge  >{{all_account | formatMoney}}</el-badge>
+                                    </el-tooltip>
+                                </h3></div>
                         </div>
                     </div>
 
+                    <!--<div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-cuowu"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">虚拟金总额</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">
+                                    <el-tooltip placement="right">
+                                        <div slot="content">虚拟金：10000元</div>
+                                        <el-badge  >10000元</el-badge>
+                                    </el-tooltip>
+                                </h3></div>
+                        </div>
+                    </div>-->
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-cuowu"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">消费金额(元)</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">
+                                    <el-tooltip placement="right">
+                                        <div slot="content">账户实际消费：{{consum | formatMoney}}元</div>
+                                        <el-badge  >{{consum | formatMoney}}</el-badge>
+                                    </el-tooltip>
+                                </h3></div>
+                        </div>
+                    </div>
+                   <!-- <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-cuowu"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">虚拟金消费</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">
+                                    <el-tooltip placement="right">
+                                        <div slot="content">虚拟金消费：10000元</div>
+                                        <el-badge  >10000元</el-badge>
+                                    </el-tooltip>
+                                </h3></div>
+                        </div>
+                    </div>-->
+                    <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-cuowu"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">账户余额(元)</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">
+                                    <el-tooltip placement="right">
+                                        <div slot="content">账户余额：{{balance | formatMoney}}元</div>
+                                        <el-badge  >{{balance | formatMoney}}</el-badge>
+                                    </el-tooltip>
+                                </h3></div>
+                        </div>
+                    </div>
+                   <!-- <div data-v-6e5c231c="" class="el-col el-col-4">
+                        <div data-v-6e5c231c="" class="item">
+                            <div data-v-6e5c231c="" class="item-icon" style="color: rgb(63, 161, 255);"><i
+                                    data-v-6e5c231c="" class="icon-cuowu"></i></div>
+                            <div data-v-6e5c231c="" class="item-info"><span data-v-6e5c231c="">虚拟金余额</span>
+                                <h3 data-v-6e5c231c="" style="color: rgb(63, 161, 255);">
+                                    <el-tooltip placement="right">
+                                        <div slot="content">虚拟金余额：10000元</div>
+                                        <el-badge  >10000元</el-badge>
+                                    </el-tooltip>
+                                </h3></div>
+                        </div>
+                    </div>-->
 
                 </div>
             </div>
@@ -116,6 +163,9 @@
                 contentViewName: "",
                 contentView: "",
                 openContentView: false,
+                all_account:0,
+                consum:0,
+                balance:0
             }
 
         },
@@ -123,6 +173,7 @@
 
             deleteBean: solar.baseMethods.deleteBeanGoBack,
             saveOrUpdate: solar.baseMethods.saveOrUpdate,
+            formatMoney:solar.baseMethods.formatMoney,
             select: function () {
                 var _this = this;
                 $.get("/myindex/select", function (data) {
@@ -132,16 +183,16 @@
                     }
                     _this.bean = solar.formatObjectTime(data.body);
 
-                    _this.bean.payMoney =  _this.bean.payMoney/100;
+                    _this.bean.payMoney = _this.bean.payMoney / 100;
                     solar.formatObjectCodeToArray(_this.bean);
                 });
             },
-            getcharts:function (val) {
-                },
+            getcharts: function (val) {
+            },
 
 
             trend: function (val) {
-                var _this=this;
+                var _this = this;
                 // 指定图表的配置项和数据
                 var echartsOption = {
                     legend: {
@@ -153,14 +204,14 @@
                     yAxis: {},
                     series: []
                 };
-                var url="/myindex/getchart?day="+val;
+                var url = "/myindex/getchart?day=" + val;
                 $.get(url, function (data) {
                     _this.echarts_trend.setOption(echartsOption, true);
                     var list = data.body;
                     //solar.loadComplete();
-                    var myobj=eval(list);
+                    var myobj = eval(list);
 
-                    for(var i=0;i<myobj.length;i++){
+                    for (var i = 0; i < myobj.length; i++) {
                         echartsOption.xAxis.data.push(new Date(myobj[i].reportDate).Format("yyyy-MM-dd"));
                         //alert(myobj[i].reportDate+"|||"+myobj[i].clickCount)
                     }
@@ -197,7 +248,7 @@
                         }
                     };
                     var appExpendItem = {
-                        name: '收益',
+                        name: '消费金额',
                         type: 'line',
                         data: [],
                         label: {
@@ -206,11 +257,11 @@
                             }
                         }
                     };
-                    echartsOption.legend.data.push("收益");
+                    echartsOption.legend.data.push("消费金额");
                     echartsOption.legend.data.push("总展现数");
                     echartsOption.legend.data.push("总点击数");
                     echartsOption.legend.data.push("有效点击数");
-                    for(var i=0;i<myobj.length;i++){
+                    for (var i = 0; i < myobj.length; i++) {
 
                         /*//曝光量
                         private Long impCount;
@@ -241,9 +292,25 @@
                     _this.echarts_trend.setOption(echartsOption, true);
                 });
 
+            },
+
+            //获取账户余额消费信息
+            getAccount: function (val) {
+                var _this = this;
+                /* map.put("all_account", Long.parseLong( all_price));
+                map.put("consum",consum);
+                map.put("balance",balance);*/
+                var url = "/myindex/getAccount";
+                $.get(url, function (data) {
+                  /*  "balance":409379,"consum":141821,"all_account":551200*/
+
+                    _this.all_account = data.body.all_account/100;
+                    _this.consum = data.body.consum/100;
+                    _this.balance = data.body.balance/100;
+
+                });
+
             }
-
-
         },
         mounted: function () {
             var _this = this;
@@ -255,7 +322,8 @@
                 _this.trend(7);
                 //_this.getcharts(7);
 
-            }, 1500);
+            }, 500);
+            _this.getAccount();
         }
 
     });

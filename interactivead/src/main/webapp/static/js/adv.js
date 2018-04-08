@@ -45,6 +45,9 @@ var Config = {
         "templateReport-templateReport",
         "templateReport-templateReportPage",
         "myindex-myindex",
+        "advertiserInvoice-advertiserInvoice",
+        "advertiserInvoice-advertiserInvoicePage",
+        "advertiserInvoice-advertiserInvoiceStatus",
     ],
     templateUrl: "template",
     templateFileSuffix: ".html?v=0309"
