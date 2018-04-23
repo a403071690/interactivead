@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DuiCreditsConsume" >
+  <resultMap id="BaseResultMap" type="com.gen.entity.DuiCreditsConsume" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="credits" property="credits" jdbcType="BIGINT" />
+    <result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+    <result column="app_key" property="appKey" jdbcType="VARCHAR" />
+    <result column="timestamp" property="timestamp" jdbcType="TIMESTAMP" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="face_price" property="facePrice" jdbcType="INTEGER" />
+    <result column="actual_price" property="actualPrice" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="wait_audit" property="waitAudit" jdbcType="VARCHAR" />
+    <result column="params" property="params" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="back_status" property="backStatus" jdbcType="VARCHAR" />
+    <result column="back_error_message" property="backErrorMessage" jdbcType="VARCHAR" />
+    <result column="back_biz_id" property="backBizId" jdbcType="VARCHAR" />
+    <result column="back_credits" property="backCredits" jdbcType="INTEGER" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , uid , credits , item_code , app_key , timestamp , description , order_num , type , face_price , actual_price
+ , ip , wait_audit , params , sign , back_status , back_error_message , back_biz_id , back_credits
+
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from dui_credits_consume
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from dui_credits_consume
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dui_credits_consume
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dui_credits_consume
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.gen.entity.DuiCreditsConsume" >
+    insert into dui_credits_consume (id
+     , uid , credits , item_code , app_key , timestamp , description , order_num , type , face_price , actual_price
+ , ip , wait_audit , params , sign , back_status , back_error_message , back_biz_id , back_credits
+
+      )
+    values (#{id},
+     , #{uid} , #{credits} , #{itemCode} , #{appKey} , #{timestamp} , #{description} , #{orderNum} , #{type}
+ , #{facePrice} , #{actualPrice} , #{ip} , #{waitAudit} , #{params} , #{sign} , #{backStatus} , #{backErrorMessage}
+ , #{backBizId} , #{backCredits}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.gen.entity.DuiCreditsConsume" >
+    insert into dui_credits_consume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="credits != null" >
+        credits,
+      </if>
+      <if test="itemCode != null" >
+        item_code,
+      </if>
+      <if test="appKey != null" >
+        app_key,
+      </if>
+      <if test="timestamp != null" >
+        timestamp,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="facePrice != null" >
+        face_price,
+      </if>
+      <if test="actualPrice != null" >
+        actual_price,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="waitAudit != null" >
+        wait_audit,
+      </if>
+      <if test="params != null" >
+        params,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="backStatus != null" >
+        back_status,
+      </if>
+      <if test="backErrorMessage != null" >
+        back_error_message,
+      </if>
+      <if test="backBizId != null" >
+        back_biz_id,
+      </if>
+      <if test="backCredits != null" >
+        back_credits,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="uid != null" >
+        #{uid},
+      </if>
+      <if test="credits != null" >
+        #{credits},
+      </if>
+      <if test="itemCode != null" >
+        #{itemCode},
+      </if>
+      <if test="appKey != null" >
+        #{appKey},
+      </if>
+      <if test="timestamp != null" >
+        #{timestamp},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="facePrice != null" >
+        #{facePrice},
+      </if>
+      <if test="actualPrice != null" >
+        #{actualPrice},
+      </if>
+      <if test="ip != null" >
+        #{ip},
+      </if>
+      <if test="waitAudit != null" >
+        #{waitAudit},
+      </if>
+      <if test="params != null" >
+        #{params},
+      </if>
+      <if test="sign != null" >
+        #{sign},
+      </if>
+      <if test="backStatus != null" >
+        #{backStatus},
+      </if>
+      <if test="backErrorMessage != null" >
+        #{backErrorMessage},
+      </if>
+      <if test="backBizId != null" >
+        #{backBizId},
+      </if>
+      <if test="backCredits != null" >
+        #{backCredits},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.gen.entity.DuiCreditsConsume" >
+    update dui_credits_consume
+    <set>
+      <if test="uid != null" >
+        uid = #{uid},
+      </if>
+      <if test="credits != null" >
+        credits = #{credits},
+      </if>
+      <if test="itemCode != null" >
+        item_code = #{itemCode},
+      </if>
+      <if test="appKey != null" >
+        app_key = #{appKey},
+      </if>
+      <if test="timestamp != null" >
+        timestamp = #{timestamp},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="facePrice != null" >
+        face_price = #{facePrice},
+      </if>
+      <if test="actualPrice != null" >
+        actual_price = #{actualPrice},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip},
+      </if>
+      <if test="waitAudit != null" >
+        wait_audit = #{waitAudit},
+      </if>
+      <if test="params != null" >
+        params = #{params},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign},
+      </if>
+      <if test="backStatus != null" >
+        back_status = #{backStatus},
+      </if>
+      <if test="backErrorMessage != null" >
+        back_error_message = #{backErrorMessage},
+      </if>
+      <if test="backBizId != null" >
+        back_biz_id = #{backBizId},
+      </if>
+      <if test="backCredits != null" >
+        back_credits = #{backCredits},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="uid != null" >
+        AND uid = #{uid}
+      </if>
+      <if test="credits != null" >
+        AND credits = #{credits}
+      </if>
+      <if test="itemCode != null" >
+        AND item_code = #{itemCode}
+      </if>
+      <if test="appKey != null" >
+        AND app_key = #{appKey}
+      </if>
+      <if test="timestamp != null" >
+        AND timestamp = #{timestamp}
+      </if>
+      <if test="timestampStart != null and timestampStart != ''" >
+        AND timestamp &gt;= #{timestampStart}
+      </if>
+      <if test="timestampEnd != null and timestampEnd != ''" >
+        AND timestamp &lt; #{timestampEnd}
+      </if>
+      <if test="description != null" >
+        AND description = #{description}
+      </if>
+      <if test="orderNum != null" >
+        AND order_num = #{orderNum}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="facePrice != null" >
+        AND face_price = #{facePrice}
+      </if>
+      <if test="actualPrice != null" >
+        AND actual_price = #{actualPrice}
+      </if>
+      <if test="ip != null" >
+        AND ip = #{ip}
+      </if>
+      <if test="waitAudit != null" >
+        AND wait_audit = #{waitAudit}
+      </if>
+      <if test="params != null" >
+        AND params = #{params}
+      </if>
+      <if test="sign != null" >
+        AND sign = #{sign}
+      </if>
+      <if test="backStatus != null" >
+        AND back_status = #{backStatus}
+      </if>
+      <if test="backErrorMessage != null" >
+        AND back_error_message = #{backErrorMessage}
+      </if>
+      <if test="backBizId != null" >
+        AND back_biz_id = #{backBizId}
+      </if>
+      <if test="backCredits != null" >
+        AND back_credits = #{backCredits}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="uidList != null" >
+        AND uid in
+        <foreach collection="uidList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="creditsList != null" >
+        AND credits in
+        <foreach collection="creditsList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="itemCodeList != null" >
+        AND item_code in
+        <foreach collection="itemCodeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="appKeyList != null" >
+        AND app_key in
+        <foreach collection="appKeyList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="timestampList != null" >
+        AND timestamp in
+        <foreach collection="timestampList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="descriptionList != null" >
+        AND description in
+        <foreach collection="descriptionList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="orderNumList != null" >
+        AND order_num in
+        <foreach collection="orderNumList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="typeList != null" >
+        AND type in
+        <foreach collection="typeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="facePriceList != null" >
+        AND face_price in
+        <foreach collection="facePriceList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="actualPriceList != null" >
+        AND actual_price in
+        <foreach collection="actualPriceList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="ipList != null" >
+        AND ip in
+        <foreach collection="ipList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="waitAuditList != null" >
+        AND wait_audit in
+        <foreach collection="waitAuditList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="paramsList != null" >
+        AND params in
+        <foreach collection="paramsList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="signList != null" >
+        AND sign in
+        <foreach collection="signList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="backStatusList != null" >
+        AND back_status in
+        <foreach collection="backStatusList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="backErrorMessageList != null" >
+        AND back_error_message in
+        <foreach collection="backErrorMessageList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="backBizIdList != null" >
+        AND back_biz_id in
+        <foreach collection="backBizIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="backCreditsList != null" >
+        AND back_credits in
+        <foreach collection="backCreditsList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="uidLike != null" >
+        AND uid like #{uidLike}
+      </if>
+      <if test="creditsLike != null" >
+        AND credits like #{creditsLike}
+      </if>
+      <if test="itemCodeLike != null" >
+        AND item_code like #{itemCodeLike}
+      </if>
+      <if test="appKeyLike != null" >
+        AND app_key like #{appKeyLike}
+      </if>
+      <if test="timestampLike != null" >
+        AND timestamp like #{timestampLike}
+      </if>
+      <if test="descriptionLike != null" >
+        AND description like #{descriptionLike}
+      </if>
+      <if test="orderNumLike != null" >
+        AND order_num like #{orderNumLike}
+      </if>
+      <if test="typeLike != null" >
+        AND type like #{typeLike}
+      </if>
+      <if test="facePriceLike != null" >
+        AND face_price like #{facePriceLike}
+      </if>
+      <if test="actualPriceLike != null" >
+        AND actual_price like #{actualPriceLike}
+      </if>
+      <if test="ipLike != null" >
+        AND ip like #{ipLike}
+      </if>
+      <if test="waitAuditLike != null" >
+        AND wait_audit like #{waitAuditLike}
+      </if>
+      <if test="paramsLike != null" >
+        AND params like #{paramsLike}
+      </if>
+      <if test="signLike != null" >
+        AND sign like #{signLike}
+      </if>
+      <if test="backStatusLike != null" >
+        AND back_status like #{backStatusLike}
+      </if>
+      <if test="backErrorMessageLike != null" >
+        AND back_error_message like #{backErrorMessageLike}
+      </if>
+      <if test="backBizIdLike != null" >
+        AND back_biz_id like #{backBizIdLike}
+      </if>
+      <if test="backCreditsLike != null" >
+        AND back_credits like #{backCreditsLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              uid like #{fullTextSearchValue}
+           or credits like #{fullTextSearchValue}
+           or item_code like #{fullTextSearchValue}
+           or app_key like #{fullTextSearchValue}
+           or timestamp like #{fullTextSearchValue}
+           or description like #{fullTextSearchValue}
+           or order_num like #{fullTextSearchValue}
+           or type like #{fullTextSearchValue}
+           or face_price like #{fullTextSearchValue}
+           or actual_price like #{fullTextSearchValue}
+           or ip like #{fullTextSearchValue}
+           or wait_audit like #{fullTextSearchValue}
+           or params like #{fullTextSearchValue}
+           or sign like #{fullTextSearchValue}
+           or back_status like #{fullTextSearchValue}
+           or back_error_message like #{fullTextSearchValue}
+           or back_biz_id like #{fullTextSearchValue}
+           or back_credits like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

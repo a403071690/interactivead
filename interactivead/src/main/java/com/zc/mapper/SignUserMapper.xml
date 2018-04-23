@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="SignUser" >
   <resultMap id="BaseResultMap" type="com.zc.entity.SignUser" >
-    <id column="id" property="id" jdbcType="CHAR" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="nickName" property="nickname" jdbcType="VARCHAR" />
     <result column="sign" property="sign" jdbcType="VARCHAR" />

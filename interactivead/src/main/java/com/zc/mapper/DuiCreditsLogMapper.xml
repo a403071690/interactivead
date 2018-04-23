@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DuiCreditsLog" >
+  <resultMap id="BaseResultMap" type="com.gen.entity.DuiCreditsLog" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="credits_type" property="creditsType" jdbcType="INTEGER" />
+    <result column="credits" property="credits" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , user_info_id , create_time , order_num , credits_type , credits , description
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from dui_credits_log
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from dui_credits_log
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dui_credits_log
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dui_credits_log
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.gen.entity.DuiCreditsLog" >
+    insert into dui_credits_log (id
+     , user_info_id , create_time , order_num , credits_type , credits , description
+      )
+    values (#{id},
+     , #{userInfoId} , #{createTime} , #{orderNum} , #{creditsType} , #{credits} , #{description}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.gen.entity.DuiCreditsLog" >
+    insert into dui_credits_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="creditsType != null" >
+        credits_type,
+      </if>
+      <if test="credits != null" >
+        credits,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum},
+      </if>
+      <if test="creditsType != null" >
+        #{creditsType},
+      </if>
+      <if test="credits != null" >
+        #{credits},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.gen.entity.DuiCreditsLog" >
+    update dui_credits_log
+    <set>
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum},
+      </if>
+      <if test="creditsType != null" >
+        credits_type = #{creditsType},
+      </if>
+      <if test="credits != null" >
+        credits = #{credits},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="userInfoId != null" >
+        AND user_info_id = #{userInfoId}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime}
+      </if>
+      <if test="orderNum != null" >
+        AND order_num = #{orderNum}
+      </if>
+      <if test="creditsType != null" >
+        AND credits_type = #{creditsType}
+      </if>
+      <if test="credits != null" >
+        AND credits = #{credits}
+      </if>
+      <if test="description != null" >
+        AND description = #{description}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="userInfoIdList != null" >
+        AND user_info_id in
+        <foreach collection="userInfoIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="createTimeList != null" >
+        AND create_time in
+        <foreach collection="createTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="orderNumList != null" >
+        AND order_num in
+        <foreach collection="orderNumList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="creditsTypeList != null" >
+        AND credits_type in
+        <foreach collection="creditsTypeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="creditsList != null" >
+        AND credits in
+        <foreach collection="creditsList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="descriptionList != null" >
+        AND description in
+        <foreach collection="descriptionList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="userInfoIdLike != null" >
+        AND user_info_id like #{userInfoIdLike}
+      </if>
+      <if test="createTimeLike != null" >
+        AND create_time like #{createTimeLike}
+      </if>
+      <if test="orderNumLike != null" >
+        AND order_num like #{orderNumLike}
+      </if>
+      <if test="creditsTypeLike != null" >
+        AND credits_type like #{creditsTypeLike}
+      </if>
+      <if test="creditsLike != null" >
+        AND credits like #{creditsLike}
+      </if>
+      <if test="descriptionLike != null" >
+        AND description like #{descriptionLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              user_info_id like #{fullTextSearchValue}
+           or create_time like #{fullTextSearchValue}
+           or order_num like #{fullTextSearchValue}
+           or credits_type like #{fullTextSearchValue}
+           or credits like #{fullTextSearchValue}
+           or description like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

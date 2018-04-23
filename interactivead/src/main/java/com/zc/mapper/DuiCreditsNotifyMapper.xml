@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DuiCreditsNotify" >
+  <resultMap id="BaseResultMap" type="com.gen.entity.DuiCreditsNotify" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="app_key" property="appKey" jdbcType="VARCHAR" />
+    <result column="timestamp" property="timestamp" jdbcType="TIMESTAMP" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="success" property="success" jdbcType="INTEGER" />
+    <result column="error_message" property="errorMessage" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="biz_id" property="bizId" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , app_key , timestamp , uid , success , error_message , order_num , biz_id , sign
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from dui_credits_notify
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from dui_credits_notify
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dui_credits_notify
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dui_credits_notify
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.gen.entity.DuiCreditsNotify" >
+    insert into dui_credits_notify (id
+     , app_key , timestamp , uid , success , error_message , order_num , biz_id , sign
+      )
+    values (#{id},
+     , #{appKey} , #{timestamp} , #{uid} , #{success} , #{errorMessage} , #{orderNum} , #{bizId} , #{sign}
+
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.gen.entity.DuiCreditsNotify" >
+    insert into dui_credits_notify
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appKey != null" >
+        app_key,
+      </if>
+      <if test="timestamp != null" >
+        timestamp,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="success != null" >
+        success,
+      </if>
+      <if test="errorMessage != null" >
+        error_message,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="bizId != null" >
+        biz_id,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="appKey != null" >
+        #{appKey},
+      </if>
+      <if test="timestamp != null" >
+        #{timestamp},
+      </if>
+      <if test="uid != null" >
+        #{uid},
+      </if>
+      <if test="success != null" >
+        #{success},
+      </if>
+      <if test="errorMessage != null" >
+        #{errorMessage},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum},
+      </if>
+      <if test="bizId != null" >
+        #{bizId},
+      </if>
+      <if test="sign != null" >
+        #{sign},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.gen.entity.DuiCreditsNotify" >
+    update dui_credits_notify
+    <set>
+      <if test="appKey != null" >
+        app_key = #{appKey},
+      </if>
+      <if test="timestamp != null" >
+        timestamp = #{timestamp},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid},
+      </if>
+      <if test="success != null" >
+        success = #{success},
+      </if>
+      <if test="errorMessage != null" >
+        error_message = #{errorMessage},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum},
+      </if>
+      <if test="bizId != null" >
+        biz_id = #{bizId},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="appKey != null" >
+        AND app_key = #{appKey}
+      </if>
+      <if test="timestamp != null" >
+        AND timestamp = #{timestamp}
+      </if>
+      <if test="timestampStart != null and timestampStart != ''" >
+        AND timestamp &gt;= #{timestampStart}
+      </if>
+      <if test="timestampEnd != null and timestampEnd != ''" >
+        AND timestamp &lt; #{timestampEnd}
+      </if>
+      <if test="uid != null" >
+        AND uid = #{uid}
+      </if>
+      <if test="success != null" >
+        AND success = #{success}
+      </if>
+      <if test="errorMessage != null" >
+        AND error_message = #{errorMessage}
+      </if>
+      <if test="orderNum != null" >
+        AND order_num = #{orderNum}
+      </if>
+      <if test="bizId != null" >
+        AND biz_id = #{bizId}
+      </if>
+      <if test="sign != null" >
+        AND sign = #{sign}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="appKeyList != null" >
+        AND app_key in
+        <foreach collection="appKeyList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="timestampList != null" >
+        AND timestamp in
+        <foreach collection="timestampList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="uidList != null" >
+        AND uid in
+        <foreach collection="uidList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="successList != null" >
+        AND success in
+        <foreach collection="successList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="errorMessageList != null" >
+        AND error_message in
+        <foreach collection="errorMessageList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="orderNumList != null" >
+        AND order_num in
+        <foreach collection="orderNumList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="bizIdList != null" >
+        AND biz_id in
+        <foreach collection="bizIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="signList != null" >
+        AND sign in
+        <foreach collection="signList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="appKeyLike != null" >
+        AND app_key like #{appKeyLike}
+      </if>
+      <if test="timestampLike != null" >
+        AND timestamp like #{timestampLike}
+      </if>
+      <if test="uidLike != null" >
+        AND uid like #{uidLike}
+      </if>
+      <if test="successLike != null" >
+        AND success like #{successLike}
+      </if>
+      <if test="errorMessageLike != null" >
+        AND error_message like #{errorMessageLike}
+      </if>
+      <if test="orderNumLike != null" >
+        AND order_num like #{orderNumLike}
+      </if>
+      <if test="bizIdLike != null" >
+        AND biz_id like #{bizIdLike}
+      </if>
+      <if test="signLike != null" >
+        AND sign like #{signLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              app_key like #{fullTextSearchValue}
+           or timestamp like #{fullTextSearchValue}
+           or uid like #{fullTextSearchValue}
+           or success like #{fullTextSearchValue}
+           or error_message like #{fullTextSearchValue}
+           or order_num like #{fullTextSearchValue}
+           or biz_id like #{fullTextSearchValue}
+           or sign like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>
