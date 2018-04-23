@@ -12,12 +12,13 @@
     <result column="ct_click_count" property="ctClickCount" jdbcType="BIGINT" />
     <result column="ct_valid_click_count" property="ctValidClickCount" jdbcType="BIGINT" />
     <result column="pay_money" property="payMoney" jdbcType="BIGINT" />
-
+      <result column="media_name" property="mediaName" jdbcType="TIMESTAMP" />
+      <result column="template_name" property="templateName" jdbcType="VARCHAR" />
   </resultMap>
 
   <sql id="Base_Column_List" >
     id  , template_id , report_date , media_owner_id , pv_count , uv_count , ct_imp_count , ct_click_count , ct_valid_click_count
- , pay_money
+ , pay_money,(SELECT media_owner_info.company from media_owner_info where media_owner_info.id=media_owner_id)as media_name, (SELECT template_manage.`name` from template_manage where template_manage.id=template_id )as template_name
   </sql>
 
   <select id="selectByWhere" resultMap="BaseResultMap"  >
@@ -267,9 +268,7 @@
       <if test="templateIdLike != null" >
         AND template_id like #{templateIdLike}
       </if>
-      <if test="reportDateLike != null" >
-        AND report_date like #{reportDateLike}
-      </if>
+
       <if test="mediaOwnerIdLike != null" >
         AND media_owner_id like #{mediaOwnerIdLike}
       </if>
@@ -294,7 +293,7 @@
        <if test="fullTextSearchValue != null" >
            AND (
               template_id like #{fullTextSearchValue}
-           or report_date like #{fullTextSearchValue}
+
            or media_owner_id like #{fullTextSearchValue}
            or pv_count like #{fullTextSearchValue}
            or uv_count like #{fullTextSearchValue}

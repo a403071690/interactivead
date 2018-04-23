@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SignOneyuanbuy" >
+  <resultMap id="BaseResultMap" type="com.zc.entity.SignOneyuanbuy" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="needs_gold" property="needsGold" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="index_img" property="indexImg" jdbcType="VARCHAR" />
+    <result column="landing_page" property="landingPage" jdbcType="VARCHAR" />
+    <result column="is_hot_sell" property="isHotSell" jdbcType="INTEGER" />
+    <result column="crate_time" property="crateTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="freight" property="freight" jdbcType="INTEGER" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , title , needs_gold , price , index_img , landing_page , is_hot_sell , crate_time , type , freight
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from sign_oneyuanbuy
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from sign_oneyuanbuy
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sign_oneyuanbuy
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sign_oneyuanbuy
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zc.entity.SignOneyuanbuy" >
+    insert into sign_oneyuanbuy (id
+     , title , needs_gold , price , index_img , landing_page , is_hot_sell , crate_time , type , freight
+      )
+    values (#{id},
+     , #{title} , #{needsGold} , #{price} , #{indexImg} , #{landingPage} , #{isHotSell} , #{crateTime} , #{type}
+ , #{freight}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zc.entity.SignOneyuanbuy" >
+    insert into sign_oneyuanbuy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="needsGold != null" >
+        needs_gold,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="indexImg != null" >
+        index_img,
+      </if>
+      <if test="landingPage != null" >
+        landing_page,
+      </if>
+      <if test="isHotSell != null" >
+        is_hot_sell,
+      </if>
+      <if test="crateTime != null" >
+        crate_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="needsGold != null" >
+        #{needsGold},
+      </if>
+      <if test="price != null" >
+        #{price},
+      </if>
+      <if test="indexImg != null" >
+        #{indexImg},
+      </if>
+      <if test="landingPage != null" >
+        #{landingPage},
+      </if>
+      <if test="isHotSell != null" >
+        #{isHotSell},
+      </if>
+      <if test="crateTime != null" >
+        #{crateTime},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="freight != null" >
+        #{freight},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.SignOneyuanbuy" >
+    update sign_oneyuanbuy
+    <set>
+      <if test="title != null" >
+        title = #{title},
+      </if>
+      <if test="needsGold != null" >
+        needs_gold = #{needsGold},
+      </if>
+      <if test="price != null" >
+        price = #{price},
+      </if>
+      <if test="indexImg != null" >
+        index_img = #{indexImg},
+      </if>
+      <if test="landingPage != null" >
+        landing_page = #{landingPage},
+      </if>
+      <if test="isHotSell != null" >
+        is_hot_sell = #{isHotSell},
+      </if>
+      <if test="crateTime != null" >
+        crate_time = #{crateTime},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="title != null" >
+        AND title = #{title}
+      </if>
+      <if test="needsGold != null" >
+        AND needs_gold = #{needsGold}
+      </if>
+      <if test="price != null" >
+        AND price = #{price}
+      </if>
+      <if test="indexImg != null" >
+        AND index_img = #{indexImg}
+      </if>
+      <if test="landingPage != null" >
+        AND landing_page = #{landingPage}
+      </if>
+      <if test="isHotSell != null" >
+        AND is_hot_sell = #{isHotSell}
+      </if>
+      <if test="crateTime != null" >
+        AND crate_time = #{crateTime}
+      </if>
+      <if test="crateTimeStart != null and crateTimeStart != ''" >
+        AND crate_time &gt;= #{crateTimeStart}
+      </if>
+      <if test="crateTimeEnd != null and crateTimeEnd != ''" >
+        AND crate_time &lt; #{crateTimeEnd}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="freight != null" >
+        AND freight = #{freight}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="titleList != null" >
+        AND title in
+        <foreach collection="titleList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="needsGoldList != null" >
+        AND needs_gold in
+        <foreach collection="needsGoldList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="priceList != null" >
+        AND price in
+        <foreach collection="priceList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="indexImgList != null" >
+        AND index_img in
+        <foreach collection="indexImgList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="landingPageList != null" >
+        AND landing_page in
+        <foreach collection="landingPageList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="isHotSellList != null" >
+        AND is_hot_sell in
+        <foreach collection="isHotSellList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="crateTimeList != null" >
+        AND crate_time in
+        <foreach collection="crateTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="typeList != null" >
+        AND type in
+        <foreach collection="typeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="freightList != null" >
+        AND freight in
+        <foreach collection="freightList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="titleLike != null" >
+        AND title like #{titleLike}
+      </if>
+      <if test="needsGoldLike != null" >
+        AND needs_gold like #{needsGoldLike}
+      </if>
+      <if test="priceLike != null" >
+        AND price like #{priceLike}
+      </if>
+      <if test="indexImgLike != null" >
+        AND index_img like #{indexImgLike}
+      </if>
+      <if test="landingPageLike != null" >
+        AND landing_page like #{landingPageLike}
+      </if>
+      <if test="isHotSellLike != null" >
+        AND is_hot_sell like #{isHotSellLike}
+      </if>
+      <if test="crateTimeLike != null" >
+        AND crate_time like #{crateTimeLike}
+      </if>
+      <if test="typeLike != null" >
+        AND type like #{typeLike}
+      </if>
+      <if test="freightLike != null" >
+        AND freight like #{freightLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              title like #{fullTextSearchValue}
+           or needs_gold like #{fullTextSearchValue}
+           or price like #{fullTextSearchValue}
+           or index_img like #{fullTextSearchValue}
+           or landing_page like #{fullTextSearchValue}
+           or is_hot_sell like #{fullTextSearchValue}
+           or crate_time like #{fullTextSearchValue}
+           or type like #{fullTextSearchValue}
+           or freight like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="UserPrizeLog" >
-  <resultMap id="BaseResultMap" type="com.zc.entity.UserPrizeLog" >
-    <id column="id" property="id" jdbcType="CHAR" />
-    <result column="template_id" property="templateId" jdbcType="VARCHAR" />
-    <result column="media_owner_id" property="mediaOwnerId" jdbcType="VARCHAR" />
-    <result column="channel_id" property="channelId" jdbcType="VARCHAR" />
-    <result column="user_cookie_id" property="userCookieId" jdbcType="VARCHAR" />
-    <result column="user_open_id" property="userOpenId" jdbcType="VARCHAR" />
-    <result column="user_finger_id" property="userFingerId" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="creative_id" property="creativeId" jdbcType="VARCHAR" />
-    <result column="prize_id" property="prizeId" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="VARCHAR" />
-    <result column="duration" property="duration" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
-      <result column="advertiser_id" property="advertiserId" jdbcType="VARCHAR" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.zc.entity.UserPrizeLog" >
+        <id column="id" property="id" jdbcType="CHAR" />
+        <result column="template_id" property="templateId" jdbcType="VARCHAR" />
+        <result column="media_owner_id" property="mediaOwnerId" jdbcType="VARCHAR" />
+        <result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+        <result column="user_cookie_id" property="userCookieId" jdbcType="VARCHAR" />
+        <result column="user_open_id" property="userOpenId" jdbcType="VARCHAR" />
+        <result column="user_finger_id" property="userFingerId" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="creative_id" property="creativeId" jdbcType="VARCHAR" />
+        <result column="prize_id" property="prizeId" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="VARCHAR" />
+        <result column="duration" property="duration" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+        <result column="advertiser_id" property="advertiserId" jdbcType="VARCHAR" />
+        <result column="click_url" property="clickUrl" jdbcType="VARCHAR" />
+
+    </resultMap>
 
     <sql id="Base_Column_List" >
-    id  , template_id , media_owner_id , channel_id , user_cookie_id , user_open_id , user_finger_id , type , creative_id
- , prize_id , price , duration , create_time , advertiser_id
-  </sql>
+        id  , template_id , media_owner_id , channel_id , user_cookie_id , user_open_id , user_finger_id , type , creative_id
+        , prize_id , price , duration , create_time , advertiser_id , click_url
+    </sql>
 
     <select id="selectByWhere" resultMap="BaseResultMap"  >
         select
@@ -60,11 +62,12 @@
     <insert id="insert" parameterType="com.zc.entity.UserPrizeLog" >
         insert into user_prize_log (id
         , template_id , media_owner_id , channel_id , user_cookie_id , user_open_id , user_finger_id , type , creative_id
-        , prize_id , price , duration , create_time , advertiser_id
+        , prize_id , price , duration , create_time , advertiser_id , click_url
         )
         values (#{id},
         , #{templateId} , #{mediaOwnerId} , #{channelId} , #{userCookieId} , #{userOpenId} , #{userFingerId}
-        , #{type} , #{creativeId} , #{prizeId} , #{price} , #{duration} , #{createTime} , #{advertiserId}
+        , #{type} , #{creativeId} , #{prizeId} , #{price} , #{duration} , #{createTime} , #{advertiserId} , #{clickUrl}
+
         )
     </insert>
 
@@ -113,6 +116,9 @@
             <if test="advertiserId != null" >
                 advertiser_id,
             </if>
+            <if test="clickUrl != null" >
+                click_url,
+            </if>
 
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -157,6 +163,9 @@
             </if>
             <if test="advertiserId != null" >
                 #{advertiserId},
+            </if>
+            <if test="clickUrl != null" >
+                #{clickUrl},
             </if>
 
         </trim>
@@ -204,6 +213,9 @@
             <if test="advertiserId != null" >
                 advertiser_id = #{advertiserId},
             </if>
+            <if test="clickUrl != null" >
+                click_url = #{clickUrl},
+            </if>
 
         </set>
         where id = #{id}
@@ -248,6 +260,9 @@
         </if>
         <if test="advertiserId != null" >
             AND advertiser_id = #{advertiserId}
+        </if>
+        <if test="clickUrl != null" >
+            AND click_url = #{clickUrl}
         </if>
         <if test="idList != null" >
             AND id in
@@ -333,6 +348,12 @@
                 #{item}
             </foreach>
         </if>
+        <if test="clickUrlList != null" >
+            AND click_url in
+            <foreach collection="clickUrlList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
         <if test="templateIdLike != null" >
             AND template_id like #{templateIdLike}
         </if>
@@ -372,6 +393,9 @@
         <if test="advertiserIdLike != null" >
             AND advertiser_id like #{advertiserIdLike}
         </if>
+        <if test="clickUrlLike != null" >
+            AND click_url like #{clickUrlLike}
+        </if>
         <if test="fullTextSearchValue != null" >
             AND (
             template_id like #{fullTextSearchValue}
@@ -387,6 +411,7 @@
             or duration like #{fullTextSearchValue}
             or create_time like #{fullTextSearchValue}
             or advertiser_id like #{fullTextSearchValue}
+            or click_url like #{fullTextSearchValue}
             )
         </if>
 

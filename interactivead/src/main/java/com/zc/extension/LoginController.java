@@ -86,6 +86,7 @@ public class LoginController {
             logger.info("login_id:"+advertiserInfo.getId());
             map.put("id", advertiserInfo.getId());
             map.put("t", "u");
+            map.put("role",2);
             map.put("e", 60 * 60 * 1);//秒单位
             map.put("d", System.currentTimeMillis());
             String token = aesCoder.AESEncode(JsonUtil.toJSONString(map));
@@ -95,7 +96,44 @@ public class LoginController {
 
     }
 
-    @RequestMapping("mediaLogin")
+    @RequestMapping(value = "medlogin")
+    @ResponseBody
+    public JsonResult medlogin(HttpServletRequest request, String account, String password) throws Exception {
+        if (StringUtil.isEmpty(account) || StringUtil.isEmpty(password)) {
+            return JsonResult.error("账号密码不能为空!");
+        }
+        password = Md5Util.getMd5Hex(password);
+        List<MediaOwnerInfo> li = mediaOwnerInfoService.selectByWhere("loginName", account, "password", password);
+        if (li == null || li.size() == 0) {
+            return JsonResult.error("账号或密码错误!");
+        }
+        //状态：1待审核 2审核通过 3审核未通过 4冻结
+        MediaOwnerInfo mediaOwnerInfo = li.get(0);
+        if (mediaOwnerInfo.getState() == 1) {
+            return JsonResult.error("账号未审核!");
+        }
+        if (mediaOwnerInfo.getState() == 3) {
+            return JsonResult.error("账号审核未通过!原因:" + mediaOwnerInfo.getStateMsg());
+        }
+        if (mediaOwnerInfo.getState() == 4) {
+            return JsonResult.error("账号冻结!");
+        }
+        if (mediaOwnerInfo.getState() == 2) {
+            Map map = new HashMap();
+            logger.info("login_id:"+mediaOwnerInfo.getId());
+            map.put("id", mediaOwnerInfo.getId());
+            map.put("role",1);
+            map.put("t", "u");
+            map.put("e", 60 * 60 * 1);//秒单位
+            map.put("d", System.currentTimeMillis());
+            String token = aesCoder.AESEncode(JsonUtil.toJSONString(map));
+            return JsonResult.success(token);
+        }
+        return JsonResult.error("账户处于未知状态!");
+
+    }
+
+    @RequestMapping("agent")
     @ResponseBody
     public JsonResult agent(HttpServletRequest request, String account,String password) throws Exception {
         String token = request.getHeader("token");
@@ -120,19 +158,46 @@ public class LoginController {
 
     }
 
-    @RequestMapping("adminLogin")
+    @RequestMapping(value = "adminlogin")
     @ResponseBody
-    public JsonResult adminLogin(HttpServletRequest request, String account, String password) throws Exception {
-        if (!"admin".equals(password) || !"admin".equals(account)) {
-            return JsonResult.error("密码错误!");
+    public JsonResult adminlogin(HttpServletRequest request, String account, String password) throws Exception {
+        if (StringUtil.isEmpty(account) || StringUtil.isEmpty(password)) {
+            return JsonResult.error("账号密码不能为空!");
         }
-        Map map = new HashMap();
-        map.put("id", "ssp");
-        map.put("t", "s");
-        map.put("e", 60 * 60 * 1);//秒单位
-        map.put("d", System.currentTimeMillis());
-        String token = aesCoder.AESEncode(JsonUtil.toJSONString(map));
-        return JsonResult.success(token);
+        password = Md5Util.getMd5Hex(password);
+        List<AdvertiserInfo> li = advertiserInfoService.selectByWhere("loginName", account, "password", password);
+        if (li == null || li.size() == 0) {
+            return JsonResult.error("账号或密码错误!");
+        }
+        //状态：1待审核 2审核通过 3审核未通过 4冻结
+        AdvertiserInfo advertiserInfo = li.get(0);
+        if(advertiserInfo.getType()!=5){
+            return JsonResult.error("账号或密码错误!");
+        }
+
+
+        if (advertiserInfo.getState() == 1) {
+            return JsonResult.error("账号未审核!");
+        }
+        if (advertiserInfo.getState() == 3) {
+            return JsonResult.error("账号审核未通过!原因:" + advertiserInfo.getStateMsg());
+        }
+        if (advertiserInfo.getState() == 4) {
+            return JsonResult.error("账号冻结!");
+        }
+        if (advertiserInfo.getState() == 2) {
+            Map map = new HashMap();
+            logger.info("login_id:"+advertiserInfo.getId());
+            map.put("id", advertiserInfo.getId());
+            map.put("t", "u");
+            map.put("role",4);
+            map.put("e", 60 * 60 * 1);//秒单位
+            map.put("d", System.currentTimeMillis());
+            String token = aesCoder.AESEncode(JsonUtil.toJSONString(map));
+            return JsonResult.success(token);
+        }
+        return JsonResult.error("账户处于未知状态!");
+
     }
 
     @RequestMapping("loginOut")

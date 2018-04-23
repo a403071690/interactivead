@@ -25,6 +25,15 @@
                     type="index">
             </el-table-column>
             <el-table-column sortable="custom" min-width="150px"
+                             label="创意名称"
+                             prop="creativeName">
+            </el-table-column>
+
+            <el-table-column sortable="custom" min-width="150px"
+                             label="所属活动"
+                             prop="campaignName">
+            </el-table-column>
+            <el-table-column sortable="custom" min-width="100px"
                 label="创意类型"
                 prop="type">
                 <template slot-scope="scope">
@@ -32,28 +41,29 @@
                     <!-- <span v-if='scope.row.state==0'>关闭</span> -->
                 </template>
             </el-table-column>
-            <el-table-column sortable="custom" min-width="150px"
+            <el-table-column sortable="custom" min-width="80px"
+                             label="状态"
+                             prop="state">
+                <template slot-scope="scope">
+                    <!-- <span>{{scope.row.state==1?'启动':"暂停"}}</span>-->
+                    <!-- <span v-if='scope.row.state==0'>关闭</span> -->
+                    <el-tag type="success"  v-if="scope.row.state==1">开启</el-tag>
+                    <el-tag type="danger"  v-if="scope.row.state==2">暂停</el-tag>
+                </template>
+            </el-table-column><!--：1启动 2暂停-->
+            <el-table-column sortable="custom" min-width="190px"
                 label="中奖标题"
                 prop="ctTitle">
             </el-table-column>
             <el-table-column sortable="custom" min-width="150px"
-                label="创意文字"
+                label="创意介绍"
                 prop="ctNote">
             </el-table-column>
            <!-- <el-table-column sortable="custom" min-width="150px"
                 label="是否删除1是 0否"
                 prop="isDelete">
             </el-table-column>-->
-            <el-table-column sortable="custom" min-width="102px"
-                label="状态"
-                prop="state">
-                <template slot-scope="scope">
-                <span>{{scope.row.state==1?'启动':"暂停"}}</span>
-                <!-- <span v-if='scope.row.state==0'>关闭</span> -->
-                    <el-button type="danger" @click="changeState(scope.row.id,1)"  v-if="scope.row.state==1"  icon="el-icon-circle-close" round  size="mini">关闭</el-button>
-                    <el-button type="success"@click="changeState(scope.row.id,2)"  v-if="scope.row.state==2"  icon="el-icon-caret-right" round  size="mini">开启</el-button>
-                 </template>
-            </el-table-column><!--：1启动 2暂停-->
+
             <el-table-column sortable="custom" min-width="102px"
                 label="审核状态"
                 prop="checkState">
@@ -66,9 +76,11 @@
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="170">
+                    width="270px">
                 <template slot-scope="scope">
                     <el-button-group>
+                        <el-button type="danger" @click="changeState(scope.row.id,1)"  v-if="scope.row.state==1"  icon="el-icon-circle-close" round  size="mini">关闭</el-button>
+                        <el-button type="success"@click="changeState(scope.row.id,2)"  v-if="scope.row.state==2"  icon="el-icon-caret-right" round  size="mini">开启</el-button>
                         <el-button icon="el-icon-edit" @click="goBeanPage(scope.row.id)" type="primary"
                                    size="mini">查看
                         </el-button>
@@ -113,7 +125,26 @@
             goUpdatePage: solar.baseMethods.goUpdatePage,
             changeOrder: solar.baseMethods.changeOrder,
             dateFormat: solar.baseMethods.dateFormat,
-            changeState:solar.baseMethods.changeState
+            changeState: function (id,state) {
+                var _this = this;
+                if (state == "1") {
+
+                    msg = "确认停用该记录？";
+                } else {
+
+                    var msg = "确认启用该记录？";
+                }
+                layer.confirm(msg, function () {
+                        $.post(baseHost + "/" + _this.beanName + "/changeState", {id: id}, function (data) {
+                            layer.alert(data.msg , {icon: 6}, function (index) {
+                                layer.close(index);
+                                _this.select();
+                            });
+                        });
+
+                    }
+                );
+            },
         },
         mounted: function () {
             this.select();

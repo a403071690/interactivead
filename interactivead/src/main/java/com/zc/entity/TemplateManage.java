@@ -22,6 +22,7 @@ public class TemplateManage {
     private Date createTime;
 
 
+
     public String getId() {
         return id;
     }

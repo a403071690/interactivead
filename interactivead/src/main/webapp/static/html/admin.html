@@ -116,19 +116,28 @@
                      <!--   <el-menu-item index="/mediaBankCard/mediaBankCardPage" >媒体主银行卡</el-menu-item>
                         <el-menu-item index="/mediaOwnerInfo/mediaOwnerInfoPage" >媒体主信息表</el-menu-item>
                         <el-menu-item index="/mediaOwnerReport/mediaOwnerReportPage" >媒体主报表</el-menu-item>
-                        <el-menu-item index="/templateManage/templateManagePage" >模板管理</el-menu-item>
-                        <el-menu-item index="/templateReport/templateReportPage" >模板报表</el-menu-item>-->
+                        -->
                     </el-submenu>
                     <el-submenu index="3">
                         <template slot="title">
                             <i class="el-icon-menu"></i>
-                            <span>报表数据</span>
+                            <span>活动报表</span>
                         </template>
                         <el-menu-item index="/campaignCreativeRealtimeReport/campaignCreativeRealtimeReportPage" >活动实时报表</el-menu-item>
                         <el-menu-item index="/campaignCreativeReport/campaignCreativeReportPage" >活动历史报表</el-menu-item>
                     </el-submenu>
-
                     <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>模板管理</span>
+                        </template>
+                        <el-menu-item index="/templateManage/templateManagePage" >模板管理</el-menu-item>
+                        <el-menu-item index="/templateTodayReport/templateRealtimeReportPage" >今日报表</el-menu-item>
+                        <el-menu-item index="/templateReport/templateReportPage" >历史报表</el-menu-item>
+                        <el-menu-item index="/templateRealtimeReport/templateRealtimeReportPage" >小时报表</el-menu-item>
+                    </el-submenu>
+
+                    <el-submenu index="5">
                         <template slot="title">
                             <i class="el-icon-menu"></i>
                             <span>财务管理</span>
@@ -137,15 +146,14 @@
                         <el-menu-item index="/advertiserAccountVirtualLog/advertiserAccountVirtualLogPage" >虚拟账务信息</el-menu-item>
                         <el-menu-item index="/advertiserInvoice/advertiserInvoicePage" >发票管理</el-menu-item>
                     </el-submenu>
-                    <!--
-                    <el-submenu index="5">
+
+                    <el-submenu index="6">
                         <template slot="title">
                             <i class="el-icon-menu"></i>
-                            <span>用户管理</span>
+                            <span>媒体管理</span>
                         </template>
-                        <el-menu-item index="/advertiserInfo/advertiserInfoPage" >广告主信息表</el-menu-item>
-
-                    </el-submenu>-->
+                        <el-menu-item index="/mediaOwnerInfo/mediaOwnerInfoPage" >媒体主信息表</el-menu-item>
+                    </el-submenu>
                 </el-menu>
             </el-aside>
             <el-main>
@@ -204,7 +212,7 @@
                             // });
                             _this.showLoginView = true;
                             isLogin = false;
-                            location="login.html";
+                            location="adminlogin.html";
                         }
                     }
                 });
@@ -214,7 +222,7 @@
                 var _this = this;
                 $.ajax({
                     type: "post",
-                    url: baseHost + "/login",
+                    url: baseHost + "/adminlogin",
                     data: {account:this.account,password:this.password},
                     async: false,
                     success: function (data) {
@@ -245,7 +253,7 @@
                     success: function (data) {
                         if (data.code == 200) {
                             layer.alert(data.msg, {icon: 6});
-                            location="/";
+                            location="/admin";
                             _this.showLoginView = true;
                         }
                     }

@@ -88,7 +88,7 @@ h3{
             <td valign="top" class="nav">
                     <ul class="nav">
                     	<li>
-                        文档版本:2018年04月08日 17:40
+                        文档版本:2018年04月19日 16:43
                         </li>
                         <li>
                       host: <a href="localhost:8080/" target="_blank">localhost:8080/</a>
@@ -155,16 +155,46 @@ h3{
                             <a  href="#mediaOwnerReport">13、 媒体主报表</a>
                         </li>
                         <li>
-                            <a  href="#templateManage">14、 模板管理</a>
+                            <a  href="#signBuyoneyuanlist">14、 signBuyoneyuanlist</a>
                         </li>
                         <li>
-                            <a  href="#templateRealtimeReport">15、 模板实时报表</a>
+                            <a  href="#signBuyshoplist">15、 signBuyshoplist</a>
                         </li>
                         <li>
-                            <a  href="#templateReport">16、 模板报表</a>
+                            <a  href="#signBuyticketlist">16、 signBuyticketlist</a>
                         </li>
                         <li>
-                            <a  href="#userPrizeLog">17、 中奖信息</a>
+                            <a  href="#signCashdetail">17、 signCashdetail</a>
+                        </li>
+                        <li>
+                            <a  href="#signFavelist">18、 signFavelist</a>
+                        </li>
+                        <li>
+                            <a  href="#signGolddetail">19、 signGolddetail</a>
+                        </li>
+                        <li>
+                            <a  href="#signOneyuanbuy">20、 signOneyuanbuy</a>
+                        </li>
+                        <li>
+                            <a  href="#signShop">21、 signShop</a>
+                        </li>
+                        <li>
+                            <a  href="#signTicket">22、 signTicket</a>
+                        </li>
+                        <li>
+                            <a  href="#signUser">23、 signUser</a>
+                        </li>
+                        <li>
+                            <a  href="#templateManage">24、 模板管理</a>
+                        </li>
+                        <li>
+                            <a  href="#templateRealtimeReport">25、 模板实时报表</a>
+                        </li>
+                        <li>
+                            <a  href="#templateReport">26、 模板报表</a>
+                        </li>
+                        <li>
+                            <a  href="#userPrizeLog">27、 中奖信息</a>
                         </li>
 
                  <li> </li>  <li>  </li> <li></li>
@@ -684,12 +714,12 @@ h3{
                  <tr>
                      <td>type</td>
                      <td>Integer</td>
-                     <td>类型</td>
+                     <td>类型:1：申请发票</td>
                  </tr>
                  <tr>
                      <td>status</td>
-                     <td>String</td>
-                     <td>当前状态：0-提交申请；1:等待审核；2：审核中；3:审核通过，4审核未通过。5:发票已寄出 </td>
+                     <td>Integer</td>
+                     <td>0-提交申请；1:审核中；2：审核通过；3:完成</td>
                  </tr>
                  <tr>
                      <td>taxNumber</td>
@@ -1104,6 +1134,446 @@ h3{
                  </tr>
              </table>
         </div>
+        <div class="api" id="signBuyoneyuanlist">
+             <h3>signBuyoneyuanlist</h3>
+             <h6><a  href="" onclick="openUri('/signBuyoneyuanlist/select?pageNum=1');" >查询接口</a> host+"/signBuyoneyuanlist/select"</h6>
+             <h6>删除接口 host+"/signBuyoneyuanlist/delete"</h6>
+             <h6>保存或修改接口 host+"/signBuyoneyuanlist/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>oneyuanbuyId</td>
+                     <td>Integer</td>
+                     <td>oneyuanbuyId</td>
+                 </tr>
+                 <tr>
+                     <td>userId</td>
+                     <td>Integer</td>
+                     <td>userId</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signBuyshoplist">
+             <h3>signBuyshoplist</h3>
+             <h6><a  href="" onclick="openUri('/signBuyshoplist/select?pageNum=1');" >查询接口</a> host+"/signBuyshoplist/select"</h6>
+             <h6>删除接口 host+"/signBuyshoplist/delete"</h6>
+             <h6>保存或修改接口 host+"/signBuyshoplist/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>shopId</td>
+                     <td>Integer</td>
+                     <td>shopId</td>
+                 </tr>
+                 <tr>
+                     <td>userId</td>
+                     <td>Integer</td>
+                     <td>userId</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signBuyticketlist">
+             <h3>signBuyticketlist</h3>
+             <h6><a  href="" onclick="openUri('/signBuyticketlist/select?pageNum=1');" >查询接口</a> host+"/signBuyticketlist/select"</h6>
+             <h6>删除接口 host+"/signBuyticketlist/delete"</h6>
+             <h6>保存或修改接口 host+"/signBuyticketlist/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>ticketId</td>
+                     <td>Integer</td>
+                     <td>ticketId</td>
+                 </tr>
+                 <tr>
+                     <td>userId</td>
+                     <td>Integer</td>
+                     <td>userId</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signCashdetail">
+             <h3>signCashdetail</h3>
+             <h6><a  href="" onclick="openUri('/signCashdetail/select?pageNum=1');" >查询接口</a> host+"/signCashdetail/select"</h6>
+             <h6>删除接口 host+"/signCashdetail/delete"</h6>
+             <h6>保存或修改接口 host+"/signCashdetail/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>类型：1收入；2支出</td>
+                 </tr>
+                 <tr>
+                     <td>reason</td>
+                     <td>String</td>
+                     <td>收入或支出的原因</td>
+                 </tr>
+                 <tr>
+                     <td>money</td>
+                     <td>String</td>
+                     <td>金额</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>Date</td>
+                     <td>产生时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signFavelist">
+             <h3>signFavelist</h3>
+             <h6><a  href="" onclick="openUri('/signFavelist/select?pageNum=1');" >查询接口</a> host+"/signFavelist/select"</h6>
+             <h6>删除接口 host+"/signFavelist/delete"</h6>
+             <h6>保存或修改接口 host+"/signFavelist/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>userId</td>
+                     <td>Integer</td>
+                     <td>userId</td>
+                 </tr>
+                 <tr>
+                     <td>shopId</td>
+                     <td>Integer</td>
+                     <td>shopId</td>
+                 </tr>
+                 <tr>
+                     <td>crateTime</td>
+                     <td>Date</td>
+                     <td>收藏时间</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signGolddetail">
+             <h3>signGolddetail</h3>
+             <h6><a  href="" onclick="openUri('/signGolddetail/select?pageNum=1');" >查询接口</a> host+"/signGolddetail/select"</h6>
+             <h6>删除接口 host+"/signGolddetail/delete"</h6>
+             <h6>保存或修改接口 host+"/signGolddetail/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>类型：支出还是收入</td>
+                 </tr>
+                 <tr>
+                     <td>reason</td>
+                     <td>String</td>
+                     <td>原因</td>
+                 </tr>
+                 <tr>
+                     <td>money</td>
+                     <td>String</td>
+                     <td>金额</td>
+                 </tr>
+                 <tr>
+                     <td>createTime</td>
+                     <td>String</td>
+                     <td>createTime</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signOneyuanbuy">
+             <h3>signOneyuanbuy</h3>
+             <h6><a  href="" onclick="openUri('/signOneyuanbuy/select?pageNum=1');" >查询接口</a> host+"/signOneyuanbuy/select"</h6>
+             <h6>删除接口 host+"/signOneyuanbuy/delete"</h6>
+             <h6>保存或修改接口 host+"/signOneyuanbuy/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>title</td>
+                     <td>String</td>
+                     <td>标题</td>
+                 </tr>
+                 <tr>
+                     <td>needsGold</td>
+                     <td>Integer</td>
+                     <td>需要付款</td>
+                 </tr>
+                 <tr>
+                     <td>price</td>
+                     <td>String</td>
+                     <td>原价</td>
+                 </tr>
+                 <tr>
+                     <td>indexImg</td>
+                     <td>String</td>
+                     <td>图片</td>
+                 </tr>
+                 <tr>
+                     <td>landingPage</td>
+                     <td>String</td>
+                     <td>加载图</td>
+                 </tr>
+                 <tr>
+                     <td>isHotSell</td>
+                     <td>Integer</td>
+                     <td>是否热门</td>
+                 </tr>
+                 <tr>
+                     <td>crateTime</td>
+                     <td>Date</td>
+                     <td>添加时间</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>类别</td>
+                 </tr>
+                 <tr>
+                     <td>freight</td>
+                     <td>Integer</td>
+                     <td>运费</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signShop">
+             <h3>signShop</h3>
+             <h6><a  href="" onclick="openUri('/signShop/select?pageNum=1');" >查询接口</a> host+"/signShop/select"</h6>
+             <h6>删除接口 host+"/signShop/delete"</h6>
+             <h6>保存或修改接口 host+"/signShop/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>title</td>
+                     <td>String</td>
+                     <td>标题</td>
+                 </tr>
+                 <tr>
+                     <td>originalPrice</td>
+                     <td>String</td>
+                     <td>原价</td>
+                 </tr>
+                 <tr>
+                     <td>couponPrice</td>
+                     <td>String</td>
+                     <td>优惠</td>
+                 </tr>
+                 <tr>
+                     <td>finalPrice</td>
+                     <td>String</td>
+                     <td>最终价格</td>
+                 </tr>
+                 <tr>
+                     <td>vendorSmallIcon</td>
+                     <td>String</td>
+                     <td>卖家小图标</td>
+                 </tr>
+                 <tr>
+                     <td>mainImage</td>
+                     <td>String</td>
+                     <td>主图</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>类别：数码，美妆，百货，食品，内衣，母婴，其他，鞋包，车品，女装，保健品，图书乐器，男装，户外运动</td>
+                 </tr>
+                 <tr>
+                     <td>isHot</td>
+                     <td>Integer</td>
+                     <td>是否精选:1是，0不是</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signTicket">
+             <h3>signTicket</h3>
+             <h6><a  href="" onclick="openUri('/signTicket/select?pageNum=1');" >查询接口</a> host+"/signTicket/select"</h6>
+             <h6>删除接口 host+"/signTicket/delete"</h6>
+             <h6>保存或修改接口 host+"/signTicket/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>logo</td>
+                     <td>String</td>
+                     <td>商品图片地址</td>
+                 </tr>
+                 <tr>
+                     <td>title</td>
+                     <td>String</td>
+                     <td>短标题</td>
+                 </tr>
+                 <tr>
+                     <td>subTitle</td>
+                     <td>String</td>
+                     <td>长标题</td>
+                 </tr>
+                 <tr>
+                     <td>limitation</td>
+                     <td>String</td>
+                     <td>描述</td>
+                 </tr>
+                 <tr>
+                     <td>needsGold</td>
+                     <td>Integer</td>
+                     <td>兑换商品需要红包金额</td>
+                 </tr>
+                 <tr>
+                     <td>isNew</td>
+                     <td>Integer</td>
+                     <td>是否是新的；0新的。1不是新的</td>
+                 </tr>
+                 <tr>
+                     <td>type</td>
+                     <td>Integer</td>
+                     <td>券类型：1</td>
+                 </tr>
+                 <tr>
+                     <td>isHot</td>
+                     <td>Integer</td>
+                     <td>是否热门</td>
+                 </tr>
+             </table>
+        </div>
+        <div class="api" id="signUser">
+             <h3>signUser</h3>
+             <h6><a  href="" onclick="openUri('/signUser/select?pageNum=1');" >查询接口</a> host+"/signUser/select"</h6>
+             <h6>删除接口 host+"/signUser/delete"</h6>
+             <h6>保存或修改接口 host+"/signUser/saveOrUpdate"</h6>
+             <table>
+                 <tr>
+                     <td>参数名</td>
+                     <td>类型</td>
+                     <td>备注</td>
+                 </tr>
+                 <tr>
+                     <td>id</td>
+                     <td>String</td>
+                     <td>数据唯一id</td>
+                 </tr>
+                 <tr>
+                     <td>phone</td>
+                     <td>String</td>
+                     <td>手机号</td>
+                 </tr>
+                 <tr>
+                     <td>nickname</td>
+                     <td>String</td>
+                     <td>昵称</td>
+                 </tr>
+                 <tr>
+                     <td>sign</td>
+                     <td>String</td>
+                     <td>签过</td>
+                 </tr>
+                 <tr>
+                     <td>time</td>
+                     <td>Date</td>
+                     <td>创建时间</td>
+                 </tr>
+                 <tr>
+                     <td>updatetime</td>
+                     <td>Date</td>
+                     <td>更新时间</td>
+                 </tr>
+                 <tr>
+                     <td>appkey</td>
+                     <td>String</td>
+                     <td>appKey</td>
+                 </tr>
+                 <tr>
+                     <td>fid</td>
+                     <td>String</td>
+                     <td>浏览器指纹id</td>
+                 </tr>
+             </table>
+        </div>
         <div class="api" id="templateManage">
              <h3>模板管理</h3>
              <h6><a  href="" onclick="openUri('/templateManage/select?pageNum=1');" >查询接口</a> host+"/templateManage/select"</h6>
@@ -1358,6 +1828,11 @@ h3{
                      <td>advertiserId</td>
                      <td>String</td>
                      <td>广告主ID</td>
+                 </tr>
+                 <tr>
+                     <td>clickUrl</td>
+                     <td>String</td>
+                     <td>点击链接</td>
                  </tr>
              </table>
         </div>

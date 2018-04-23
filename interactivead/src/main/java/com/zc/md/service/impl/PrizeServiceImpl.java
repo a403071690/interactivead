@@ -37,59 +37,83 @@ public class PrizeServiceImpl implements PrizeService {
         //list for循环里面不能家remove,需要remove操作要用iterrator遍历
         ListIterator<AdvertiserCampaign> listIterator = cplist.listIterator();
         log.info("遍历所有符合条件的活动");
+        Jedis jedis = RedisPool.getJedis();
         while (listIterator.hasNext()){
             AdvertiserCampaign advertiserCampaign = listIterator.next();
-            log.info("本次活动名称："+advertiserCampaign.getCampaignName());
-            if (advertiserCampaign.getState()==0){
-                log.info("去除活动状态暂停的活动"+advertiserCampaign.getCampaignName());
-                listIterator.remove();
-            }
-
-            if (advertiserCampaign.getBeginTime().getTime()> System.currentTimeMillis() &&
-                    advertiserCampaign.getEndTime().getTime() < System.currentTimeMillis() ){
-                log.info("去除活动不再投放期间的活动："+advertiserCampaign.getCampaignName());
-                listIterator.remove();
-            }
-            log.info("广告主余额充足,从redis取出消费金额，取出充值金额，相减");
-            log.info("adv_rech#"+advertiserCampaign.getAdvertiserId()+"  all_price");
-            Jedis jedis = RedisPool.getJedis();
             String all_price = jedis.hget("adv_rech#"+advertiserCampaign.getAdvertiserId(),"all_price");
-            log.info("充值金额:"+all_price);
-            List<Integer> conlist = JSONObject.parseArray(jedis.hvals("adv_cons#"+advertiserCampaign.getAdvertiserId()).toString(),Integer.class);
-            RedisPool.returnResource(jedis);
-            long consum = conlist.stream().reduce(0, Integer::sum);
-            log.info("计算消费总额："+consum);
-            if (consum>=Integer.parseInt(all_price)){
-                log.info("去除余额不足的活动："+advertiserCampaign.getCampaignName());
+            log.info("adv_rech#"+advertiserCampaign.getAdvertiserId()+"  all_price");
+            log.info("本次活动名称："+advertiserCampaign.getCampaignName()+"状态是："+advertiserCampaign.getState());
+
+          if (  advertiserCampaign.getState()==1 &&
+                advertiserCampaign.getBeginTime().getTime()< System.currentTimeMillis() &&
+                advertiserCampaign.getEndTime().getTime() > System.currentTimeMillis() &&
+                StringUtil.isNotEmpty(all_price)
+                ){
+                  log.info("广告主有余额,从redis取出消费金额，取出充值金额，相减");
+                  List<Integer> conlist = JSONObject.parseArray(jedis.hvals("adv_cons#"+advertiserCampaign.getAdvertiserId()).toString(),Integer.class);
+                  long consum = conlist.stream().reduce(0, Integer::sum);
+                  log.info("计算消费总额："+consum);
+                  log.info("===============================================");
+                  if (consum>=Integer.parseInt(all_price)){
+                      log.info("由于余额不足被筛出的活动2->"+advertiserCampaign.getCampaignName());
+                      listIterator.remove();
+                  }else{
+                          log.info("===============================================");
+                          //日预算符合
+                          if (advertiserCampaign.getDayPrice()<consum){
+                              log.info("由于日预算花完被筛出的活动->"+advertiserCampaign.getCampaignName());
+                              listIterator.remove();
+                          }
+                  }
+            }else {
+                log.info("第一次筛选去除不符合的活动->"+advertiserCampaign.getCampaignName());
+                log.info("删选原因有3种可能：未开启，未在推广期，未充值");
                 listIterator.remove();
             }
-            //日预算符合
-            if (advertiserCampaign.getDayPrice()<consum){
-                log.info("去除日预算花完的活动："+advertiserCampaign.getCampaignName());
-                listIterator.remove();
-            }
-            //去除所有1分钟之内出现3次以及以上的活动
-            String count = jedis.hget("CampaignCount#"+advertiserCampaign.getId()+"#"+fid,"getCampaignCount");
-            log.info("出现次数：count:"+count);
-            if (StringUtil.isNotEmpty(count)){
-                if(Integer.parseInt(count) >=2){
-                    if (cplist.size()>1) {
-                        listIterator.remove();
-                    }
+            log.info("本次剩余活动数："+cplist.size());
+        }
+        log.info("第一次筛选剩余活动数："+cplist.size());
+        log.info("遍历筛选出已经被点击2次以上的活动");
+
+        if (cplist.size()>0){
+            ListIterator<AdvertiserCampaign> listIterator2 = cplist.listIterator();
+            while (listIterator2.hasNext()){
+                AdvertiserCampaign advertiserCampaign = listIterator2.next();
+                //String count = jedis.hget("CampaignCount#"+advertiserCampaign.getId()+"#"+fid,"getCampaignCount");
+                String count = jedis.hget("CampaignCount#"+fid,advertiserCampaign.getId());
+               // cpjedis.hincrBy("CampaignCount#"+fid,advertiserCampaignBest.getId(),1);
+                log.info("出现次数：count:"+count);
+                    if (StringUtil.isNotEmpty(count)){
+                        if(Integer.parseInt(count) >=1){
+                            if (cplist.size()>1) {
+                                log.info("由于该活动在1分钟之内已经被该客户点击两次筛出的活动->"+advertiserCampaign.getCampaignName());
+                                listIterator2.remove();
+                            }else {
+                                log.info("没有可用的活动了，全部重置一下->"+advertiserCampaign.getCampaignName());
+                                log.info("删除先关的fid:CampaignCount#"+fid);
+                                //jedis.hdel("CampaignCount#"+fid);
+                                jedis.del("CampaignCount#"+fid);
+                            }
+                        }
                 }
             }
-            log.info("剩余活动数："+cplist.size());
-        }
 
+            log.info("第2次筛选剩余活动数："+cplist.size());
+        }else
+        {
+            return   null;
+        }
+        RedisPool.returnResource(jedis);
+        log.info("最终剩余活动数："+cplist.size());
         log.info("把所有合格的活动进行规则排序,竞价价格最高优先");
         OptionalLong sum = cplist.stream().mapToLong(AdvertiserCampaign::getBidPrice).min();
         log.info(" 排序最大值是："+sum.getAsLong());
-        Stream collect2 = cplist.stream().sorted(Comparator.comparing(AdvertiserCampaign::getBidPrice));
         Stream collect = cplist.stream().sorted(Comparator.comparing(AdvertiserCampaign::getBidPrice).reversed());
+        //Stream collect2 = cplist.stream().sorted(Comparator.comparing(AdvertiserCampaign::getBidPrice));
         Optional<AdvertiserCampaign> collectFirst = collect.findFirst();
-        Optional<AdvertiserCampaign> collectFirst2 = collect2.findFirst();
-        log.info("最大创意："+collectFirst.get().getCampaignName());
-        log.info("最小创意："+collectFirst2.get().getCampaignName());
+        //Optional<AdvertiserCampaign> collectFirst2 = collect2.findFirst();
+        log.info("最终活动："+collectFirst.get().getCampaignName());
+        //log.info("最小创意："+collectFirst2.get().getCampaignName());
 
         return   collectFirst.orElse(null);
     }

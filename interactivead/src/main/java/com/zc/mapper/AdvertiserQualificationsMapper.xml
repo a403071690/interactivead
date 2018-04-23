@@ -219,9 +219,7 @@
       <if test="stateMsgLike != null" >
         AND state_msg like #{stateMsgLike}
       </if>
-      <if test="createTimeLike != null" >
-        AND create_time like #{createTimeLike}
-      </if>
+
        <if test="fullTextSearchValue != null" >
            AND (
               advertiser_id like #{fullTextSearchValue}
@@ -229,7 +227,7 @@
            or img_url like #{fullTextSearchValue}
            or state like #{fullTextSearchValue}
            or state_msg like #{fullTextSearchValue}
-           or create_time like #{fullTextSearchValue}
+
            )
       </if>
 

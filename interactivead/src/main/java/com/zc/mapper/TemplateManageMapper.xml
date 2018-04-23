@@ -11,7 +11,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id  , name , url , state , create_time
+    id  , name , url ,  state , create_time
   </sql>
 
   <select id="selectByWhere" resultMap="BaseResultMap"  >
@@ -175,15 +175,13 @@
       <if test="stateLike != null" >
         AND state like #{stateLike}
       </if>
-      <if test="createTimeLike != null" >
-        AND create_time like #{createTimeLike}
-      </if>
+
        <if test="fullTextSearchValue != null" >
            AND (
               name like #{fullTextSearchValue}
            or url like #{fullTextSearchValue}
            or state like #{fullTextSearchValue}
-           or create_time like #{fullTextSearchValue}
+
            )
       </if>
 

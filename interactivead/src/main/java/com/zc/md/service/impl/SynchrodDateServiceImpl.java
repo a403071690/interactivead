@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zc.entity.AdvertiserCampaign;
 import com.zc.entity.AdvertiserCreative;
 import com.zc.entity.CampaignCreativeReport;
+import com.zc.entity.TemplateManage;
 import com.zc.md.controller.SynchrodDateController;
 import com.zc.md.service.SynchrodDateService;
 import com.zc.service.*;
@@ -33,16 +34,22 @@ public class SynchrodDateServiceImpl implements SynchrodDateService{
     CampaignCreativeReportService campaignCreativeReportService;
     @Autowired
     UserPrizeLogService userPrizeLogService;
+    @Autowired
+    TemplateManageService templateManageService;
+
     @Override
     public void pushRedis() {
         log.info("推送数据同步，执行时间："+DateUtil.format(new Date()));
         long start = System.currentTimeMillis();
         //取出所有活动数据
-        List<AdvertiserCampaign> advertiserCampaignList =  advertiserCampaignService.selectByWhere("isDelete",0);
+        List<AdvertiserCampaign> advertiserCampaignList =  advertiserCampaignService.selectByWhere();
         //取出所有创意数据
-        List<AdvertiserCreative> advertiserCreativeList =  advertiserCreativeService.selectByWhere("state",1,"checkState",1);
+        List<AdvertiserCreative> advertiserCreativeList =  advertiserCreativeService.selectByWhere();
         //取出所有充值数据
         // List<AdvertiserAccountLog> advertiserAccountLogList = advertiserAccountLogService.selectByWhere("accountType",1);
+        //取出所有模板数据
+        List<TemplateManage> templateManageList =  templateManageService.selectByWhere();
+
         List<Map> mapList = advertiserAccountLogService.executeSql("SELECT advertiser_id,SUM(price) as price    FROM advertiser_account_log GROUP BY advertiser_id");
         Jedis jedis  = RedisPool.getJedis();
         //写入redis hset
@@ -59,6 +66,12 @@ public class SynchrodDateServiceImpl implements SynchrodDateService{
         for (int i=0;i<mapList.size();i++){
             jedis.hset("adv_rech#"+mapList.get(i).get("advertiser_id"),"all_price",mapList.get(i).get("price")+"");
         }
+
+        //模板写入redis
+        for (TemplateManage t:templateManageList){
+            jedis.hset("template",t.getId(),JSONObject.toJSONString(t));
+        }
+
         RedisPool.returnResource(jedis);
         long end  = System.currentTimeMillis();
         long duration = end -start;
@@ -71,9 +84,11 @@ public class SynchrodDateServiceImpl implements SynchrodDateService{
 
         long start = System.currentTimeMillis();
         //取出所有活动数据
-        List<AdvertiserCampaign> advertiserCampaignList =  advertiserCampaignService.selectByWhere("isDelete",0);
+        List<AdvertiserCampaign> advertiserCampaignList =  advertiserCampaignService.selectByWhere();
         //取出所有创意数据
-        List<AdvertiserCreative> advertiserCreativeList =  advertiserCreativeService.selectByWhere("state",1,"checkState",1);
+        List<AdvertiserCreative> advertiserCreativeList =  advertiserCreativeService.selectByWhere();
+        //取出所有模板数据
+        List<TemplateManage> templateManageList =  templateManageService.selectByWhere();
         //取出所有充值数据
         //List<AdvertiserAccountLog> advertiserAccountLogList = advertiserAccountLogService.selectByWhere("account_type",1);
         List<Map> mapList = advertiserAccountLogService.executeSql("SELECT advertiser_id,SUM(price) as price    FROM advertiser_account_log GROUP BY advertiser_id");
@@ -90,19 +105,26 @@ public class SynchrodDateServiceImpl implements SynchrodDateService{
         for (int i=0;i<mapList.size();i++){
             jedis.hset("adv_rech#"+mapList.get(i).get("advertiser_id"),"all_price",mapList.get(i).get("price")+"");
         }
+        //模板写入redis
+        for (TemplateManage t:templateManageList){
+            jedis.hset("template",t.getId(),JSONObject.toJSONString(t));
+        }
         RedisPool.returnResource(jedis);
         long end  = System.currentTimeMillis();
         long duration = end -start;
         log.info("本次同步用时："+duration);
     }
 
+    /**
+     * 只执行一次
+     */
     @Override
     public void synchrodConsDateToRedis() {
         log.info("广告主消费数据同步开始;本次执行时间："+ DateUtil.format(new Date()));
 
         long start = System.currentTimeMillis();
         //取出所有消费报表
-        List<CampaignCreativeReport> campaignCreativeReportList = campaignCreativeReportService.selectByWhere("","");
+        List<CampaignCreativeReport> campaignCreativeReportList = campaignCreativeReportService.selectByWhere();
         //adv_cons#[advertiser_id]	[YYYYMMDD]#[campaign_id]	广告主消费金额（分）
         Jedis jedis = RedisPool.getJedis();
         for (CampaignCreativeReport campaignCreativeReport:campaignCreativeReportList){

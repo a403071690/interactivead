@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SignUser" >
+  <resultMap id="BaseResultMap" type="com.zc.entity.SignUser" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="appKey" property="appkey" jdbcType="VARCHAR" />
+    <result column="fid" property="fid" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , phone , nickName , sign , time , updatetime , appKey , fid
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from sign_user
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from sign_user
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sign_user
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sign_user
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zc.entity.SignUser" >
+    insert into sign_user (id
+     , phone , nickName , sign , time , updatetime , appKey , fid
+      )
+    values (#{id},
+     , #{phone} , #{nickname} , #{sign} , #{time} , #{updatetime} , #{appkey} , #{fid}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zc.entity.SignUser" >
+    insert into sign_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="nickname != null" >
+        nickName,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="appkey != null" >
+        appKey,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="phone != null" >
+        #{phone},
+      </if>
+      <if test="nickname != null" >
+        #{nickname},
+      </if>
+      <if test="sign != null" >
+        #{sign},
+      </if>
+      <if test="time != null" >
+        #{time},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime},
+      </if>
+      <if test="appkey != null" >
+        #{appkey},
+      </if>
+      <if test="fid != null" >
+        #{fid},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.SignUser" >
+    update sign_user
+    <set>
+      <if test="phone != null" >
+        phone = #{phone},
+      </if>
+      <if test="nickname != null" >
+        nickName = #{nickname},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign},
+      </if>
+      <if test="time != null" >
+        time = #{time},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime},
+      </if>
+      <if test="appkey != null" >
+        appKey = #{appkey},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="phone != null" >
+        AND phone = #{phone}
+      </if>
+      <if test="nickname != null" >
+        AND nickName = #{nickname}
+      </if>
+      <if test="sign != null" >
+        AND sign = #{sign}
+      </if>
+      <if test="time != null" >
+        AND time = #{time}
+      </if>
+      <if test="timeStart != null and timeStart != ''" >
+        AND time &gt;= #{timeStart}
+      </if>
+      <if test="timeEnd != null and timeEnd != ''" >
+        AND time &lt; #{timeEnd}
+      </if>
+      <if test="updatetime != null" >
+        AND updatetime = #{updatetime}
+      </if>
+      <if test="updatetimeStart != null and updatetimeStart != ''" >
+        AND updatetime &gt;= #{updatetimeStart}
+      </if>
+      <if test="updatetimeEnd != null and updatetimeEnd != ''" >
+        AND updatetime &lt; #{updatetimeEnd}
+      </if>
+      <if test="appkey != null" >
+        AND appKey = #{appkey}
+      </if>
+      <if test="fid != null" >
+        AND fid = #{fid}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="phoneList != null" >
+        AND phone in
+        <foreach collection="phoneList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="nicknameList != null" >
+        AND nickName in
+        <foreach collection="nicknameList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="signList != null" >
+        AND sign in
+        <foreach collection="signList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="timeList != null" >
+        AND time in
+        <foreach collection="timeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="updatetimeList != null" >
+        AND updatetime in
+        <foreach collection="updatetimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="appkeyList != null" >
+        AND appKey in
+        <foreach collection="appkeyList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="fidList != null" >
+        AND fid in
+        <foreach collection="fidList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="phoneLike != null" >
+        AND phone like #{phoneLike}
+      </if>
+      <if test="nicknameLike != null" >
+        AND nickName like #{nicknameLike}
+      </if>
+      <if test="signLike != null" >
+        AND sign like #{signLike}
+      </if>
+      <if test="timeLike != null" >
+        AND time like #{timeLike}
+      </if>
+      <if test="updatetimeLike != null" >
+        AND updatetime like #{updatetimeLike}
+      </if>
+      <if test="appkeyLike != null" >
+        AND appKey like #{appkeyLike}
+      </if>
+      <if test="fidLike != null" >
+        AND fid like #{fidLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              phone like #{fullTextSearchValue}
+           or nickName like #{fullTextSearchValue}
+           or sign like #{fullTextSearchValue}
+           or time like #{fullTextSearchValue}
+           or updatetime like #{fullTextSearchValue}
+           or appKey like #{fullTextSearchValue}
+           or fid like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

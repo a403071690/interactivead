@@ -2,6 +2,7 @@ package com.zc.controller.base;
 
 import com.alibaba.fastjson.JSONArray;
 import com.zc.entity.AdvertiserInfo;
+import com.zc.md.service.SynchrodDateService;
 import com.zc.service.AdvertiserInfoService;
 import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
@@ -35,7 +36,9 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("advertiserAccountVirtualLog")
 public class AdvertiserAccountVirtualLogCrudController extends BaseController {
-    Logger logger=LoggerFactory.getLogger(AdvertiserAccountVirtualLogCrudController.class);
+    Logger logger=LoggerFactory.getLogger(AdvertiserAccountVirtualLogCrudController.class); @Autowired
+    private SynchrodDateService synchrodDateService;
+
     @Resource
     private AdvertiserAccountVirtualLogService advertiserAccountVirtualLogService;
     @Autowired
@@ -111,9 +114,11 @@ public class AdvertiserAccountVirtualLogCrudController extends BaseController {
         Date nowTime=new Date();
         if (StringUtil.isNotEmpty(bean.getId())){
             int row=advertiserAccountVirtualLogService.updateByPrimaryKey(bean);
+            synchrodDateService.synchrodDateToRedis();
             return JsonResult.success(row);
         }
         int row=advertiserAccountVirtualLogService.save(bean);
+        synchrodDateService.synchrodDateToRedis();
         return JsonResult.success(row);
     }
 

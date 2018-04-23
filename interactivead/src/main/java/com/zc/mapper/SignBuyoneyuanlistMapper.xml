@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SignBuyoneyuanlist" >
+  <resultMap id="BaseResultMap" type="com.zc.entity.SignBuyoneyuanlist" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="oneyuanbuy_id" property="oneyuanbuyId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , oneyuanbuy_id , user_id , create_time
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from sign_buyoneyuanlist
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from sign_buyoneyuanlist
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sign_buyoneyuanlist
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sign_buyoneyuanlist
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zc.entity.SignBuyoneyuanlist" >
+    insert into sign_buyoneyuanlist (id
+     , oneyuanbuy_id , user_id , create_time
+      )
+    values (#{id},
+     , #{oneyuanbuyId} , #{userId} , #{createTime}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zc.entity.SignBuyoneyuanlist" >
+    insert into sign_buyoneyuanlist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="oneyuanbuyId != null" >
+        oneyuanbuy_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="oneyuanbuyId != null" >
+        #{oneyuanbuyId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.SignBuyoneyuanlist" >
+    update sign_buyoneyuanlist
+    <set>
+      <if test="oneyuanbuyId != null" >
+        oneyuanbuy_id = #{oneyuanbuyId},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="oneyuanbuyId != null" >
+        AND oneyuanbuy_id = #{oneyuanbuyId}
+      </if>
+      <if test="userId != null" >
+        AND user_id = #{userId}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime}
+      </if>
+      <if test="createTimeStart != null and createTimeStart != ''" >
+        AND create_time &gt;= #{createTimeStart}
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''" >
+        AND create_time &lt; #{createTimeEnd}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="oneyuanbuyIdList != null" >
+        AND oneyuanbuy_id in
+        <foreach collection="oneyuanbuyIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="userIdList != null" >
+        AND user_id in
+        <foreach collection="userIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="createTimeList != null" >
+        AND create_time in
+        <foreach collection="createTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="oneyuanbuyIdLike != null" >
+        AND oneyuanbuy_id like #{oneyuanbuyIdLike}
+      </if>
+      <if test="userIdLike != null" >
+        AND user_id like #{userIdLike}
+      </if>
+      <if test="createTimeLike != null" >
+        AND create_time like #{createTimeLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              oneyuanbuy_id like #{fullTextSearchValue}
+           or user_id like #{fullTextSearchValue}
+           or create_time like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

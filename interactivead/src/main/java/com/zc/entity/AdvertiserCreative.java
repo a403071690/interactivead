@@ -42,6 +42,17 @@ public class AdvertiserCreative {
     //审核信息
     private String checkMsg;
 
+    //campaignName
+    private String campaignName;
+
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
+    }
+
     private String isPrize;//1中奖了，0没有没有
 
     public String getIsPrize() {

@@ -5,6 +5,7 @@ import org.solar.bean.Page;
 import org.solar.bean.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.solar.util.IDGenerater;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -76,6 +77,8 @@ public class TemplateManageCrudController extends BaseController {
             int row=templateManageService.updateByPrimaryKey(bean);
             return JsonResult.success(row);
         }
+        bean.setId(IDGenerater.getNextId());
+        bean.setCreateTime(new Date());
         int row=templateManageService.save(bean);
         return JsonResult.success(row);
     }

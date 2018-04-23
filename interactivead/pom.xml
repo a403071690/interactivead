@@ -156,6 +156,12 @@
       <version>${jedis.version}</version>
     </dependency>
 
+   <!-- 推啊-->
+    <dependency>
+      <groupId>cn.com.duiba.credits</groupId>
+      <artifactId>duiba-java-sdk</artifactId>
+      <version>0.0.14</version>
+    </dependency>
     <!-- 工具类-->
     <dependency>
       <groupId>org.solar</groupId>

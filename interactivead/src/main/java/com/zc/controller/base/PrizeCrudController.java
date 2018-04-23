@@ -42,6 +42,7 @@ public class PrizeCrudController extends BaseController {
         if (StringUtil.isEmpty(id)&&StringUtil.isEmpty(pageNum)){
            return JsonResult.success(prizeService.selectByWhere(requestMap));
         }
+
         //按id查询
         if (StringUtil.isNotEmpty(id)){
             Prize prize=prizeService.getById(id);

@@ -46,6 +46,16 @@ public class UserPrizeLog {
     //广告主ID
     private String advertiserId;
 
+    private String clickUrl;
+
+    public String getClickUrl() {
+        return clickUrl;
+    }
+
+    public void setClickUrl(String clickUrl) {
+        this.clickUrl = clickUrl;
+    }
+
     public String getAdvertiserId() {
         return advertiserId;
     }

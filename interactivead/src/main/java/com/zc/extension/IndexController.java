@@ -21,11 +21,17 @@ public class IndexController {
         return "redirect:static/html/admin.html?v="+System.currentTimeMillis()/1000/1000;
     }
 
+    @RequestMapping("/med")
+    public String med() {
+        return "redirect:static/html/med.html?v="+System.currentTimeMillis()/1000/1000;
+    }
+
     @RequestMapping("/{path}")
     public String path(@PathVariable("path") String path) {
         System.out.println("path="+path);
         return path;
     }
+
 
     @RequestMapping("/")
     public String index() {
@@ -36,6 +42,8 @@ public class IndexController {
     public String tologin() {
         return "redirect:static/html/login.html?v="+System.currentTimeMillis()/1000/1000;
     }
+
+
 
     @RequestMapping("/version")
     @ResponseBody

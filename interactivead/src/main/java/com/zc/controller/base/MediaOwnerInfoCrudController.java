@@ -1,10 +1,12 @@
 package com.zc.controller.base;
 
+import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
 import org.solar.bean.Page;
 import org.solar.bean.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.solar.coder.Md5Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,16 +68,34 @@ public class MediaOwnerInfoCrudController extends BaseController {
         int row=mediaOwnerInfoService.delete(id);
         return JsonResult.success(row);
     }
+
+    @RequestMapping("/selectMediaOwnerInfo")
+    @ResponseBody
+    public  JsonResult selectAdvertiserInfo(HttpServletRequest req) {
+        String medId= TokenUtil.getUid(req);
+        //按id查询
+        if (StringUtil.isNotEmpty(medId)){
+            MediaOwnerInfo advertiserInfo=mediaOwnerInfoService.getById(medId);
+            return JsonResult.success(advertiserInfo);
+        }
+        return null;
+
+    }
+
     @RequestMapping("/saveOrUpdate")
     @ResponseBody
     public  JsonResult saveOrUpdate(@RequestBody Map requestMap) {
         MediaOwnerInfo bean= JsonUtil.toJavaObject(requestMap,MediaOwnerInfo.class);
-       //如果id不为空则更新
+        //如果id不为空则更新
         Date nowTime=new Date();
         if (StringUtil.isNotEmpty(bean.getId())){
+            bean.setUpdateTime(new Date());
             int row=mediaOwnerInfoService.updateByPrimaryKey(bean);
             return JsonResult.success(row);
         }
+        //md5密码
+        bean.setPassword(Md5Util.getMd5Hex(bean.getPassword()));
+        bean.setCreateTime(new Date());
         int row=mediaOwnerInfoService.save(bean);
         return JsonResult.success(row);
     }

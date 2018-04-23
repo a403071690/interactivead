@@ -203,7 +203,7 @@
        <if test="fullTextSearchValue != null" >
            AND (
               media_owner_id like #{fullTextSearchValue}
-           or report_date like #{fullTextSearchValue}
+
            or click_count like #{fullTextSearchValue}
            or valid_click_count like #{fullTextSearchValue}
            or pay_money like #{fullTextSearchValue}

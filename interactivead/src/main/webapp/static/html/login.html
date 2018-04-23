@@ -7,7 +7,7 @@
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-store"/>
     <link rel="stylesheet" href="/static/css/element-ui.css">
-    <title></title>
+    <title>登录-广告主后台</title>
     <link rel="Shortcut Icon" href="/static/img/icon/favicon.ico"/>
     <style type="text/css">
         body {
@@ -39,7 +39,7 @@
                 </el-form-item>
                 <el-form-item label="" prop="password">
                     <el-input placeholder="密码" type="password"
-                              prefix-icon="el-icon-menu" v-model="bean.password"></el-input>
+                              prefix-icon="el-icon-menu" v-model="bean.password" @keyup.enter.native="login"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button style="width: 100%" type="primary" @click="login()">登录

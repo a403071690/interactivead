@@ -48,6 +48,9 @@
                     <el-form-item label="广告主ID" prop="advertiserId">
                         <el-input v-model="bean.advertiserId"></el-input>
                     </el-form-item>
+                    <el-form-item label="点击链接" prop="clickUrl">
+                        <el-input type="textarea" :rows="5" v-model="bean.clickUrl"></el-input>
+                    </el-form-item>
 
                     <el-form-item>
                         <el-button type="primary" @click="saveOrUpdate()">保存

@@ -36,15 +36,18 @@
                              label="结束时间"
                              prop="endTime">
             </el-table-column>
-            <el-table-column sortable="custom" min-width="102px"
+            <el-table-column sortable="custom" min-width="80px"
                              label="活动状态"
                              prop="state" ><!--1开启 2暂停-->
                 <template slot-scope="scope">
-                    <span>{{scope.row.state==1?'开启':'暂停'}}</span>
+                   <!-- <span>{{scope.row.state==1?'开启':'暂停'}}</span>-->
+
+                    <el-tag type="success"  v-if="scope.row.state==1">开启</el-tag>
+                    <el-tag type="danger"  v-if="scope.row.state==2">暂停</el-tag>
                     <!-- <span v-if='scope.row.state==0'>关闭</span> -->
-                    <el-button type="danger" @click="changeState(scope.row.id,1)"  v-if="scope.row.state==1"  icon="el-icon-circle-close" round  size="mini">关闭</el-button>
+               <!--     <el-button type="danger" @click="changeState(scope.row.id,1)"  v-if="scope.row.state==1"  icon="el-icon-circle-close" round  size="mini">关闭</el-button>
                     <el-button type="success"@click="changeState(scope.row.id,2)"  v-if="scope.row.state==2"  icon="el-icon-caret-right" round  size="mini">开启</el-button>
-                </template>
+                --></template>
             </el-table-column>
             <el-table-column sortable="custom" min-width="150px"  :formatter="formatMoney"
                              label="每天预算"
@@ -74,10 +77,11 @@
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="270">
+                    width="270px">
                 <template slot-scope="scope">
                     <el-button-group>
-
+                        <el-button type="danger" @click="changeState(scope.row.id,1)"  v-if="scope.row.state==1"  icon="el-icon-circle-close" round  size="mini">关闭</el-button>
+                        <el-button type="success"@click="changeState(scope.row.id,2)"  v-if="scope.row.state==2"  icon="el-icon-caret-right" round  size="mini">开启</el-button>
                         <el-button icon="el-icon-edit" @click="goBeanPage(scope.row.id)" type="primary"
                                    size="mini">查看
                         </el-button>
@@ -124,7 +128,26 @@
             dateFormat: solar.baseMethods.datetimeFormat,
             formatMoney:solar.baseMethods.formatMoney,
             switchBidType:solar.baseMethods.switchBidType,
-            changeState:solar.baseMethods.changeState
+            changeState: function (id,state) {
+                var _this = this;
+                if (state == "1") {
+
+                    msg = "确认停用该记录？";
+                } else {
+
+                    var msg = "确认启用该记录？";
+                }
+                layer.confirm(msg, function () {
+                        $.post(baseHost + "/" + _this.beanName + "/changeState", {id: id}, function (data) {
+                            layer.alert(data.msg , {icon: 6}, function (index) {
+                                layer.close(index);
+                                _this.select();
+                            });
+                        });
+
+                    }
+                );
+            },
         },
         mounted: function () {
             this.select();

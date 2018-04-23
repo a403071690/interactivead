@@ -326,12 +326,7 @@
       <if test="campaignNameLike != null" >
         AND campaign_name like #{campaignNameLike}
       </if>
-      <if test="beginTimeLike != null" >
-        AND begin_time like #{beginTimeLike}
-      </if>
-      <if test="endTimeLike != null" >
-        AND end_time like #{endTimeLike}
-      </if>
+
       <if test="stateLike != null" >
         AND state like #{stateLike}
       </if>
@@ -344,12 +339,7 @@
       <if test="bidPriceLike != null" >
         AND bid_price like #{bidPriceLike}
       </if>
-      <if test="createTimeLike != null" >
-        AND create_time like #{createTimeLike}
-      </if>
-      <if test="updateTimeLike != null" >
-        AND update_time like #{updateTimeLike}
-      </if>
+
       <if test="isDeleteLike != null" >
         AND is_delete like #{isDeleteLike}
       </if>
@@ -357,14 +347,12 @@
            AND (
               advertiser_id like #{fullTextSearchValue}
            or campaign_name like #{fullTextSearchValue}
-           or begin_time like #{fullTextSearchValue}
-           or end_time like #{fullTextSearchValue}
+
            or state like #{fullTextSearchValue}
            or day_price like #{fullTextSearchValue}
            or bid_type like #{fullTextSearchValue}
            or bid_price like #{fullTextSearchValue}
-           or create_time like #{fullTextSearchValue}
-           or update_time like #{fullTextSearchValue}
+
            or is_delete like #{fullTextSearchValue}
            )
       </if>

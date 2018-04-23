@@ -36,6 +36,25 @@ public class TemplateReport {
     //广告主支付金额（分）
     private Long payMoney;
 
+    private String mediaName;
+
+    private  String templateName;
+
+    public String getTemplateName() {
+        return templateName;
+    }
+
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
+
+    public String getMediaName() {
+        return mediaName;
+    }
+
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
+    }
 
     public String getId() {
         return id;

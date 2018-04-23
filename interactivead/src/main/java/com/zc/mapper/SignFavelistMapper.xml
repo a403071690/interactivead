@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SignFavelist" >
+  <resultMap id="BaseResultMap" type="com.zc.entity.SignFavelist" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="crate_time" property="crateTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id  , user_id , shop_id , crate_time
+  </sql>
+
+  <select id="selectByWhere" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from sign_favelist
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+    <if test="orderProperty != null and orderDirection != null " >
+          ORDER BY ${orderProperty} ${orderDirection}
+    </if>
+    <if test="pageStart != null and pageLimit != null " >
+       limit #{pageStart},#{pageLimit}
+     </if>
+  </select>
+
+  <select id="selectByWhereCount" resultType="java.lang.Long" >
+    select count(*) from sign_favelist
+    <where >
+       <include refid="where_Column_List" />
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sign_favelist
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sign_favelist
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.zc.entity.SignFavelist" >
+    insert into sign_favelist (id
+     , user_id , shop_id , crate_time
+      )
+    values (#{id},
+     , #{userId} , #{shopId} , #{crateTime}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zc.entity.SignFavelist" >
+    insert into sign_favelist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="crateTime != null" >
+        crate_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="shopId != null" >
+        #{shopId},
+      </if>
+      <if test="crateTime != null" >
+        #{crateTime},
+      </if>
+
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.entity.SignFavelist" >
+    update sign_favelist
+    <set>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId},
+      </if>
+      <if test="crateTime != null" >
+        crate_time = #{crateTime},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+  <sql id="where_Column_List" >
+      <if test="userId != null" >
+        AND user_id = #{userId}
+      </if>
+      <if test="shopId != null" >
+        AND shop_id = #{shopId}
+      </if>
+      <if test="crateTime != null" >
+        AND crate_time = #{crateTime}
+      </if>
+      <if test="crateTimeStart != null and crateTimeStart != ''" >
+        AND crate_time &gt;= #{crateTimeStart}
+      </if>
+      <if test="crateTimeEnd != null and crateTimeEnd != ''" >
+        AND crate_time &lt; #{crateTimeEnd}
+      </if>
+      <if test="idList != null" >
+        AND id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="userIdList != null" >
+        AND user_id in
+        <foreach collection="userIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="shopIdList != null" >
+        AND shop_id in
+        <foreach collection="shopIdList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="crateTimeList != null" >
+        AND crate_time in
+        <foreach collection="crateTimeList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+      </if>
+      <if test="userIdLike != null" >
+        AND user_id like #{userIdLike}
+      </if>
+      <if test="shopIdLike != null" >
+        AND shop_id like #{shopIdLike}
+      </if>
+      <if test="crateTimeLike != null" >
+        AND crate_time like #{crateTimeLike}
+      </if>
+       <if test="fullTextSearchValue != null" >
+           AND (
+              user_id like #{fullTextSearchValue}
+           or shop_id like #{fullTextSearchValue}
+           or crate_time like #{fullTextSearchValue}
+           )
+      </if>
+
+  </sql>
+</mapper>

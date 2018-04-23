@@ -248,9 +248,7 @@
       <if test="advertiserIdLike != null" >
         AND advertiser_id like #{advertiserIdLike}
       </if>
-      <if test="reportDateLike != null" >
-        AND report_date like #{reportDateLike}
-      </if>
+
       <if test="campaignIdLike != null" >
         AND campaign_id like #{campaignIdLike}
       </if>
@@ -272,7 +270,7 @@
        <if test="fullTextSearchValue != null" >
            AND (
               advertiser_id like #{fullTextSearchValue}
-           or report_date like #{fullTextSearchValue}
+
            or campaign_id like #{fullTextSearchValue}
            or creative_id like #{fullTextSearchValue}
            or imp_count like #{fullTextSearchValue}

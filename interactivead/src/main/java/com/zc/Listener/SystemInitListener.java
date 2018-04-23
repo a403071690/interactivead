@@ -2,14 +2,8 @@ package com.zc.Listener;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zc.entity.AdvertiserAccountLog;
-import com.zc.entity.AdvertiserCampaign;
-import com.zc.entity.AdvertiserCreative;
-import com.zc.entity.CampaignCreativeReport;
-import com.zc.service.AdvertiserAccountLogService;
-import com.zc.service.AdvertiserCampaignService;
-import com.zc.service.AdvertiserCreativeService;
-import com.zc.service.CampaignCreativeReportService;
+import com.zc.entity.*;
+import com.zc.service.*;
 import com.zc.service.impl.AdvertiserCampaignServiceImpl;
 import com.zc.util.RedisPool;
 import org.apache.log4j.Logger;
@@ -40,6 +34,7 @@ public class SystemInitListener implements ServletContextListener{
     private AdvertiserCreativeService advertiserCreativeService;
     private CampaignCreativeReportService campaignCreativeReportService;
     private AdvertiserAccountLogService advertiserAccountLogService;
+    private TemplateManageService templateManageService;
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         System.out.println(">>>初始化参数");
@@ -49,6 +44,7 @@ public class SystemInitListener implements ServletContextListener{
             advertiserCreativeService  = (AdvertiserCreativeService)springContext.getBean("AdvertiserCreativeService");
             campaignCreativeReportService = (CampaignCreativeReportService)springContext.getBean("CampaignCreativeReportService");
             advertiserAccountLogService = (AdvertiserAccountLogService)springContext.getBean("AdvertiserAccountLogService");
+            templateManageService = (TemplateManageService)springContext.getBean("TemplateManageService");
         }else{
             System.out.println("获取应用程序上下文失败!");
         }
@@ -57,20 +53,25 @@ public class SystemInitListener implements ServletContextListener{
         log.info("数据同步开始;本次执行时间："+ DateUtil.format(new Date()));
         long start = System.currentTimeMillis();
         //取出所有活动数据
-        List<AdvertiserCampaign> advertiserCampaignList =  advertiserCampaignService.selectByWhere("isDelete",0);
+        List<AdvertiserCampaign> advertiserCampaignList =  advertiserCampaignService.selectByWhere();
         //取出所有创意数据
-        List<AdvertiserCreative> advertiserCreativeList =  advertiserCreativeService.selectByWhere("state",1);
+        List<AdvertiserCreative> advertiserCreativeList =  advertiserCreativeService.selectByWhere();
+        //取出所有模板数据
+        List<TemplateManage> templateManageList =  templateManageService.selectByWhere();
         //取出所有充值数据
         //List<AdvertiserAccountLog> advertiserAccountLogList = advertiserAccountLogService.selectByWhere("account_type",1);
         List<Map> mapList = advertiserAccountLogService.executeSql("SELECT advertiser_id,SUM(price) as price    FROM advertiser_account_log GROUP BY advertiser_id");
         Jedis jedis = RedisPool.getJedis();
-        log.info("清空redis");
-        jedis.flushDB();
+       /* log.info("清空redis");
+        jedis.flushDB();*/
         //写入redis hset
         for (AdvertiserCampaign advertiserCampaign:advertiserCampaignList){
             //先写cp  再写campaignid 再写camoaign的对象json
             jedis.hset("cp",advertiserCampaign.getId(), JSONObject.toJSONString(advertiserCampaign));
-
+        }
+        //模板写入redis
+        for (TemplateManage t:templateManageList){
+            jedis.hset("template",t.getId(),JSONObject.toJSONString(t));
         }
         for (AdvertiserCreative advertiserCreative:advertiserCreativeList){
             jedis.hset("cp#"+advertiserCreative.getCampaignId(),advertiserCreative.getId(),JSONObject.toJSONString(advertiserCreative));

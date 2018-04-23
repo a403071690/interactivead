@@ -297,12 +297,7 @@
       <if test="uuidLike != null" >
         AND uuid like #{uuidLike}
       </if>
-      <if test="reportTimeLike != null" >
-        AND report_time like #{reportTimeLike}
-      </if>
-      <if test="hourTimeLike != null" >
-        AND hour_time like #{hourTimeLike}
-      </if>
+
       <if test="advertiserIdLike != null" >
         AND advertiser_id like #{advertiserIdLike}
       </if>
@@ -327,8 +322,7 @@
        <if test="fullTextSearchValue != null" >
            AND (
               uuid like #{fullTextSearchValue}
-           or report_time like #{fullTextSearchValue}
-           or hour_time like #{fullTextSearchValue}
+
            or advertiser_id like #{fullTextSearchValue}
            or campaign_id like #{fullTextSearchValue}
            or creative_id like #{fullTextSearchValue}

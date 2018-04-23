@@ -2,6 +2,7 @@ package com.zc.controller.base;
 
 import com.alibaba.fastjson.JSONArray;
 import com.zc.entity.AdvertiserInfo;
+import com.zc.md.service.SynchrodDateService;
 import com.zc.service.AdvertiserInfoService;
 import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
@@ -36,6 +37,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("advertiserAccountLog")
 public class AdvertiserAccountLogCrudController extends BaseController {
     Logger logger=LoggerFactory.getLogger(AdvertiserAccountLogCrudController.class);
+    @Autowired
+    private SynchrodDateService synchrodDateService;
     @Resource
     private AdvertiserAccountLogService advertiserAccountLogService;
     @Autowired
@@ -47,7 +50,9 @@ public class AdvertiserAccountLogCrudController extends BaseController {
                             @RequestParam(value = "idList[]", required = false) List idList) {
         String advertiserId= TokenUtil.getUid(req);
         requestMap.put("idList", idList);
-        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){                requestMap.put("advertiserId", advertiserId);            }
+        if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){
+            requestMap.put("advertiserId", advertiserId);
+        }
         String id=(String)requestMap.get("id");
         String pageNum=(String)requestMap.get("pageNum");
 
@@ -116,9 +121,11 @@ public class AdvertiserAccountLogCrudController extends BaseController {
         Date nowTime=new Date();
         if (StringUtil.isNotEmpty(bean.getId())){
             int row=advertiserAccountLogService.updateByPrimaryKey(bean);
+            synchrodDateService.synchrodDateToRedis();
             return JsonResult.success(row);
         }
         int row=advertiserAccountLogService.save(bean);
+        synchrodDateService.synchrodDateToRedis();
         return JsonResult.success(row);
     }
 

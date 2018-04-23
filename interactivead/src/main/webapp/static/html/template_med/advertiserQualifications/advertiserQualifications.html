@@ -1,0 +1,172 @@
+<script type="text/template" id="template-advertiserQualifications-advertiserQualifications">
+    <div class="MainContainer beanView advertiserQualifications">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>广告主资质</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                   <!-- <el-form-item label="advertiserId" prop="advertiserId">
+                        <el-input v-model="bean.advertiserId"></el-input>
+                    </el-form-item>-->
+                    <el-form-item label="资质名称" prop="name">
+                        <el-input v-model="bean.name"></el-input>
+                    </el-form-item>
+                   <!-- <el-form-item label="资质图片上传" prop="imgUrl">
+                        <el-input type="textarea" :rows="5" v-model="bean.imgUrl"></el-input>
+                    </el-form-item>-->
+                    <el-form-item label="资质图片上传" prop="imgUrl">
+                        <el-upload style="width:350px;"
+                                   action="/imgUpload"
+                                   :on-preview="handlePreview"
+                                   :on-remove="handleRemove"
+                                   :on-success="handleAvatarSuccess"
+                                   :file-list="fileList2"
+                                   limit=1
+                                   list-type="picture">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
+                        </el-upload>
+                    </el-form-item>
+
+                    <!--
+                    <el-form-item label="状态：1待审核 2审核通过 3审核失败" prop="state">
+                        <el-input v-model="bean.state"></el-input>
+                    </el-form-item>-->
+                    <el-form-item label="审核状态" prop="state">
+                    <el-select style="width:220px;"  v-model="bean.state" placeholder="请选择">
+                        <el-option
+                                v-for="item in options5"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                                :disabled="item.disabled">
+                        </el-option>
+                    </el-select>
+                    </el-form-item>
+                    </el-form-item>
+                    <el-form-item label="未通过原因" prop="stateMsg">
+                        <el-input v-model="bean.stateMsg"></el-input>
+                    </el-form-item>
+
+
+                  <!--  <el-form-item label="审核状态" prop="checkState" v-if="bean.state==1" >
+                        <el-tag type="success">待审核</el-tag>
+                    </el-form-item>
+                    <el-form-item label="审核状态" prop="checkState" v-if="bean.state==2" >
+                        <el-tag type="success">审核通过</el-tag>
+                    </el-form-item>
+
+                    <el-form-item label="审核状态" prop="checkState" v-if="bean.state==3">
+                        <el-tag type="danger">审核未通过</el-tag>
+                        <el-tag type="info">未通过原因：{{bean.stateMsg}}</el-tag>
+                    </el-form-item>-->
+                   <!-- <el-form-item label="stateMsg" prop="stateMsg">
+                        <el-input v-model="bean.stateMsg"></el-input>
+                    </el-form-item>-->
+                    <!--<el-form-item label="createTime" prop="createTime">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.createTime">
+                        </el-date-picker>
+                    </el-form-item>-->
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "advertiserQualifications-advertiserQualifications";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"advertiserQualifications",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+                fileList2:[],
+                options5: [{
+                    value: 1,
+                    label: '待审核',
+
+                }, {
+                    value: 2,
+                    label: '审核通过'
+                },  {
+                    value: 3,
+                    label: '未通过'
+                } ],
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+            select: function () {
+                if (!this.$route.query.id) {
+                    return;
+                }
+                var _this = this;
+                $.get(baseHost + "/" + this.beanName + "/select?id=" + this.$route.query.id, function (data) {
+                    if (!data.body) {
+                        layer.alert("未找到该记录!", {icon: 5});
+                        return;
+                    }
+                    _this.bean = solar.formatObjectTime(data.body);
+                    solar.formatObjectCodeToArray(_this.bean);
+                    var lists = [{name:"资质图片",url:_this.bean.imgUrl}];
+                    //lists.push(_this.bean.companyLicenseImg);
+                    _this.fileList2 = lists;
+                });
+            },
+            handleRemove:function (file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview:function(file) {
+                console.log(file);
+            },
+            handleExceed:function(files, fileList) {
+                layer.alert("当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件", {icon: 6});
+            },
+            beforeRemove:function(file, fileList) {
+                layer.alert("确定移除 ${ file.name }？", {icon: 6});
+            },
+            handleAvatarSuccess:function(res, file) {
+                //上传成功后在图片框显示图片
+                this.bean.imgUrl ='/file_server?uri='+ res.msg;
+                //this.select();
+                console.log(res)
+            },
+            handleError:function(res) {   //显示错误
+                console.log(res)
+            },
+            beforeAvatarUpload:function(file) {    //在图片提交前进行验证
+                const isJPG = file.type === 'image/jpeg'
+                const isPNG = file.type === 'image/png'
+                const isLt2M = file.size / 1024 / 1024 < 2
+
+                if (!isJPG&&!isPNG) {
+
+                    layer.alert("上传图片只能是 JPG/PNG 格式!", {icon: 6});
+                }
+                if (!isLt2M) {
+                    layer.alert("上传图片大小不能超过 2MB!", {icon: 6});
+                }
+                return isJPG && isPNG && isLt2m
+            }
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

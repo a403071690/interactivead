@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zc.entity.AdvertiserCampaign;
 import com.zc.md.service.SynchrodDateService;
 import com.zc.service.AdvertiserCampaignService;
+import com.zc.util.RedisPool;
 import com.zc.util.TokenUtil;
 import org.solar.bean.JsonResult;
 import org.solar.bean.Page;
@@ -25,6 +26,8 @@ import java.util.*;
 import org.solar.util.JsonUtil;
 import org.solar.util.BeanUtil;
 import org.solar.util.StringUtil;
+import redis.clients.jedis.Jedis;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -158,6 +161,7 @@ public class AdvertiserCreativeCrudController extends BaseController {
         Date nowTime=new Date();
         if (StringUtil.isNotEmpty(bean.getId())){
             int row=advertiserCreativeService.updateByPrimaryKey(bean);
+            synchrodDateService.synchrodDateToRedis();
             return JsonResult.success(row);
         }
         bean.setState(1);
@@ -171,6 +175,33 @@ public class AdvertiserCreativeCrudController extends BaseController {
     @ResponseBody
     public  JsonResult changeState(String id) {
         AdvertiserCreative advertiserCreative = advertiserCreativeService.getById(id);
+        //查询当前活动的状态
+        AdvertiserCampaign advertiserCampaign = advertiserCampaignService.getById(advertiserCreative.getCampaignId());
+
+        if (advertiserCampaign.getState()==2){
+            return JsonResult.error("所属活动未开启！");
+        }
+        else{
+            Jedis jedis = RedisPool.getJedis();
+            String all_price = jedis.hget("adv_rech#"+advertiserCampaign.getAdvertiserId(),"all_price");
+            if ( advertiserCampaign.getBeginTime().getTime()> System.currentTimeMillis() || advertiserCampaign.getEndTime().getTime() < System.currentTimeMillis()){
+                return JsonResult.error("所属活动不在投放周期内！");
+            }else if( StringUtil.isEmpty(all_price)){
+                return JsonResult.error("您当前余额不足，请联系我们为您充值！");
+            }else if(advertiserCreative.getCheckState()==2){
+                return JsonResult.error("创意未审核，请联系我们审核！");
+            }
+            else{
+                List<Integer> conlist = JSONObject.parseArray(jedis.hvals("adv_cons#" + advertiserCampaign.getAdvertiserId()).toString(), Integer.class);
+                long consum = conlist.stream().reduce(0, Integer::sum);
+                if (consum >= Integer.parseInt(all_price)) {
+                    return JsonResult.error("您当前余额不足，请联系我们为您充值！");
+                } else  if (advertiserCampaign.getDayPrice() < consum) {
+                    return JsonResult.error("所属活动当日预算已花完，请增加预算后重试！");
+                }
+            }
+            RedisPool.returnResource(jedis);
+        }
         if (advertiserCreative.getState()==1){
             advertiserCreative.setState(2);
         }else {

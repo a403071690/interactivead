@@ -14,11 +14,11 @@
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="check_state" property="checkState" jdbcType="INTEGER" />
     <result column="check_msg" property="checkMsg" jdbcType="VARCHAR" />
-
+      <result column="campaign_name" property="campaignName" jdbcType="VARCHAR" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id  , campaign_id , creative_name , type , ct_title , ct_img_url , ct_target_url , ct_note , is_delete , state
+    id  , campaign_id ,(SELECT advertiser_campaign.campaign_name from advertiser_campaign where id=campaign_id) as campaign_name  ,creative_name , type , ct_title , ct_img_url , ct_target_url , ct_note , is_delete , state
  , check_state , check_msg
   </sql>
 

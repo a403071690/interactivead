@@ -244,9 +244,7 @@
       <if test="accountNumberLike != null" >
         AND account_number like #{accountNumberLike}
       </if>
-      <if test="createTimeLike != null" >
-        AND create_time like #{createTimeLike}
-      </if>
+
        <if test="fullTextSearchValue != null" >
            AND (
               media_owner_id like #{fullTextSearchValue}
@@ -255,7 +253,7 @@
            or bank_address like #{fullTextSearchValue}
            or account_name like #{fullTextSearchValue}
            or account_number like #{fullTextSearchValue}
-           or create_time like #{fullTextSearchValue}
+
            )
       </if>
 

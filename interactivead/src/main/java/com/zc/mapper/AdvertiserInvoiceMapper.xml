@@ -269,12 +269,7 @@
         <if test="companyNameLike != null" >
             AND company_name like #{companyNameLike}
         </if>
-        <if test="createTimeLike != null" >
-            AND create_time like #{createTimeLike}
-        </if>
-        <if test="updateTimeLike != null" >
-            AND update_time like #{updateTimeLike}
-        </if>
+
         <if test="fullTextSearchValue != null" >
             AND (
             advertiser_id like #{fullTextSearchValue}
@@ -283,8 +278,7 @@
             or status like #{fullTextSearchValue}
             or tax_number like #{fullTextSearchValue}
             or company_name like #{fullTextSearchValue}
-            or create_time like #{fullTextSearchValue}
-            or update_time like #{fullTextSearchValue}
+
             )
         </if>
 

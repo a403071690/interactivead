@@ -54,7 +54,7 @@ public class MyIndexController {
 
         //按id查询
         if (StringUtil.isNotEmpty(advertiserId)){
-            List<Map> mapList = campaignCreativeRealtimeReportService.executeSql("SELECT sum(imp_count) as imp_count,sum(click_count) as click_count,sum(valid_click_count)as valid_click_count ,sum(pay_money) as pay_money  from campaign_creative_realtime_report WHERE advertiser_id='"+advertiserId+"'");
+            List<Map> mapList = campaignCreativeRealtimeReportService.executeSql("SELECT sum(imp_count) as imp_count,sum(click_count) as click_count,sum(valid_click_count)as valid_click_count ,sum(pay_money) as pay_money  from campaign_creative_realtime_report WHERE  LEFT(report_time,10) = LEFT(NOW(),10) AND advertiser_id='"+advertiserId+"'");
             if (StringUtil.isNotEmpty(mapList) && mapList.size()>0 && StringUtil.isNotEmpty(mapList.get(0))){
                 CampaignCreativeRealtimeReport bean= JsonUtil.toJavaObject( mapList.get(0),CampaignCreativeRealtimeReport.class);
                 return JsonResult.success(bean);
@@ -131,6 +131,9 @@ public class MyIndexController {
         logger.info("myindex-advertiserId:"+advertiserId);
         if (!"D9B3DCECFC000000D00000000016E000".equals(advertiserId)){
             requestMap.put("advertiserId", advertiserId);
+        }
+        if(StringUtil.isEmpty(advertiserId)){
+            return JsonResult.error("未登录");
         }
         String id=(String)requestMap.get("id");
         Jedis jedis = RedisPool.getJedis();

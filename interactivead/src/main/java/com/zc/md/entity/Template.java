@@ -15,6 +15,15 @@ public class Template {
     private  String user_finger_id;
     private  String duration;//执行时长
     private  String create_time;
+    private  Long current_time_millis;
+
+    public Long getCurrent_time_millis() {
+        return current_time_millis;
+    }
+
+    public void setCurrent_time_millis(Long current_time_millis) {
+        this.current_time_millis = current_time_millis;
+    }
 
     public String getId() {
         return id;

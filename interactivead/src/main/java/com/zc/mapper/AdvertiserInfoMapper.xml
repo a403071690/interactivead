@@ -313,12 +313,7 @@
       <if test="companyLicenseImgLike != null" >
         AND company_license_img like #{companyLicenseImgLike}
       </if>
-      <if test="createTimeLike != null" >
-        AND create_time like #{createTimeLike}
-      </if>
-      <if test="updateTimeLike != null" >
-        AND update_time like #{updateTimeLike}
-      </if>
+
        <if test="fullTextSearchValue != null" >
            AND (
               login_name like #{fullTextSearchValue}
@@ -329,8 +324,8 @@
            or state_msg like #{fullTextSearchValue}
            or company like #{fullTextSearchValue}
            or company_license_img like #{fullTextSearchValue}
-           or create_time like #{fullTextSearchValue}
-           or update_time like #{fullTextSearchValue}
+
+
            )
       </if>
 

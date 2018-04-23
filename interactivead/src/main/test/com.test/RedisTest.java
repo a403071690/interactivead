@@ -7,6 +7,7 @@ import com.zc.service.CampaignCreativeReportService;
 import com.zc.service.impl.CampaignCreativeReportServiceImpl;
 import com.zc.util.RedisPool;
 import org.solar.util.DateUtil;
+import org.solar.util.IDGenerater;
 import redis.clients.jedis.Jedis;
 
 import java.util.Date;
@@ -27,6 +28,10 @@ public class RedisTest {
 //
         //年月日十秒显示日期时间
         System.out.println("当前时间："+ DateUtil.format(new Date()));
+        for (int i=1;i<11;i++){
+           // System.out.println(new Random().nextInt(2)+1);
+        }
+        System.out.println(IDGenerater.getNextId());
 
     /*    Jedis jedis = RedisPool.getJedis();
         jedis.pexpire("8888888888888888",6000000);//一分钟
