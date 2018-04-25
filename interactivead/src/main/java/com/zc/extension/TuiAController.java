@@ -2,6 +2,7 @@ package com.zc.extension;
 
 
 import cn.com.duiba.credits.sdk.CreditTool;
+import cn.com.duiba.credits.sdk.entity.AddCreditsParams;
 import cn.com.duiba.credits.sdk.entity.CreditConsumeParams;
 import cn.com.duiba.credits.sdk.entity.CreditNotifyParams;
 import cn.com.duiba.credits.sdk.result.CreditConsumeResult;
@@ -46,7 +47,7 @@ public class TuiAController {
     @Autowired
     private SignUserService signUserService;
     @Autowired
-    private MediaOwnerInfoService mediaOwnerInfoService;
+    private DuiCreditsAddService duiCreditsAddService;
 
     @RequestMapping("/api/duiba")
     public String autoLogin(HttpServletRequest request , HttpServletResponse response,  @RequestParam(value = "fid", required = false, defaultValue = "0") String fid,@RequestParam(value = "dbredirect", required = false, defaultValue ="") String dbredirect) throws Exception {
@@ -88,7 +89,7 @@ public class TuiAController {
             signUser = signUsersList.get(0);
             //List<DuiCreditsLog> duiCreditsLogList = duiCreditsLogService.selectByWhere("user_info_id",signUser.getId());
             List<Map> list = duiCreditsLogService.executeSql("SELECT (SELECT  sum(credits)   from dui_credits_log WHERE   user_info_id='"+signUser.getId()+"' and credits_type=1 ) - (SELECT IFNULL((SELECT sum(credits)  from dui_credits_log WHERE   user_info_id='"+signUser.getId()+"'  and credits_type=2),0)) as credits");
-            if (list.size()>0) {
+            if (StringUtil.isNotEmpty(list)  && list.size()>0) {
                    logger.info("积分："+list.get(0).get("credits").toString());
                    credits = Long.parseLong(list.get(0).get("credits").toString());
                    logger.error("查询到了积分："+credits);
@@ -139,8 +140,8 @@ public class TuiAController {
             //新用户：5积分 抽奖奖励1积分，每个活动抽奖次数为8次。SELECT sum(credits) as credits from dui_credits_log WHERE   user_info_id='"+params.getUid()+"' "   GROUP BY credits_type ORDER BY credits_type
             //List<Map> list = duiCreditsLogService.executeSql("SELECT credits_type, sum(credits) as credits from dui_credits_log WHERE   user_info_id='"+params.getUid()+"' GROUP BY credits_type ORDER BY credits_type ");
             List<Map> list = duiCreditsLogService.executeSql("SELECT (SELECT  sum(credits)   from dui_credits_log WHERE   user_info_id='"+params.getUid()+"' and credits_type=1 ) - (SELECT IFNULL((SELECT sum(credits)  from dui_credits_log WHERE   user_info_id='"+params.getUid()+"'  and credits_type=2),0)) as credits");
-
-            if (list.size()>0) {
+            logger.info("list:"+list+"s："+list.size());
+            if (StringUtil.isNotEmpty(list)  && list.size()>0) {
                 logger.info("积分："+list.get(0).get("credits").toString());
                 credits = Long.parseLong(list.get(0).get("credits").toString());
                 logger.error("查询到了积分："+credits);
@@ -148,6 +149,7 @@ public class TuiAController {
                 credits = 5L;
                 logger.error("注册的用户没有积分记录");
             }
+            logger.info("credits<params.getCredits()"+credits+"-------"+params.getCredits());
             if (credits<params.getCredits()){
                 logger.info("积分不足");
                 CreditConsumeResult ccr = new CreditConsumeResult(false);
@@ -205,6 +207,70 @@ public class TuiAController {
         return ccr.toString();//返回扣积分结果json信息
     }
 
+
+    /**
+     * 增加积分
+     * @param request
+     * @return
+     */
+    @RequestMapping("/addcredits")
+    @ResponseBody
+    public String addCredits(HttpServletRequest request) {
+        CreditTool tool = new CreditTool(Config.get("tuia.appKey"), Config.get("tuia.appSecret"));
+        boolean success = false;
+        String errorMessage = "";
+        String bizId =null;
+        Long credits=0L;
+        logger.info("-------》增加积分");
+        DuiCreditsAdd duiCreditsAdd = new DuiCreditsAdd();
+        DuiCreditsLog duiCreditsLog = new DuiCreditsLog();
+        try {
+           // CreditConsumeParams params = tool.parseCreditConsume(request);
+            AddCreditsParams params = tool.parseaddCredits(request);
+            logger.info("用户uid="+params.getUid());
+            duiCreditsAdd.setAppKey(params.getAppKey());
+            duiCreditsAdd.setCredits(params.getCredits());
+            duiCreditsAdd.setDescription(params.getDescription());
+            duiCreditsAdd.setIp(params.getIp());
+            duiCreditsAdd.setOrderNum(params.getOrderNum());
+            duiCreditsAdd.setTimestamp(params.getTimestamp());
+            duiCreditsAdd.setType(params.getType());
+            duiCreditsAdd.setUid(params.getUid());
+            bizId = params.getOrderNum();
+            duiCreditsAddService.save(duiCreditsAdd);
+
+            List<Map> list = duiCreditsLogService.executeSql("SELECT (SELECT  sum(credits)   from dui_credits_log WHERE   user_info_id='"+params.getUid()+"' and credits_type=1 ) - (SELECT IFNULL((SELECT sum(credits)  from dui_credits_log WHERE   user_info_id='"+params.getUid()+"'  and credits_type=2),0)) as credits");
+            if (StringUtil.isNotEmpty(list)  && list.size()>0) {
+                credits = Long.parseLong(list.get(0).get("credits").toString());
+                logger.error("查询到了积分："+credits);
+            }else{
+                credits = 0L;
+                logger.error("注册的用户没有积分记录");
+            }
+
+            credits = credits+params.getCredits();
+            duiCreditsLog.setUserInfoId(params.getUid());
+            duiCreditsLog.setCreditsType(1);
+            duiCreditsLog.setCredits(params.getCredits());
+            duiCreditsLog.setDescription(params.getDescription());
+            duiCreditsLog.setCreateTime(DateUtil.format(params.getTimestamp()));
+            duiCreditsLog.setOrderNum(params.getOrderNum());
+            success = true;
+            duiCreditsLogService.save(duiCreditsLog);
+
+        } catch (Exception e) {
+            logger.info("-------增加积分出错了");
+            success = false;
+            errorMessage = e.getMessage();
+            e.printStackTrace();
+        }
+        CreditConsumeResult ccr = new CreditConsumeResult(success);
+        ccr.setBizId(bizId);
+        ccr.setErrorMessage(errorMessage);
+        ccr.setCredits(credits);
+        logger.info("ccr:"+ccr.toString());
+        return ccr.toString();//返回增加积分结果json信息
+    }
     /*
      *  兑换订单的结果通知请求的解析方法
      *  当兑换订单成功时，兑吧会发送请求通知开发者，兑换订单的结果为成功或者失败，如果为失败，开发者需要将积分返还给用户
@@ -232,15 +298,6 @@ public class TuiAController {
                 duiCreditsNotify.setTimestamp(params.getTimestamp());
                 duiCreditsNotify.setSign(request.getParameter("sign"));
                 duiCreditsNotifyService.save(duiCreditsNotify);
-
-                /*appKey	yes	string	255	接口appKey，应用的唯一标识码
-                timestamp	yes	string	20	1970-01-01开始的时间戳，毫秒。
-                uid	yes	string	255	用户唯一标识，唯一且不可变
-                success	yes	boolean		兑换是否成功，状态是true和false
-                errorMessage	no	string	255	出错原因(带中文，请用utf-8进行解码)
-                orderNum	yes	string	255	兑吧订单号
-                bizId	no	string	255	开发者的订单号
-                sign	yes	string	255	签名，详见签名规则*/
                 return  "ok";
             } else {
                 //兑换成功
@@ -257,14 +314,6 @@ public class TuiAController {
                 duiCreditsNotify.setSign(request.getParameter("sign"));
                 duiCreditsNotifyService.save(duiCreditsNotify);
 
-                /*appKey	yes	string	255	接口appKey，应用的唯一标识码
-                timestamp	yes	string	20	1970-01-01开始的时间戳，毫秒。
-                uid	yes	string	255	用户唯一标识，唯一且不可变
-                success	yes	boolean		兑换是否成功，状态是true和false
-                errorMessage	no	string	255	出错原因(带中文，请用utf-8进行解码)
-                orderNum	yes	string	255	兑吧订单号
-                bizId	no	string	255	开发者的订单号
-                sign	yes	string	255	签名，详见签名规则*/
                 logger.info("兑换失败，根据orderNum，对用户的金币进行返还，回滚操作");
                 return  "no";
                 //兑换失败，根据orderNum，对用户的金币进行返还，回滚操作
