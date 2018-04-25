@@ -1,0 +1,71 @@
+<script type="text/template" id="template-signUser-signUser">
+    <div class="MainContainer beanView signUser">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>signUser</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="手机号" prop="phone">
+                        <el-input v-model="bean.phone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="昵称" prop="nickname">
+                        <el-input v-model="bean.nickname"></el-input>
+                    </el-form-item>
+                    <el-form-item label="签过" prop="sign">
+                        <el-input v-model="bean.sign"></el-input>
+                    </el-form-item>
+                    <el-form-item label="创建时间" prop="time">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.time">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="更新时间" prop="updatetime">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.updatetime">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="appKey" prop="appkey">
+                        <el-input v-model="bean.appkey"></el-input>
+                    </el-form-item>
+                    <el-form-item label="浏览器指纹id" prop="fid">
+                        <el-input v-model="bean.fid"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "signUser-signUser";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"signUser",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

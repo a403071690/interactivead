@@ -1,0 +1,70 @@
+<script type="text/template" id="template-duiCreditsNotify-duiCreditsNotify">
+    <div class="MainContainer beanView duiCreditsNotify">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>兑吧订单兑换成功/失败消息的接收接口</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="接口appKey，应用的唯一标识码" prop="appKey">
+                        <el-input v-model="bean.appKey"></el-input>
+                    </el-form-item>
+                    <el-form-item label="1970-01-01开始的时间戳，毫秒。" prop="timestamp">
+                        <el-input v-model="bean.timestamp"></el-input>
+                    </el-form-item>
+                    <el-form-item label="用户唯一标识，唯一且不可变" prop="uid">
+                        <el-input v-model="bean.uid"></el-input>
+                    </el-form-item>
+                    <el-form-item label="兑换是否成功，状态是true和false" prop="success">
+                        <el-input v-model="bean.success"></el-input>
+                    </el-form-item>
+                    <el-form-item label="出错原因(带中文，请用utf-8进行解码)" prop="errorMessage">
+                        <el-input v-model="bean.errorMessage"></el-input>
+                    </el-form-item>
+                    <el-form-item label="兑吧订单号" prop="orderNum">
+                        <el-input v-model="bean.orderNum"></el-input>
+                    </el-form-item>
+                    <el-form-item label="开发者的订单号" prop="bizId">
+                        <el-input v-model="bean.bizId"></el-input>
+                    </el-form-item>
+                    <el-form-item label="签名" prop="sign">
+                        <el-input v-model="bean.sign"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "duiCreditsNotify-duiCreditsNotify";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"duiCreditsNotify",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

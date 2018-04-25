@@ -1,0 +1,102 @@
+<script type="text/template" id="template-duiCreditsConsume-duiCreditsConsume">
+    <div class="MainContainer beanView duiCreditsConsume">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>兑吧积分消费表</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="用户唯一性标识，唯一且不可变" prop="uid">
+                        <el-input v-model="bean.uid"></el-input>
+                    </el-form-item>
+                    <el-form-item label="本次兑换扣除的积分" prop="credits">
+                        <el-input v-model="bean.credits"></el-input>
+                    </el-form-item>
+                    <el-form-item label="自有商品商品编码(非必须字段)" prop="itemCode">
+                        <el-input v-model="bean.itemCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="接口appKey，应用的唯一标识" prop="appKey">
+                        <el-input v-model="bean.appKey"></el-input>
+                    </el-form-item>
+                    <el-form-item label="1970-01-01开始的时间戳，毫秒为单位。" prop="timestamp">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.timestamp">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="本次积分消耗的描述(带中文，请用utf-8进行url解码)" prop="description">
+                        <el-input v-model="bean.description"></el-input>
+                    </el-form-item>
+                    <el-form-item label="兑吧订单号(请记录到数据库中)" prop="orderNum">
+                        <el-input v-model="bean.orderNum"></el-input>
+                    </el-form-item>
+                    <el-form-item label="兑换类型：alipay(支付宝), qb(Q币), coupon(优惠券), object(实物), phonebill(话费), phoneflow(流量), virtual(虚拟商品), littleGame（小游戏）,singleLottery(单品抽奖)，hdtoolLottery(活动抽奖),htool(新活动抽奖),manualLottery(手动开奖),ngameLottery(新游戏),questionLottery(答题),quizzLottery(测试题),guessLottery(竞猜) 所有类型不区分大小写" prop="type">
+                        <el-input v-model="bean.type"></el-input>
+                    </el-form-item>
+                    <el-form-item label="兑换商品的市场价值，单位是分，请自行转换单位" prop="facePrice">
+                        <el-input v-model="bean.facePrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="此次兑换实际扣除开发者账户费用，单位为分" prop="actualPrice">
+                        <el-input v-model="bean.actualPrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="用户ip，不保证获取到" prop="ip">
+                        <el-input v-model="bean.ip"></el-input>
+                    </el-form-item>
+                    <el-form-item label="是否需要审核(如需在自身系统进行审核处理，请记录下此信息)" prop="waitAudit">
+                        <el-input v-model="bean.waitAudit"></el-input>
+                    </el-form-item>
+                    <el-form-item label="详情参数，不同的类型，返回不同的内容，中间用英文冒号分隔。(支付宝类型带中文，请用utf-8进行解码) 实物商品：返回收货信息(姓名:手机号:省份:城市:区域:详细地址)、支付宝：返回账号信息(支付宝账号:实名)、话费：返回手机号、QB：返回QQ号" prop="params">
+                        <el-input v-model="bean.params"></el-input>
+                    </el-form-item>
+                    <el-form-item label="MD5签名" prop="sign">
+                        <el-input v-model="bean.sign"></el-input>
+                    </el-form-item>
+                    <el-form-item label="扣积分结果状态，回复ok或者fail （不要使用0和1）" prop="backStatus">
+                        <el-input v-model="bean.backStatus"></el-input>
+                    </el-form-item>
+                    <el-form-item label="出错原因" prop="backErrorMessage">
+                        <el-input v-model="bean.backErrorMessage"></el-input>
+                    </el-form-item>
+                    <el-form-item label="开发者的订单号(兑吧会判断该订单号的唯一性，注意区分测试和正式对接时的订单号，以免重复)" prop="backBizId">
+                        <el-input v-model="bean.backBizId"></el-input>
+                    </el-form-item>
+                    <el-form-item label="用户积分余额" prop="backCredits">
+                        <el-input v-model="bean.backCredits"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "duiCreditsConsume-duiCreditsConsume";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"duiCreditsConsume",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

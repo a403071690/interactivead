@@ -1,0 +1,75 @@
+<script type="text/template" id="template-duiCreditsAdd-duiCreditsAdd">
+    <div class="MainContainer beanView duiCreditsAdd">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>duiCreditsAdd</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="接口appKey，应用的唯一标识" prop="appKey">
+                        <el-input v-model="bean.appKey"></el-input>
+                    </el-form-item>
+                    <el-form-item label="用户标识，唯一且不可变" prop="uid">
+                        <el-input v-model="bean.uid"></el-input>
+                    </el-form-item>
+                    <el-form-item label="本次兑换增加的积分" prop="credits">
+                        <el-input v-model="bean.credits"></el-input>
+                    </el-form-item>
+                    <el-form-item label="game（游戏），report（楼层签到），sign（弹层签到）,reSignAddCredits（补签到）,creditsGame（积分游戏）。所有类型不区分大小写" prop="type">
+                        <el-input v-model="bean.type"></el-input>
+                    </el-form-item>
+                    <el-form-item label="兑吧订单号(请记录到数据库中)" prop="orderNum">
+                        <el-input v-model="bean.orderNum"></el-input>
+                    </el-form-item>
+                    <el-form-item label="1970-01-01开始的时间戳，毫秒为单位。" prop="timestamp">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.timestamp">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="本次增加积分的描述(带中文，请用utf-8进行url解码)" prop="description">
+                        <el-input v-model="bean.description"></el-input>
+                    </el-form-item>
+                    <el-form-item label="用户ip，不保证获取到" prop="ip">
+                        <el-input v-model="bean.ip"></el-input>
+                    </el-form-item>
+                    <el-form-item label="MD5签名，详见签名规则" prop="sign">
+                        <el-input v-model="bean.sign"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "duiCreditsAdd-duiCreditsAdd";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"duiCreditsAdd",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

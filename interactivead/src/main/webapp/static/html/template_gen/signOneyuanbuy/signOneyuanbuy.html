@@ -1,0 +1,75 @@
+<script type="text/template" id="template-signOneyuanbuy-signOneyuanbuy">
+    <div class="MainContainer beanView signOneyuanbuy">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>signOneyuanbuy</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="标题" prop="title">
+                        <el-input v-model="bean.title"></el-input>
+                    </el-form-item>
+                    <el-form-item label="需要付款" prop="needsGold">
+                        <el-input v-model="bean.needsGold"></el-input>
+                    </el-form-item>
+                    <el-form-item label="原价" prop="price">
+                        <el-input v-model="bean.price"></el-input>
+                    </el-form-item>
+                    <el-form-item label="图片" prop="indexImg">
+                        <el-input v-model="bean.indexImg"></el-input>
+                    </el-form-item>
+                    <el-form-item label="加载图" prop="landingPage">
+                        <el-input v-model="bean.landingPage"></el-input>
+                    </el-form-item>
+                    <el-form-item label="是否热门" prop="isHotSell">
+                        <el-input v-model="bean.isHotSell"></el-input>
+                    </el-form-item>
+                    <el-form-item label="添加时间" prop="crateTime">
+                        <el-date-picker placeholder="选择日期" type="date"
+                                        v-model="bean.crateTime">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="类别" prop="type">
+                        <el-input v-model="bean.type"></el-input>
+                    </el-form-item>
+                    <el-form-item label="运费" prop="freight">
+                        <el-input v-model="bean.freight"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "signOneyuanbuy-signOneyuanbuy";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"signOneyuanbuy",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

@@ -1,0 +1,70 @@
+<script type="text/template" id="template-signShop-signShop">
+    <div class="MainContainer beanView signShop">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>signShop</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="标题" prop="title">
+                        <el-input v-model="bean.title"></el-input>
+                    </el-form-item>
+                    <el-form-item label="原价" prop="originalPrice">
+                        <el-input v-model="bean.originalPrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="优惠" prop="couponPrice">
+                        <el-input v-model="bean.couponPrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="最终价格" prop="finalPrice">
+                        <el-input v-model="bean.finalPrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="卖家小图标" prop="vendorSmallIcon">
+                        <el-input v-model="bean.vendorSmallIcon"></el-input>
+                    </el-form-item>
+                    <el-form-item label="主图" prop="mainImage">
+                        <el-input v-model="bean.mainImage"></el-input>
+                    </el-form-item>
+                    <el-form-item label="类别：数码，美妆，百货，食品，内衣，母婴，其他，鞋包，车品，女装，保健品，图书乐器，男装，户外运动" prop="type">
+                        <el-input v-model="bean.type"></el-input>
+                    </el-form-item>
+                    <el-form-item label="是否精选:1是，0不是" prop="isHot">
+                        <el-input v-model="bean.isHot"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "signShop-signShop";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"signShop",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

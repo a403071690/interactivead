@@ -1,0 +1,70 @@
+<script type="text/template" id="template-signTicket-signTicket">
+    <div class="MainContainer beanView signTicket">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>signTicket</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="bean">
+            <el-col :span="10" :offset="2">
+                <el-form :model="bean" :rules="rules" class="form" label-width="250px" size="small">
+                    <el-form-item label="商品图片地址" prop="logo">
+                        <el-input v-model="bean.logo"></el-input>
+                    </el-form-item>
+                    <el-form-item label="短标题" prop="title">
+                        <el-input v-model="bean.title"></el-input>
+                    </el-form-item>
+                    <el-form-item label="长标题" prop="subTitle">
+                        <el-input v-model="bean.subTitle"></el-input>
+                    </el-form-item>
+                    <el-form-item label="描述" prop="limitation">
+                        <el-input v-model="bean.limitation"></el-input>
+                    </el-form-item>
+                    <el-form-item label="兑换商品需要红包金额" prop="needsGold">
+                        <el-input v-model="bean.needsGold"></el-input>
+                    </el-form-item>
+                    <el-form-item label="是否是新的；0新的。1不是新的" prop="isNew">
+                        <el-input v-model="bean.isNew"></el-input>
+                    </el-form-item>
+                    <el-form-item label="券类型：1" prop="type">
+                        <el-input v-model="bean.type"></el-input>
+                    </el-form-item>
+                    <el-form-item label="是否热门" prop="isHot">
+                        <el-input v-model="bean.isHot"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="saveOrUpdate()">保存
+                        </el-button>
+                        <el-button onclick="history.back()">返回</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "signTicket-signTicket";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            return {
+                beanName:"signTicket",
+                bean: {},
+                temp: {},
+                rules: solar.validatorRules,
+            }
+        },
+        methods: {
+            select: solar.baseMethods.select,
+            deleteBean: solar.baseMethods.deleteBeanGoBack,
+            saveOrUpdate: solar.baseMethods.saveOrUpdate,
+
+        },
+        mounted: function () {
+            this.select();
+        }
+
+    });
+</script>

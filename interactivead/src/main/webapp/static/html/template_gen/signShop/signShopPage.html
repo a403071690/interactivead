@@ -1,0 +1,104 @@
+<script type="text/template" id="template-signShop-signShopPage">
+    <div class="MainContainer beanPageView signShop">
+        <el-row class="breadcrumb">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>signShop列表</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
+        <el-row class="tool-bar">
+            <el-col :span="9" :offset="0">
+                <el-button size="small" icon="el-icon-refresh" onclick="location.reload()">刷新</el-button>
+                <el-button size="small" type="primary" icon="el-icon-plus" @click="goBeanPage(null)">新增</el-button>
+            </el-col>
+            <el-col :span="5" :offset="7">
+                <el-input size="small" prefix-icon="el-icon-search" v-model="fullTextSearchValue" placeholder="搜索"></el-input>
+            </el-col>
+            <el-col :span="1">
+                <el-button size="small" type="primary" @click="pageNum=1;select()">搜索</el-button>
+            </el-col>
+        </el-row>
+        <el-table class="table" max-height="510" :data="beans" size="small"
+            stripe border @sort-change="changeOrder">
+            <el-table-column
+                    label="编号"
+                    type="index">
+            </el-table-column>
+            <el-table-column sortable="custom" min-width="150px"
+                label="原价"
+                prop="originalPrice">
+            </el-table-column>
+            <el-table-column sortable="custom" min-width="150px"
+                label="优惠"
+                prop="couponPrice">
+            </el-table-column>
+            <el-table-column sortable="custom" min-width="150px"
+                label="最终价格"
+                prop="finalPrice">
+            </el-table-column>
+            <el-table-column sortable="custom" min-width="150px"
+                label="类别：数码，美妆，百货，食品，内衣，母婴，其他，鞋包，车品，女装，保健品，图书乐器，男装，户外运动"
+                prop="type">
+            </el-table-column>
+            <el-table-column sortable="custom" min-width="150px"
+                label="是否精选:1是，0不是"
+                prop="isHot">
+            </el-table-column>
+
+            <el-table-column
+                    fixed="right"
+                    label="操作"
+                    width="170">
+                <template slot-scope="scope">
+                    <el-button-group>
+                        <el-button icon="el-icon-edit" @click="goBeanPage(scope.row.id)" type="primary"
+                                   size="mini">查看
+                        </el-button>
+                        <el-button icon="el-icon-delete" @click="deleteBean(scope.row.id)" type="danger"
+                                   size="mini">删除
+                        </el-button>
+                    </el-button-group>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-row class="pagination">
+                <el-pagination
+                        prev-text="上一页"
+                        next-text="下一页"
+                        @size-change="select"
+                        @current-change="select()"
+                        :current-page.sync="pageNum"
+                        :page-sizes="[10, 20, 50, 100]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="totalRecordNum">
+                </el-pagination>
+        </el-row>
+    </div>
+</script>
+<script type="application/javascript">
+    templateName = "signShop-signShopPage";
+    templates[templateName] = Vue.extend({
+        template: '#template-' + templateName,
+        data: function () {
+            var data=solar.copyObject(solar.baseData);
+            data.beanName="signShop";
+            return data;
+        },
+        methods: {
+            select: solar.baseMethods.selectPage,
+            checkedAll: solar.baseMethods.checkedAll,
+            deleteBean: solar.baseMethods.deleteBean,
+            deleteBeans: solar.baseMethods.deleteBeans,
+            changeEnable: solar.baseMethods.changeEnable,
+            goBeanPage: solar.baseMethods.goBeanPage,
+            goUpdatePage: solar.baseMethods.goUpdatePage,
+            changeOrder: solar.baseMethods.changeOrder,
+            dateFormat: solar.baseMethods.dateFormat,
+             datetimeFormat: solar.baseMethods.datetimeFormat,
+        },
+        mounted: function () {
+            this.select();
+        },
+    });
+</script>
